@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="main_fragment_tab_indicator_height">6dp</dimen>
+    <dimen name="account_row_heading_height">60dp</dimen>
+    <dimen name="account_row_layout_height">120dp</dimen>
+    <dimen name="account_row_layout_margin_left">60dp</dimen>
+    <dimen name="overlay_view_layout_padding">24dp</dimen>
+    <dimen name="left_pane_top_color_height">15dp</dimen>
+    <dimen name="left_pane_first_heading">36sp</dimen>
+    <dimen name="left_pane_second_heading">24sp</dimen>
+    <dimen name="fab_margin">24dp</dimen>
+    <dimen name="right_pane_tabs_height">90dp</dimen>
+    <dimen name="right_pane_tab_width">172dp</dimen>
+    <dimen name="lefp_pane_width">500dp</dimen>
+    <dimen name="right_pane_width">780dp</dimen>
+    <dimen name="first_heading">36sp</dimen>
+    <dimen name="second_heading">24sp</dimen>
+    <dimen name="edit_field_width">826dp</dimen>
+    <dimen name="keyboard_key_width">108dp</dimen>
+    <dimen name="keyboard_key_height">84dp</dimen>
+    <dimen name="employee_details_buttons_height">86dp</dimen>
+
+    <dimen name="standard_image_dimen">64dp</dimen>
+    <dimen name="order_dropdown_width">354dp</dimen>
+    <dimen name="frequency_list_item_width">360dp</dimen>
+    <dimen name="setting_list_item_width">176dp</dimen>
+    <dimen name="setting_list_item_height">60dp</dimen>
+    <dimen name="settings_text_header_height">32dp</dimen>
+    <dimen name="small_dialog_width">384dp</dimen>
+    <dimen name="rating_height">19dp</dimen>
+    <dimen name="total_height">56dp</dimen>
+    <dimen name="first_line_text_size">18sp</dimen>
+    <dimen name="second_line_text_size">18sp</dimen>
+    <dimen name="list_item_height">64dp</dimen>
+    <dimen name="tile_width_with_padding">118dp</dimen>
+    <dimen name="tile_padding">4dp</dimen>
+    <dimen name="keypad_margin_top_1">0dp</dimen>
+    <dimen name="numeric_keyboard_width">117dp</dimen>
+    <dimen name="numeric_keyboard_height">90dp</dimen>
+
+    <dimen name="main_fragment_tab_width">500dp</dimen>
+    <dimen name="text_size_medium">24dp</dimen>
+
+
+</resources>

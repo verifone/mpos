@@ -1,0 +1,39 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.verifone.swordfish.manualtransaction.TransactionFrames.WaitForCardProcess">
+
+    <LinearLayout
+        android:id="@+id/waitLlinearProgress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/waitProgressCircle"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="203dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/azure"
+            android:indeterminateTintMode="src_atop"
+            android:visibility="visible"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/waitTextView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="43dp"
+            android:text="@string/processing_card_label"
+            android:textAppearance="@style/fontForTextViewTransactionHistoryTotalLabel"
+            android:visibility="visible" />
+    </LinearLayout>
+
+</FrameLayout>

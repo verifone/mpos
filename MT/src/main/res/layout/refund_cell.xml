@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="31dp"
+    android:layout_marginStart="42dp"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/refundItemButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:background="@color/vermillion"
+        android:enabled="true"
+        android:text="@string/str_label_remove"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/refundItemDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:text="@string/str_description"
+        android:textColor="@color/greyish_brown"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/refundItemTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="end"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:layout_weight="1"
+        android:text="@string/str_dollar_zero"
+        android:textColor="@color/greyish_brown"
+        android:textSize="24sp" />
+
+
+</LinearLayout>

@@ -1,0 +1,88 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.verifone.swordfish.manualtransaction.SupportFragments.TransactionComplete">
+
+    <LinearLayout
+        android:id="@+id/linearCompleted"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="60dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="138dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/icon_green_checkmark"
+            android:contentDescription="@null" />
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="43dp" />
+
+        <TextView
+            android:id="@+id/textViewTC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="Roboto-Regular"
+            android:text="@string/transaction_complete_label"
+            android:textColor="@color/greyish_brown"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/receiptOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="Roboto-Regular"
+            android:text="@string/waiting_for_customer_to_select_receipt_option"
+            android:textColor="@color/warm_grey"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="43dp"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/imageButtonNoReceipt"
+                android:layout_width="300sp"
+                android:layout_height="90sp"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:src="@drawable/button_no_receipt"
+                android:contentDescription="@null" />
+
+            <Space
+                android:layout_width="30sp"
+                android:layout_height="20dp" />
+
+            <ImageButton
+                android:id="@+id/imageButtonPrint"
+                android:layout_width="300sp"
+                android:layout_height="90sp"
+                android:scaleType="fitCenter"
+                android:background="@android:color/transparent"
+                android:src="@drawable/button_print_receipt"
+                android:contentDescription="@null" />
+
+            <Space
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    //ManualTransaction Color Scheme
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    //Numeric keyboard
+    <color name="keyboardNumFont">#FFFFFF</color>
+    <color name="keyboardNumButtons">#BEBEBF</color>
+    <color name="keyboardOPButtons">#929292</color>
+    <color name="keyboardBackground">#F2F2F2</color>
+
+    //View colors
+    <color name="viewBackground">#D3D3D3</color>
+
+    //Transaction lists
+    <color name="totalViewBackground">#ECECEC</color>
+
+    //Font color
+    <color name="fontColor">#ADAEAE</color>
+
+    //Arun colors
+    <color name="order_list_item_background_grey">#E1E1E1</color>
+    <color name="order_list_item_background_yellow">#E4FF00</color>
+    <color name="order_list_item_background_red">#C30000</color>
+    <color name="grey">#999999</color>
+    <color name="blue">#00aeef</color>
+    <color name="selected_list_item_bg">#7700aeef</color>
+    <color name="dark_blue">#009bd5</color>
+    <color name="graph_begin">#00aeef</color>
+    <color name="graph_end">#00aeef</color>
+    <color name="graph_negative_begin">#fff80024</color>
+    <color name="graph_negative_end">#fff80024</color>
+    <color name="list_item_even">#ffffff</color>
+    <color name="list_item_even_pressed">#AAAAAA</color>
+    <color name="list_item_odd">#f1f1f2</color>
+    <color name="list_item_odd_pressed">#AAAAAA</color>
+    <color name="light_border">#404040</color>
+    <color name="divider_background">#6d6e70</color>
+    <color name="settings_header">#158fc2</color>
+    <color name="green">#11A917</color>
+    <color name="red">#FF0000</color>
+    <color name="dropdown_window_background">#F0F0F0</color>
+    <drawable name="menu_drawer_item_bg">#939598</drawable>
+    <drawable name="menu_drawer_item_bg_pressed">#6d6e70</drawable>
+    <drawable name="menu_drawer_logout_bg">#939598</drawable>
+    <drawable name="menu_drawer_logout_bg_pressed">#6d6e70</drawable>
+
+    <!-- Old colors -->
+    <color name="overlay_pressed">#55000000</color>
+    <color name="faded_grey">#717171</color>
+    <color name="dark_grey">#2A2A2A</color>
+    <color name="grey_divider">#DEDEDE</color>
+    <color name="light_white">#F7F7F7</color>
+
+    <color name="light_grey">#cccccc</color>
+    <color name="menu_drawer_item_bg">#939598</color>
+    <color name="menu_drawer_item_bg_pressed">#6d6e70</color>
+
+    //Manual Transaction color scheme
+
+    <color name="cerulean">#00a3da</color>
+    <color name="off_white">#fffffe</color>
+    <color name="slate">#4b5870</color>
+    <color name="white_90">#e5ffffff</color>
+    <color name="white_30">#4dffffff</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="pinkish_grey">#c8c8c8</color>
+    <color name="white_20">#33ffffff</color>
+    <color name="azure">#00aeef</color>
+    <color name="greyish_brown">#444444</color>
+    <color name="warm_grey">#999999</color>
+    <color name="white_two">#efefef</color>
+    <color name="deep_lilac">#8071b4</color>
+    <color name="cool_grey">#939598</color>
+    <color name="greyish">#aaaaaa</color>
+    <color name="vermillion">#ec2e09</color>
+    <color name="black_30">#f5f5f5</color>
+    <color name="squash">#f2be1a</color>
+    <color name="pumpkin_orange">#f68b1f</color>
+    <color name="button_grey">#d6d6d6</color>
+    <color name="white_three">#d4d4d4</color>
+
+
+</resources>

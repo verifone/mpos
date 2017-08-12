@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/textViewPaymentSelection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="43sp"
+        android:fontFamily="Roboto-Regular"
+        android:text="@string/str_select_payment_method"
+        android:textColor="@color/greyish_brown"
+        android:textSize="24sp" />
+
+    <ImageButton
+        android:id="@+id/cashButton"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="42sp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/button_cash" />
+
+    <ImageButton
+        android:id="@+id/chargeCreditButton"
+        android:layout_width="match_parent"
+        android:layout_height="90sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20sp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/button_charge" />
+
+    <ImageButton
+        android:id="@+id/phoneOrderButton"
+        android:layout_width="match_parent"
+        android:layout_height="90sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20sp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/button_phone_order"
+        android:visibility="invisible" />
+
+</LinearLayout>

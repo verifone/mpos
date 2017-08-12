@@ -1,0 +1,57 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    tools:context="com.verifone.swordfish.manualtransaction.SupportFragments.WaitForPT">
+
+
+    <LinearLayout
+        android:id="@+id/waitPTLinear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="center_horizontal"
+            android:text="@string/wait_for_pt"
+            android:textColor="@color/greyish_brown"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="56dp"
+            android:background="@android:color/transparent"
+            android:foregroundGravity="center_vertical|center_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:background="@android:color/transparent"
+            android:foregroundGravity="center_horizontal"
+            android:orientation="horizontal">
+
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_weight="1"
+                android:indeterminateTint="@color/azure"
+                android:indeterminateTintMode="src_atop"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

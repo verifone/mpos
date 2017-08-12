@@ -1,0 +1,47 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.verifone.swordfish.manualtransaction.SupportFragments.CardAmountEntry">
+
+    <LinearLayout
+        android:layout_width="758dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="508dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/cardAmountNumericKeyboard"
+                android:layout_width="422dp"
+                android:layout_height="468dp">
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="468dp">
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/dividerCash2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/white_three" />
+
+        <FrameLayout
+            android:id="@+id/cardAmountButtonsCashFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

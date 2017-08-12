@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/historyItemDescription"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="start"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingStart="20dp"
+        android:text="@string/str_description"
+        android:textColor="@color/greyish_brown"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/historyItemPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="end"
+        android:paddingEnd="20dp"
+        android:text="@string/str_dollar_zero_with_space"
+        android:textAlignment="viewEnd"
+        android:textSize="28sp" />
+</LinearLayout>

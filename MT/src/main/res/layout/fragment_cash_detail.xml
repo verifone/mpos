@@ -1,0 +1,138 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.verifone.swordfish.manualtransaction.SupportFragments.CashDetail">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="498dp"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:background="@color/white_two"
+                android:layout_height="75dp">
+
+                <Space
+                    android:layout_width="30dp"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_text_label"
+                    android:background="@color/white_two"
+                    android:fontFamily="Roboto-Medium"
+                    android:textSize="18sp"
+                    android:textColor="@color/greyish_brown"
+                    android:id="@+id/textViewTotalLabel"
+                    android:layout_gravity="center_vertical|start" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:background="@color/keyboardNumFont"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white_two"
+                    android:fontFamily="Roboto-Regular"
+                    android:textSize="30sp"
+                    android:textColor="@color/black"
+                    android:id="@+id/textViewAmountToPayLabel"
+                    android:text="@string/str_zero_value"
+                    android:textAlignment="center"
+                    android:layout_gravity="center_vertical|end" />
+
+                <Space
+                    android:layout_width="31dp"
+                    android:layout_height="20dp" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/warm_grey"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:baselineAligned="false">
+
+                <TableLayout
+                    android:layout_width="498dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/cashReceipt"
+                    android:background="@color/keyboardNumFont"
+                    android:foreground="@color/light_grey"
+                    />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white_three" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:gravity="fill_vertical"
+                android:background="@color/white_two"
+                android:layout_gravity="bottom">
+
+                <Space
+                    android:layout_width="30dp"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="Roboto-Medium"
+                    android:textSize="24sp"
+                    android:textColor="@color/greyish_brown"
+                    android:text="@string/balance_text_label"
+                    android:id="@+id/textBalanceView"
+                    android:layout_gravity="center_vertical" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="Roboto-Medium"
+                    android:textSize="40sp"
+                    android:textColor="@color/deep_lilac"
+                    android:textAlignment="textEnd"
+                    android:text="@string/str_dollar_zero"
+                    android:id="@+id/textRemainBalanceView"
+                    android:layout_gravity="center_vertical" />
+
+                <Space
+                    android:layout_width="31dp"
+                    android:layout_height="20dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

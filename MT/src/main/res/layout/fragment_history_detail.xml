@@ -1,0 +1,159 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="500dp"
+    android:layout_height="696dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/history_round_corners"
+    android:orientation="vertical"
+    tools:context="com.verifone.swordfish.manualtransaction.HistoryFragments.HistoryDetail">
+
+        <SurfaceView
+            android:id="@+id/historyHeaderView"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:background="@color/white_two" />
+
+        <LinearLayout
+            android:id="@+id/historyHeader"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/historyDetailUpperLabel"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_marginTop="45dp"
+                android:text="@string/str_label_textview"
+                android:textAlignment="center"
+                android:textColor="@color/greyish_brown"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/historyDetailLowerLabel"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/str_label_textview"
+                android:textAlignment="center"
+                android:textColor="@color/warm_grey"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/historyLLSubheader"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white_two"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="18dp" />
+
+            <TextView
+                android:id="@+id/historyTransactionId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/str_label_textview"
+                android:textAlignment="center"
+                android:textColor="@color/warm_grey"
+                android:textSize="14sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="18dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <ListView
+                android:id="@+id/historyTransactionList"
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/dividerHistorySection"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="0dp"
+                    android:background="@color/white_three" />
+
+                <LinearLayout
+                    android:id="@+id/historyLLButtons"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/historyPrintButton"
+                        android:layout_width="250dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/white"
+                        android:text="@string/str_print_receipt"
+                        android:textColor="@color/azure" />
+
+                    <View
+                        android:id="@+id/dividerHistory2"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white_three" />
+
+                    <!--<Button
+                        android:id="@+id/historySendButton"
+                        android:layout_width="166dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/white"
+                        android:text="@string/str_send_receipt"
+                        android:textColor="@color/azure" />
+
+                    <View
+                        android:id="@+id/dividerHistory3"
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white_three" />-->
+
+                    <Button
+                        android:id="@+id/historyNoteButton"
+                        android:layout_width="250dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/white"
+                        android:text="@string/str_history_note"
+                        android:textColor="@color/azure" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/dividerHistorySectionFooter"
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:background="@color/pinkish_grey" />
+
+                <Button
+                    android:id="@+id/typeOfTxButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:background="@color/azure"
+                    android:text="@string/str_refund"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </RelativeLayout>
+</LinearLayout>

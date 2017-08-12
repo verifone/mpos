@@ -1,0 +1,78 @@
+apply plugin: 'com.android.application'
+
+def appVersionName = "2.0.1"
+def appVersionCode = 150
+
+android {
+    compileSdkVersion 25
+
+    buildToolsVersion "25.0.3"
+
+    signingConfigs {
+        release
+
+    }
+
+    defaultConfig {
+        applicationId "com.verifone.swordfish.manualtransaction"
+        minSdkVersion 22
+        targetSdkVersion 25
+        versionCode appVersionCode
+        versionName appVersionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        project.ext.set("archivesBaseName", "MT-" + versionName + "-" + versionCode);
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            overrideSigningConfig(signingConfig)
+            zipAlignEnabled true
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile(name: 'DeveloperSDK', ext: 'aar')
+    compile(name: 'PaymentManager', ext: 'aar')
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.bugsee:bugsee-android:+'
+    compile 'com.flurry.android:analytics:7.0.0'
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.volley:volley:1.0.0'
+    compile 'net.sf.flexjson:flexjson:3.3'
+    compile 'pl.mg6.hrisey:hrisey:0.3.1'
+
+    compile "android.arch.lifecycle:runtime:1.0.0-alpha5"
+    compile "android.arch.lifecycle:extensions:1.0.0-alpha5"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha5"
+
+    compile "android.arch.persistence.room:runtime:1.0.0-alpha5"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha5"
+}
+
+/**
+ * Override default signing config with definitions from release.properties file
+ *  signingConfig - build signing configuration
+ */
+def overrideSigningConfig(signingConfig) {
+    def props = new Properties()
+    println("Load MT build properties")
+    props.load(new FileInputStream(project.file("release.properties")))
+    signingConfig.storeFile project.file(props.KEYSTORE_FILE)
+    signingConfig.storePassword props.KEYSTORE_PASSWORD
+    signingConfig.keyAlias props.KEY_ALIAS
+    signingConfig.keyPassword props.KEY_ALIAS_PASSWORD
+}
+

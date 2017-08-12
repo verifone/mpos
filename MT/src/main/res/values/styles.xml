@@ -1,0 +1,169 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="tabText" parent="TextAppearance.Design.Tab">
+        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="tabIndicatorHeight">@dimen/main_fragment_tab_indicator_height</item>
+        <item name="tabPaddingStart">12dp</item>
+        <item name="tabPaddingEnd">12dp</item>
+        <item name="textAllCaps">false</item>
+        <item name="tabTextAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="CustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">Roboto-Bold</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/azure</item>
+        <item name="tabIndicatorHeight">@dimen/main_fragment_tab_indicator_height</item>
+        <item name="tabBackground">@android:color/transparent</item>
+        <item name="tabTextAppearance">@style/CustomTabTextAppearance</item>
+        <item name="tabSelectedTextColor">@android:color/white</item>
+    </style>
+
+    <style name="fontForTextViewItemBasket">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
+        <item name="android:textColor">#444444</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="fontForTextViewTransactionHistoryOptionButtons">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
+        <item name="android:textColor">#00aeef</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="fontForTextViewTransactionHistoryDetailAmount">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Regular</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="fontForTextViewTransactionHistoryDate">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Regular</item>
+        <item name="android:textColor">#999999</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="fontForTextViewTransactionHistoryDetailDate">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
+        <item name="android:textColor">#FF4D5DC1</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="fontForTextViewTransactionHistoryTotalLabel">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
+        <item name="android:textColor">#444444</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="fontForTextViewTransactionHistoryButton">
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">Roboto-Bold</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="fontForTextViewCreditCardLabels">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
+        <item name="android:textColor">#999999</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="fontForTextViewCreditCardValues">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Regular</item>
+        <item name="android:textColor">#444444</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="fontForTextViewTransactionHistorySubDetailTotal">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Regular</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="fontForTextViewTransactionHistoryDetailTotal">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="fontForTextViewTransactionRefundSubTitle">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Regular</item>
+        <item name="android:textColor">#999999</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="fontForTextViewTransactionRefundTitle">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Regular</item>
+        <item name="android:textColor">#444444</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="fontForTextViewTransactionHistoryGranTotal">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
+        <item name="android:textColor">#8071b4</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <style name="fontForTextViewTransactionHistory">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Regular</item>
+        <item name="android:textColor">#444444</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="fontForTextViewTransactionHistoryTitleNote">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Regular</item>
+        <item name="android:textColor">#6d6e70</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="fontForTextViewTransactionHistorySubTitleNote">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Regular</item>
+        <item name="android:textColor">#9a9a9a</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="fontForTextViewEmailReceiptSubTitle">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">Roboto-Regular</item>
+        <item name="android:textColor">#aaaaaa</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+
+</resources>

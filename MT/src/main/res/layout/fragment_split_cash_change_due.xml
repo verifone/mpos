@@ -1,0 +1,73 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.verifone.swordfish.manualtransaction.SupportFragments.SplitCashChangeDue">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="508dp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="221dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <Space
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/change_due"
+                    android:textAppearance="@style/fontForTextViewTransactionHistoryTotalLabel" />
+
+                <Space
+                    android:layout_width="2dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/changeDue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/str_dollar_zero_with_space"
+                    android:textAppearance="@style/fontForTextViewTransactionHistoryTotalLabel" />
+
+                <Space
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/dividerCash2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/white_three" />
+
+        <FrameLayout
+            android:id="@+id/changeDueButtonsFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>

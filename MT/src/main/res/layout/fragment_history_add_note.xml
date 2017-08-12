@@ -1,0 +1,77 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.verifone.swordfish.manualtransaction.HistoryFragments.HistoryAddNote">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="500dp"
+        android:layout_height="580dp"
+        android:background="@drawable/linear_layout_history_round_corners">
+
+        <ImageButton
+            android:layout_width="96dp"
+            android:layout_height="88dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/icon_back"
+            android:id="@+id/buttonBack"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="29dp"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/fontForTextViewTransactionHistoryTitleNote"
+            android:text="@string/noteLabel"
+            android:id="@+id/textViewNoteTitle"
+            android:layout_marginTop="89dp"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/fontForTextViewTransactionHistorySubTitleNote"
+            android:text="@string/enter_note_for_transaction_label"
+            android:id="@+id/textViewNoteSubtitle"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/button_note_label"
+            android:id="@+id/editTextAddNote"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="31dp"
+            android:inputType="textCapSentences|textAutoCorrect"
+            android:imeOptions="actionDone"
+            android:layout_marginTop="163dp" />
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/warm_grey"
+            android:layout_marginBottom="1dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/fontForTextViewTransactionHistoryOptionButtons"
+            android:background="@android:color/transparent"
+            android:text="@string/save_note"
+            android:id="@+id/buttonSaveNote"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+
+</FrameLayout>

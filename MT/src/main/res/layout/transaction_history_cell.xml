@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="902dp"
+    android:layout_height="80dp">
+
+    <TextView
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:text="@string/new_text"
+        android:textAppearance="@style/fontForTextViewTransactionHistoryDate"
+        android:id="@+id/textViewTHDate"
+        android:layout_marginStart="27dp"
+        android:layout_marginEnd="17dp"
+        android:layout_gravity="center_vertical" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="793dp"
+        android:background="@drawable/linear_layout_round_corners"
+        android:layout_height="80dp"
+        android:id="@+id/linearHistoryDetail">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="20dp"
+            android:id="@+id/imageViewIconNote"
+            android:src="@drawable/icon_note"
+            android:layout_gravity="center_vertical"
+            android:visibility="invisible"
+            android:contentDescription="@null" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginStart="47dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_text"
+                android:textAppearance="@style/fontForTextViewTransactionHistory"
+                android:id="@+id/textViewTransactionID" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/new_text"
+                android:textAppearance="@style/fontForTextViewTransactionHistoryDetailDate"
+                android:id="@+id/textViewDetailDate" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_text"
+            android:textAppearance="@style/fontForTextViewTransactionHistory"
+            android:id="@+id/textViewPaymentType"
+            android:layout_marginStart="16dp"
+            android:layout_gravity="center_vertical" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_text"
+            android:textAppearance="@style/fontForTextViewTransactionHistoryDetailTotal"
+            android:id="@+id/textViewDetailTotal"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="186dp" />
+    </LinearLayout>
+
+</TableRow>
