@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/input_ip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_20"
+        android:hint="@string/terminalIpTitle"
+        android:inputType="textFilter|textNoSuggestions"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20"
+        tools:text="192.168.50.2"/>
+
+    <EditText
+        android:id="@+id/input_port"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_20"
+        android:hint="@string/edit_port_hint"
+        android:inputType="number|textNoSuggestions"
+        android:maxLength="5"
+        android:minWidth="@dimen/min_width_for_port_view"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20"
+        tools:text="5555"/>
+
+</LinearLayout>

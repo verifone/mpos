@@ -1,10 +1,13 @@
-package com.verifone.swordfish.manualtransaction.tools;
+package com.verifone.swordfish.manualtransaction;
 
+
+import android.app.Application;
 
 import com.verifone.utilities.Log;
 
+
 /**
- * Copyright (C) 2016,2017,2018 Verifone, Inc.
+ * Copyright (C) 2016,2017 Verifone, Inc.
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,25 +29,32 @@ import com.verifone.utilities.Log;
  * Except as contained in this notice, the name of Verifone, Inc. shall not be
  * used in advertising or otherwise to promote the sale, use or other dealings
  * in this Software without prior written authorization from Verifone, Inc.
+ * <p>
+ * <p>
+ * <p>
+ * This is a subclass of {@link Application} used to provide shared objects for this app.
  */
+public class ManualTransactionApplication extends Application {
 
+    private static CarbonBridge sCarbonBridge;
+    private static TransactionStorage sTransactionStorage;
 
-public class MposLogger {
-    private static final MposLogger ourInstance = new MposLogger();
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
+        Log.initialize(this);
 
-    public static MposLogger getInstance() {
-        return ourInstance;
+        sCarbonBridge = new CarbonBridge(this);
+        sTransactionStorage = new TransactionStorage(this);
     }
 
-    private MposLogger() {
+    public static CarbonBridge getCarbonBridge() {
+        sCarbonBridge.waitForTransactionManagerInit();
+        return sCarbonBridge;
     }
 
-    public void debug(String category, String action) {
-        Log.d(category, action);
-    }
-
-    public void error(String category, String action) {
-        Log.e(category, action);
+    public static TransactionStorage getTransactionStorage() {
+        return sTransactionStorage;
     }
 }

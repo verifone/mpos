@@ -1,7 +1,6 @@
-package com.verifone.swordfish.manualtransaction.tools;
+package com.verifone.swordfish.manualtransaction;
 
-
-import com.verifone.utilities.Log;
+import com.verifone.commerce.entities.Transaction;
 
 /**
  * Copyright (C) 2016,2017,2018 Verifone, Inc.
@@ -26,25 +25,14 @@ import com.verifone.utilities.Log;
  * Except as contained in this notice, the name of Verifone, Inc. shall not be
  * used in advertising or otherwise to promote the sale, use or other dealings
  * in this Software without prior written authorization from Verifone, Inc.
+ * <p>
+ * <p>
+ * Created by romans1 on 01/24/2018.
  */
 
+public interface ITransactionHistoryListener {
 
-public class MposLogger {
-    private static final MposLogger ourInstance = new MposLogger();
+    void onRefund(Transaction transaction);
 
-
-    public static MposLogger getInstance() {
-        return ourInstance;
-    }
-
-    private MposLogger() {
-    }
-
-    public void debug(String category, String action) {
-        Log.d(category, action);
-    }
-
-    public void error(String category, String action) {
-        Log.e(category, action);
-    }
+    void onPrint(Transaction transaction);
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    tools:context=".gui.SplitPaymentActivity">
+
+    <include layout="@layout/activity_split_payment_left"
+        android:id="@+id/cash_payment_left_side"
+        android:layout_width="@dimen/left_container_width"
+        android:layout_height="match_parent"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_buttons_holder"
+        android:background="@color/cool_grey" />
+
+    <include layout="@layout/activity_split_payment_right"
+        android:id="@+id/cash_payment_right_side"
+        android:visibility="visible"
+        />
+
+    <FrameLayout
+        android:id="@+id/final_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <fragment
+            android:id="@+id/finish_fragment"
+            android:name="com.verifone.swordfish.manualtransaction.gui.FinishFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+</LinearLayout>

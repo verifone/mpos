@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_item_last_sync"
+        android:checkable="false"
+        android:title="@string/caption_menu_last_sync"
+        app:showAsAction="always|withText"/>
+    <item
+        android:id="@+id/menu_item_reconcile"
+        android:icon="@android:drawable/ic_popup_sync"
+        android:title="@string/str_reconcile"
+        app:showAsAction="always|withText"/>
+</menu>

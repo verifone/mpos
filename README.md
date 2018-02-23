@@ -1,6 +1,8 @@
 # mpos
 ## Verifone mPOS
 
+Last changed: 2018-02-22
+
 This is the Verifone's reference implementation of the POS application for Carbon.
 It uses the [Carbon Android SDK](https://verifone.github.io/sdk/).
 

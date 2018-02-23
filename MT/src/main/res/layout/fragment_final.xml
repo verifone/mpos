@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".gui.FinishFragment">
+
+    <Button
+        android:id="@+id/print"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fontFamily="Roboto-Regular"
+        android:text="@string/print_receipt_button"
+        android:textColor="@color/azure"
+        android:textSize="24sp"
+        android:padding="15dp"
+        android:onClick="onClick"/>
+
+    <Button
+        android:id="@+id/end"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fontFamily="Roboto-Regular"
+        android:text="@string/end_order"
+        android:textColor="@color/azure"
+        android:textSize="24sp"
+        android:padding="15dp"
+        android:onClick="onClick"/>
+
+</LinearLayout>

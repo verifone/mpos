@@ -1,7 +1,10 @@
-package com.verifone.swordfish.manualtransaction.tools;
+package com.verifone.swordfish.manualtransaction;
 
+import android.support.annotation.NonNull;
 
-import com.verifone.utilities.Log;
+import com.verifone.commerce.entities.Payment;
+
+import java.math.BigDecimal;
 
 /**
  * Copyright (C) 2016,2017,2018 Verifone, Inc.
@@ -26,25 +29,43 @@ import com.verifone.utilities.Log;
  * Except as contained in this notice, the name of Verifone, Inc. shall not be
  * used in advertising or otherwise to promote the sale, use or other dealings
  * in this Software without prior written authorization from Verifone, Inc.
+ * <p>
+ * <p>
+ * Created by romans1 on 01/24/2018.
  */
 
+public interface IBridgeListener {
+    void sessionStarted();
 
-public class MposLogger {
-    private static final MposLogger ourInstance = new MposLogger();
+    void sessionStopped();
 
+    void merchandiseAdded();
 
-    public static MposLogger getInstance() {
-        return ourInstance;
-    }
+    void merchandiseUpdated();
 
-    private MposLogger() {
-    }
+    void merchandiseDeleted();
 
-    public void debug(String category, String action) {
-        Log.d(category, action);
-    }
+    void basketFinalized();
 
-    public void error(String category, String action) {
-        Log.e(category, action);
-    }
+    void onPaymentSuccess(Payment payment);
+
+    void onPaymentDecline();
+
+    void onPaymentFailure();
+
+    void onPaymentCanceled();
+
+    void onReceiptMethodSelected(int methodId, String recipient);
+
+    void onTransactionCanceled();
+
+    void onAmountAdded(@NonNull BigDecimal addedAmount);
+
+    void onTransactionEnded(boolean isSuccessful);
+
+    void sessionStartFailed();
+
+    void reconcileSuccess();
+
+    void reconcileFailed(String message);
 }

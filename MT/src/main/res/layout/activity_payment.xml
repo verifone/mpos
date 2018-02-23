@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="@dimen/left_container_width"
+        android:layout_height="match_parent"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_buttons_holder"
+        android:background="@color/cool_grey" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/container">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_above="@+id/bottom_buttons_holder">
+
+            <TextView
+                android:id="@+id/textViewPaymentSelection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="43dp"
+                android:fontFamily="Roboto-Regular"
+                android:text="@string/str_select_payment_method"
+                android:textAlignment="center"
+                android:textColor="@color/greyish_brown"
+                android:textSize="24sp" />
+
+            <ImageButton
+                android:id="@+id/cashButton"
+                android:layout_width="400dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="42dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_cash" />
+
+            <ImageButton
+                android:id="@+id/chargeCreditButton"
+                android:layout_width="400dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_charge" />
+
+            <ImageButton
+                android:id="@+id/phoneOrderButton"
+                android:layout_width="400dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_phone_order"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+        <include layout="@layout/layout_buttons"
+            android:id="@+id/bottom_buttons_holder" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

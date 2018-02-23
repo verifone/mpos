@@ -9,6 +9,7 @@
     <string name="addItem">New Item</string>
     <string name="tab_one">Manual Transaction</string>
     <string name="tab_two">Transaction History</string>
+    <string name="new_cart">Start new cart</string>
     <string name="quantityLabel">Quantity</string>
     <string name="quantity_allcaps_label">QUANTITY</string>
     <string name="addButtonLabel">Add</string>
@@ -50,6 +51,7 @@
     <string name="yy_label">YY</string>
     <string name="mm_label">MM</string>
     <string name="waiting_for_customer_to_select_receipt_option">Waiting for customer to select receipt option</string>
+    <string name="select_receipt_option">Select receipt option</string>
     <string name="card_declined">Card Declined</string>
     <string name="transaction_cancelled">Transaction Cancelled</string>
     <string name="choose_another_card">Choose An Option for Payment</string>
@@ -95,7 +97,7 @@
     <string name="void_label">VOID</string>
     <string name="processing_card_label">Processing Card</string>
     <string name="are_you_sure_you_want_to">Are you sure you want to</string>
-    <string name="void_transaction_label">Are you sure you want to\nVOID this transaction?</string>
+    <string name="void_transaction_label">Are you sure you want to REFUND/VOID this transaction?</string>
     <string name="reconcile_confirm_label">Do you want to run reconcile batch process?</string>
     <string name="refund_split_transaction_label">REFUND this transaction?</string>
     <string name="cash_received_split_label">Cash Received</string>
@@ -271,8 +273,10 @@
     <string name="pay_by_split_selected">You have selected split payment</string>
      <string name="payment_accepted">Your payment has been accepted</string> 
     <string name="payment_declined">We are sorry, your payment has been declined</string>
-     <string name="type_of_card_selection">Please select debit or credit.</string>
-     <string name="authorization_process">Please wait while we request authorization</string>
+     
+    <string name="type_of_card_selection">Please select debit or credit.</string>
+     
+    <string name="authorization_process">Please wait while we request authorization</string>
      <string name="receipt_selection">How do you want your receipt, print, sms, email or you do not want receipt?</string> 
 
     <string name="numeric_3">3</string>
@@ -335,6 +339,39 @@
     <string name="str_tax_value">Tax: %1$s</string>
     <string name="str_quantity_value">QUANTITY:  %1$s</string>
     <string name="str_sales_tax">Sales Tax  %1$s</string>
+    <string name="adjusting_basket">Adjusting basket…</string>
+    <string name="ignore">Ignore and continue</string>
 
+    <string name="end_order">End Order</string>
+    <string name="basket_adjustment">Basket adjustment</string>
+    <string name="dollar">$</string>
+    <string name="rejected_label">REJECTED</string>
+    <string name="void_declined_label">Void Declined</string>
+    <string name="refund_declined_label">Refund Declined</string>
+    <string name="refund_performing">Performing REFUND</string>
+    <string name="void_performing">Performing VOID</string>
+
+    <string name="not_available">n/a</string>
+    <string name="loading_history">Loading history</string>
+    <string name="title_ending_session">Ending session</string>
+    <string name="title_making_payment">Making Payment</string>
+    <string name="title_finishing_order">Finishing order</string>
+    <string name="title_closing_session">Closing session</string>
+
+    <string name="change_ip">Change terminal IP (%1$s)</string>
+    <string name="terminalIpTitle">Terminal IP address</string>
+    <string name="title_payment_seesion_error">Payment session error</string>
+    <string name="message_payment_session_failed">Can not start new payment session. Please check IP address or kill Payment Service, then try again.</string>
+    <string name="title_payment_cancelled">Payment canceled</string>
+    <string name="message_payment_cancelled">Payment cancelled by user. Try again, choose another payment method or cancel transaction.</string>
+    <string name="title_payment_failure">Payment failure</string>
+    <string name="title_payment_declined">Payment declined</string>
+    <string name="message_payment_declined">Payment declined. Try again, check card, choose another payment method or cancel transaction.</string>
+    <string name="edit_port_hint">Port (optional)</string>
+    <string name="caption_menu_last_sync">Last sync: %1$s</string>
+    <string name="title_reconcile_in_progress">Performing reconcile batch process…</string>
+    <string name="title_reconcile_successful">Reconcile batch process success!</string>
+    <string name="title_reconcile_failed">Reconcile batch process failed! %1$s</string>
+    <string name="never">never</string>
 
 </resources>

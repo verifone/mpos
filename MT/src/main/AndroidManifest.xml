@@ -1,32 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.verifone.swordfish.manualtransaction">
+          package="com.verifone.swordfish.manualtransaction">
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!-- Bugsee permissions -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.hardware.usb.host" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
-        android:name="AnalyticsApplication"
+        android:name=".ManualTransactionApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
-            android:name=".MainActivity"
+            android:name=".gui.StartActivity"
             android:configChanges="uiMode">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".gui.OrderCreateActivity"
+            android:configChanges="uiMode"/>
+
+        <activity
+            android:name=".gui.PaymentActivity"
+            android:configChanges="uiMode"/>
+
+        <activity
+            android:name=".gui.CashPaymentActivity"
+            android:configChanges="uiMode"/>
+
+        <activity
+            android:name=".gui.CardPaymentActivity"
+            android:configChanges="uiMode"/>
+
+        <activity
+            android:name=".gui.SplitPaymentActivity"
+            android:configChanges="uiMode"/>
+
+        <activity
+            android:name=".gui.TransactionHistoryActivity"
+            android:configChanges="uiMode"/>
     </application>
 
 </manifest>

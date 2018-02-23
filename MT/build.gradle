@@ -1,24 +1,24 @@
 apply plugin: 'com.android.application'
 
-def appVersionName = "2.0.1"
-def appVersionCode = 150
+def appVersionName = "3.0."
+def appVersionCode = System.getenv("BUILD_NUMBER") as Integer ?: 0
 
 android {
-    compileSdkVersion 25
-
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.3"
 
     signingConfigs {
         release
-
     }
 
     defaultConfig {
         applicationId "com.verifone.swordfish.manualtransaction"
         minSdkVersion 22
-        targetSdkVersion 25
+        targetSdkVersion 26
+
         versionCode appVersionCode
-        versionName appVersionName
+        versionName appVersionName + appVersionCode
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         project.ext.set("archivesBaseName", "MT-" + versionName + "-" + versionCode);
     }
@@ -29,6 +29,10 @@ android {
             signingConfig signingConfigs.release
             overrideSigningConfig(signingConfig)
             zipAlignEnabled true
+        }
+        debug {
+            minifyEnabled false
+            zipAlignEnabled false
         }
     }
     lintOptions {
@@ -42,24 +46,21 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile(name: 'DeveloperSDK', ext: 'aar')
-    compile(name: 'PaymentManager', ext: 'aar')
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.bugsee:bugsee-android:+'
-    compile 'com.flurry.android:analytics:7.0.0'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta4'
+    compile 'com.android.support:support-v4:26.1.0'
+    compile 'com.android.support:design:26.1.0'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.volley:volley:1.0.0'
-    compile 'net.sf.flexjson:flexjson:3.3'
+
     compile 'pl.mg6.hrisey:hrisey:0.3.1'
+    compile 'com.google.code.gson:gson:2.8.2'
 
-    compile "android.arch.lifecycle:runtime:1.0.0-alpha5"
-    compile "android.arch.lifecycle:extensions:1.0.0-alpha5"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha5"
+    compile "android.arch.lifecycle:runtime:1.0.3"
+    compile "android.arch.lifecycle:extensions:1.0.0"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
 
-    compile "android.arch.persistence.room:runtime:1.0.0-alpha5"
-    annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha5"
+    compile "android.arch.persistence.room:runtime:1.0.0"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
 }
 
 /**
@@ -75,4 +76,3 @@ def overrideSigningConfig(signingConfig) {
     signingConfig.keyAlias props.KEY_ALIAS
     signingConfig.keyPassword props.KEY_ALIAS_PASSWORD
 }
-

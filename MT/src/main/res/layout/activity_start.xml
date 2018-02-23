@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".gui.StartActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="9"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/new_order"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="Roboto-Regular"
+            android:foregroundGravity="center_vertical"
+            android:onClick="onClick"
+            android:padding="15dp"
+            android:text="New Order"
+            android:textColor="@color/azure"
+            android:textSize="24sp"/>
+
+        <Button
+            android:id="@+id/history"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="Roboto-Regular"
+            android:foregroundGravity="center_vertical"
+            android:onClick="onClick"
+            android:padding="15dp"
+            android:text="History"
+            android:textColor="@color/azure"
+            android:textSize="24sp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/changeIpAddressButton"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:onClick="onClick"
+        android:padding="15dp"
+        android:text="@string/change_ip"
+        android:textColor="@color/azure"
+        android:textSize="24sp"/>
+
+</LinearLayout>

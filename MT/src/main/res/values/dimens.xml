@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="left_container_width">467dp</dimen>
+    <dimen name="bottom_view_height">95dp</dimen>
+
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="main_fragment_tab_indicator_height">6dp</dimen>
@@ -42,6 +45,9 @@
 
     <dimen name="main_fragment_tab_width">500dp</dimen>
     <dimen name="text_size_medium">24dp</dimen>
+
+    <dimen name="dp_20">20dp</dimen>
+    <dimen name="min_width_for_port_view">200dp</dimen>
 
 
 </resources>

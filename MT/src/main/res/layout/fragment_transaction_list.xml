@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:windowSoftInputMode="stateAlwaysHidden"
-    tools:context="com.verifone.swordfish.manualtransaction.SupportFragments.TransactionList">
+    tools:context="com.verifone.swordfish.manualtransaction.gui.OrderListFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -80,7 +80,58 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="95sp"
+            android:layout_height="wrap_content"
+            android:background="@color/white_two"
+            android:gravity="fill_vertical"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="31dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="Roboto-Medium"
+                android:text="@string/including_tax_label"
+                android:textColor="@color/greyish_brown"
+                android:textSize="12sp" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="37dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="Roboto-Regular"
+                android:text="@string/country_currency"
+                android:textColor="@color/deep_lilac"
+                android:textSize="20sp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/taxTotalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="Roboto-Medium"
+                android:text="@string/str_zero_value"
+                android:textAlignment="gravity"
+                android:textColor="@color/deep_lilac"
+                android:textSize="20sp" />
+
+            <Space
+                android:layout_width="31dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
             android:background="@color/white_two"
             android:gravity="fill_vertical"
             android:orientation="horizontal">

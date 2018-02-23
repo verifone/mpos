@@ -1,0 +1,214 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/keyboardButton"
+                android:layout_width="@dimen/numeric_keyboard_width"
+                android:layout_height="@dimen/numeric_keyboard_height"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/keypad_button_1"
+                android:tag="1"
+                android:contentDescription="@null"
+                android:onClick="onNumberClick"/>
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <ImageButton
+                android:id="@+id/button2"
+                android:layout_width="@dimen/numeric_keyboard_width"
+                android:layout_height="@dimen/numeric_keyboard_height"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/keypad_button_2"
+                android:tag="2"
+                android:contentDescription="@null"
+                android:onClick="onNumberClick"/>
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <ImageButton
+                android:id="@+id/button3"
+                android:layout_width="@dimen/numeric_keyboard_width"
+                android:layout_height="@dimen/numeric_keyboard_height"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/keypad_button_3"
+                android:tag="3"
+                android:contentDescription="@null"
+                android:onClick="onNumberClick"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+
+            <ImageButton
+                android:id="@+id/button4"
+                android:layout_width="@dimen/numeric_keyboard_width"
+                android:layout_height="@dimen/numeric_keyboard_height"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/keypad_button_4"
+                android:tag="4"
+                android:contentDescription="@null"
+                android:onClick="onNumberClick"/>
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <ImageButton
+                android:id="@+id/button5"
+                android:layout_width="@dimen/numeric_keyboard_width"
+                android:layout_height="@dimen/numeric_keyboard_height"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/keypad_button_5"
+                android:tag="5"
+                android:contentDescription="@null"
+                android:onClick="onNumberClick"/>
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <ImageButton
+                android:id="@+id/button6"
+                android:layout_width="@dimen/numeric_keyboard_width"
+                android:layout_height="@dimen/numeric_keyboard_height"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/keypad_button_6"
+                android:tag="6"
+                android:contentDescription="@null"
+                android:onClick="onNumberClick"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <ImageButton
+                android:id="@+id/button7"
+                android:layout_width="@dimen/numeric_keyboard_width"
+                android:layout_height="@dimen/numeric_keyboard_height"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/keypad_button_7"
+                android:tag="7"
+                android:contentDescription="@null"
+                android:onClick="onNumberClick"/>
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <ImageButton
+                android:id="@+id/button8"
+                android:layout_width="@dimen/numeric_keyboard_width"
+                android:layout_height="@dimen/numeric_keyboard_height"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/keypad_button_8"
+                android:tag="8"
+                android:contentDescription="@null"
+                android:onClick="onNumberClick"/>
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <ImageButton
+                android:id="@+id/button9"
+                android:layout_width="@dimen/numeric_keyboard_width"
+                android:layout_height="@dimen/numeric_keyboard_height"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/keypad_button_9"
+                android:tag="9"
+                android:contentDescription="@null"
+                android:onClick="onNumberClick"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <ImageButton
+                android:id="@+id/button00"
+                android:layout_width="@dimen/numeric_keyboard_width"
+                android:layout_height="@dimen/numeric_keyboard_height"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/keypad_button_00"
+                android:tag="00"
+                android:contentDescription="@null"
+                android:onClick="onNumberClick"/>
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <ImageButton
+                android:id="@+id/button0"
+                android:layout_width="@dimen/numeric_keyboard_width"
+                android:layout_height="@dimen/numeric_keyboard_height"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/keypad_button_0"
+                android:tag="0"
+                android:contentDescription="@null"
+                android:onClick="onNumberClick"/>
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <ImageButton
+                android:id="@+id/buttonDelete"
+                android:layout_width="@dimen/numeric_keyboard_width"
+                android:layout_height="@dimen/numeric_keyboard_height"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/keypad_button_backspace"
+                android:tag="Del"
+                android:contentDescription="@null"
+                android:onClick="onNumberClick"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

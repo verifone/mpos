@@ -1,78 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="902dp"
-    android:layout_height="80dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="80dp"
+              android:layout_marginEnd="28dp"
+              android:layout_marginLeft="28dp"
+              android:layout_marginRight="28dp"
+              android:layout_marginStart="28dp"
+              android:orientation="horizontal"
+              android:weightSum="8">
 
     <TextView
-        android:layout_width="65dp"
-        android:layout_height="wrap_content"
-        android:text="@string/new_text"
-        android:textAppearance="@style/fontForTextViewTransactionHistoryDate"
         android:id="@+id/textViewTHDate"
-        android:layout_marginStart="27dp"
-        android:layout_marginEnd="17dp"
-        android:layout_gravity="center_vertical" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="18dp"
+        android:layout_weight="1"
+        android:text="@string/not_available"
+        android:textAppearance="@style/fontForTextViewTransactionHistoryDate"
+        tools:text="01/23 10:43"/>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="793dp"
+        android:id="@+id/linearHistoryDetail"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
         android:background="@drawable/linear_layout_round_corners"
-        android:layout_height="80dp"
-        android:id="@+id/linearHistoryDetail">
-
-        <ImageView
-            android:layout_width="16dp"
-            android:layout_height="20dp"
-            android:id="@+id/imageViewIconNote"
-            android:src="@drawable/icon_note"
-            android:layout_gravity="center_vertical"
-            android:visibility="invisible"
-            android:contentDescription="@null" />
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:layout_marginStart="47dp"
-            android:gravity="center_vertical">
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="40dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textViewTransactionID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/new_text"
-                android:textAppearance="@style/fontForTextViewTransactionHistory"
-                android:id="@+id/textViewTransactionID" />
+                android:text="@string/not_available"
+                android:textAppearance="@style/fontForTextViewTransactionHistory"/>
 
             <TextView
+                android:id="@+id/textViewDetailDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/new_text"
-                android:textAppearance="@style/fontForTextViewTransactionHistoryDetailDate"
-                android:id="@+id/textViewDetailDate" />
+                android:text="@string/not_available"
+                android:textAppearance="@style/fontForTextViewTransactionHistoryDetailDate"/>
         </LinearLayout>
 
         <TextView
+            android:id="@+id/textViewPaymentType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/new_text"
-            android:textAppearance="@style/fontForTextViewTransactionHistory"
-            android:id="@+id/textViewPaymentType"
-            android:layout_marginStart="16dp"
-            android:layout_gravity="center_vertical" />
+            android:layout_marginStart="20dp"
+            android:text="@string/not_available"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="@style/fontForTextViewTransactionHistory"/>
 
         <Space
             android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
 
         <TextView
+            android:id="@+id/textViewDetailTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/new_text"
-            android:textAppearance="@style/fontForTextViewTransactionHistoryDetailTotal"
-            android:id="@+id/textViewDetailTotal"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="186dp" />
+            android:layout_marginEnd="48dp"
+            android:text="@string/not_available"
+            android:textAppearance="@style/fontForTextViewTransactionHistoryDetailTotal"/>
     </LinearLayout>
 
-</TableRow>
+    <Button
+        android:id="@+id/historyPrintButton"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/white_background"
+        android:text="@string/str_print_receipt"
+        android:textColor="@color/azure"
+        android:textSize="18sp"/>
+
+    <Button
+        android:id="@+id/historyRefundButton"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/azure_background"
+        android:text="@string/str_refund"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+</LinearLayout>

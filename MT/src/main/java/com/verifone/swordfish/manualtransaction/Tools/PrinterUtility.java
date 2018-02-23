@@ -1,32 +1,8 @@
-/**
- * Copyright (C) 2016,2017 Verifone, Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * VERIFONE, INC. BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * Except as contained in this notice, the name of Verifone, Inc. shall not be
- * used in advertising or otherwise to promote the sale, use or other dealings
- * in this Software without prior written authorization from Verifone, Inc.
- */
+package com.verifone.swordfish.manualtransaction.tools;
 
-package com.verifone.swordfish.manualtransaction.Tools;
-
-import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -40,25 +16,45 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 
-import com.verifone.commerce.entities.Merchandise;
-import com.verifone.commerce.entities.Payment;
+import com.verifone.commerce.entities.Receipt;
 import com.verifone.peripherals.IDirectPrintListener;
 import com.verifone.peripherals.IDirectPrintService;
 import com.verifone.peripherals.Printer;
-import com.verifone.swordfish.manualtransaction.HistoryFragments.TransactionStatus;
-import com.verifone.swordfish.manualtransaction.MTDataModel.MTTransaction;
-import com.verifone.swordfish.manualtransaction.System.PaymentTerminal;
+import com.verifone.utilities.Log;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 
+/**
+ * Copyright (C) 2016,2017 Verifone, Inc.
+ * <p>
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * <p>
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ * <p>
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * VERIFONE, INC. BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * <p>
+ * Except as contained in this notice, the name of Verifone, Inc. shall not be
+ * used in advertising or otherwise to promote the sale, use or other dealings
+ * in this Software without prior written authorization from Verifone, Inc.
+ */
+
 public class PrinterUtility {
+    public static final String PRINTER__JOB_STATUS_ACTION = "com.verifone.swordfish" +
+            ".manualtransaction.printer_job_status_action";
+    public static final String PRINTER__JOB_STATUS_MSG_KEY = "PRINTER__JOB_STATUS_MSG_KEY";
+
     private static PrinterUtility instance;
     private static String TAG = PrinterUtility.class.getSimpleName();
 
@@ -66,9 +62,15 @@ public class PrinterUtility {
      * Local reference to the print service, so that we can perform any number of calls.
      */
     private IDirectPrintService mPrintService;
-    private static final int SHORT_LINE_LENGTH = 36;
-    private static final int LONG_LINE_LENGTH = 40;
-    private static int mLineLength = 40;
+
+    private static final int TEXT_SIZE = 24;
+
+    /**
+     * Number of carbon-printers-dependent points in one symbol for 24 text size
+     */
+    private static final double LINE_LENGTH_MULTIPLIER = 14.3;
+
+    private int mLineLength;
     private StringBuilder message;
     /**
      * The text view dislpaying the list of available printers.
@@ -76,16 +78,71 @@ public class PrinterUtility {
     private String mPrinterList;
     private long mPrintStartTime;
 
-
-    protected PrinterUtility() {
-
-    }
-
     public static PrinterUtility getInstance() {
         if (instance == null) {
             instance = new PrinterUtility();
         }
         return instance;
+    }
+
+    /**
+     * Method generate print listener with possibility to show Toast messages
+     *
+     * @param context activity or context where show Toast
+     * @return listener object
+     */
+    private IDirectPrintListener createPrintListener(final Context context) {
+        return new IDirectPrintListener.Stub() {
+            private Context mAppCtx = context.getApplicationContext();
+
+            private void sendBroadcast(String message) {
+                if (mAppCtx != null) {
+                    Intent intent = new Intent(PRINTER__JOB_STATUS_ACTION);
+                    intent.putExtra(PRINTER__JOB_STATUS_MSG_KEY, message);
+                    mAppCtx.sendBroadcast(intent);
+                }
+            }
+
+            @Override
+            public void started(String printId) throws RemoteException {
+                displayMessage("Print started for " + printId);
+            }
+
+            /** Called when the print job cannot continue, but could be resumed later. */
+            @Override
+            public void block(String printId, String errorMessage) throws RemoteException {
+                displayMessage("Print blocked for " + printId + ". " + errorMessage);
+            }
+
+            /** Called when the print job has finished being cancelled. This is the final message. */
+            @Override
+            public void cancel(String printId) throws RemoteException {
+                displayMessage("Print cancelled for " + printId);
+            }
+
+            @Override
+            public void failed(String printId, String errorMessage) throws RemoteException {
+                String printJobId = !TextUtils.isEmpty(printId) ? printId : "unknown print job id";
+                String message = errorMessage == null ? "Print failed" : errorMessage;
+
+                displayMessage("Print failed for " + printJobId + ". " + errorMessage);
+
+                sendBroadcast(message + " for " + printJobId);
+            }
+
+            @Override
+            public void complete(String printId) throws RemoteException {
+                String printJobId = !TextUtils.isEmpty(printId) ? printId : "unknown print job id";
+                sendBroadcast("Print done for " + printJobId);
+
+                long totalTimeMillis = System.currentTimeMillis() - mPrintStartTime;
+                long second = TimeUnit.MILLISECONDS.toSeconds(totalTimeMillis);
+                long minute = TimeUnit.MILLISECONDS.toMinutes(totalTimeMillis);
+                long millis = totalTimeMillis % 1000;
+                displayMessage("Print completed for " + printId + " within " +
+                        String.format("%02d:%02d.%d", minute, second, millis) + " minutes.");
+            }
+        };
     }
 
     /**
@@ -133,33 +190,52 @@ public class PrinterUtility {
     /**
      * Manages the connection to the service.
      */
-    private ServiceConnection mServiceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            // We must use this to expose the service methods.
-            mPrintService = IDirectPrintService.Stub.asInterface(iBinder);
-            MposLogger.getInstance().debug(TAG, "Service connected.");
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-            MposLogger.getInstance().debug(TAG, "Service disconnected.");
-            mPrintService = null;
-        }
-    };
+    private ServiceConnection mServiceConnection;
 
     public ServiceConnection getServiceConnection() {
-        return mServiceConnection;
+        return new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+                // We must use this to expose the service methods.
+                mPrintService = IDirectPrintService.Stub.asInterface(iBinder);
+                MposLogger.getInstance().debug(TAG, "Service connected.");
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName componentName) {
+                MposLogger.getInstance().debug(TAG, "Service disconnected.");
+                mPrintService = null;
+            }
+        };
     }
 
-    public void serviceBindPrintService(ServiceConnection serviceConnection) {
+    public void bindPrintService(Context applicationContext) {
         MposLogger.getInstance().debug(TAG, "Binding to print service.");
-        this.mServiceConnection = serviceConnection;
+
+        if (mPrintService == null) {
+            mServiceConnection = getServiceConnection();
+            Intent intent = new Intent();
+            intent.setComponent(
+                    new ComponentName("com.verifone.peripherals.service",
+                            "com.verifone.peripherals.service.DirectPrintService"));
+
+            applicationContext.bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+        }
+
     }
 
-    public void serviceUnbind() {
+    public void unbindPrintService(Context applicationContext) {
         MposLogger.getInstance().debug(TAG, "Unbinding to print service.");
+
+        if (mServiceConnection != null) {
+            try {
+                applicationContext.unbindService(mServiceConnection);
+            } catch (IllegalArgumentException e) {
+                Log.w(TAG, "Service can not be unbound. ", e);
+            }
+        }
         mPrintService = null;
+        mServiceConnection = null;
     }
 
     /**
@@ -196,179 +272,72 @@ public class PrinterUtility {
         mPrinterList = displayText;
     }
 
-    public void printTransaction(MTTransaction transaction, Activity activity) {
+    public void printReceipt(Receipt receipt, IDirectPrintListener listener) {
         if (this.mPrintService == null) {
             MposLogger.getInstance().error(TAG, " print service unbind");
             return;
         }
-        if (transaction == null && transaction.transactionMerchandises() == null) {
-            MposLogger.getInstance().error(TAG, " transaction and/or merchandise are null");
+
+        if (receipt == null) {
+            MposLogger.getInstance().error(TAG, " receipt is null");
             return;
         }
+
         if (mPrinterList == null) {
             displayPrinterList();
         }
 
-        message = new StringBuilder();
-        final SpannableStringBuilder ssb = new SpannableStringBuilder();
-        String transactionID = PaymentTerminal.getInstance().transactionID();
-        if (transactionID == null) {
-            transactionID = "TBD";
-        }
-        //Creating header
-
-        message.append("mPOS by Verifone Inc. \n");
-        message.append(printEmptyLine(ssb));
-        message.append("88 W Plumeria Dr. \n");
-        message.append("San Jose, CA 95134 \n");
-        message.append(printEmptyLine(ssb));
-        message.append(printEmptyLine(ssb));
-
-
-        message.append(printLine(ssb, "Transaction id:", "#" + transactionID));
-        String reportDate;
-        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
-        Date today = Calendar.getInstance().getTime();
-        reportDate = df.format(today);
-
-        message.append(printLine(ssb, "Date:" + reportDate, ""));
-
-        BigDecimal transactionAmount = new BigDecimal("0.00");
-        BigDecimal transactionTax = new BigDecimal("0.00");
-        BigDecimal transactionDiscount = new BigDecimal("0.00");
-
-        LocalizeCurrencyFormatter formatter = LocalizeCurrencyFormatter.getInstance();
-        for (Merchandise item : transaction.transactionMerchandises()) {
-            int qty = item.getQuantity();
-            String desc = item.getDescription();
-            //discountString = item.getLocalizedItemDiscount();
-            BigDecimal tax = item.getTax();
-            BigDecimal itemTotal = item.getAmount();
-            String sign = " ";
-            String discountSign = "- ";
-/*
-            if (item.isItemRefund()) {
-                sign = "-";
-                discountSign = "+ ";
-                desc = desc + " (Item refunded)";
-            }
-*/
-            message.append(printLine(ssb, qty + " " + desc, sign + formatter.getCurrencyFormat().format(itemTotal.doubleValue())));
-            if (item.getDiscount() != null && !Objects.equals(item.getDiscount(), BigDecimal.ZERO)) {
-                message.append(printLine(ssb, "Discount: ", " - " + String.format(Locale.getDefault(), "$%.2f", item.getDiscount().doubleValue())));
-                transactionDiscount = transactionDiscount.add(item.getDiscount());
-            }
-            if (item.getTax() != null && !Objects.equals(item.getTax(), BigDecimal.ZERO)) {
-                message.append(printLine(ssb, "", "Tax: " + String.format(Locale.getDefault(), "$%.2f", item.getTax().doubleValue())));
-                transactionTax = transactionTax.add(item.getTax());
-            }
-            transactionAmount = transactionAmount.add(item.getUnitPrice().multiply(BigDecimal.valueOf(qty)));
-
-
-        }
-
-        //discountString = transaction.getLocalizedCurrencyDiscount();
-        message.append(printEmptyLine(ssb));
-        message.append(printEmptyLine(ssb));
-
-        String taxString = formatter.getCurrencyFormat().format(transaction.getTransactionTax().doubleValue());
-        String discountString = formatter.getCurrencyFormat().format(transaction.getTransactionDiscount().doubleValue());
-        String amountString = formatter.getCurrencyFormat().format(transaction.getTransactionTotal().doubleValue());
-        message.append(printDividerLine(ssb));
-        message.append(printLine(ssb, "Tax:", taxString));
-        message.append(printLine(ssb, "Discount:", "- " + discountString));
-        message.append(printLine(ssb, "Total:", amountString));
-        message.append(printDividerLine(ssb));
-
-        if (transaction.transactionPayments() != null) {
-            for (Payment payment : transaction.transactionPayments().getPayments()) {
-
-                if (payment.getPaymentType() != Payment.PaymentType.CASH) {
-                    String sign = " ";
-                    if (payment.getCardInformation().getCardHolderName() != null) {
-                        message.append(printLine(ssb, "Card: ", payment.getCardInformation().getCardHolderName()));
-                    }
-                    if (payment.getCardInformation().getPanLast4() != null) {
-                        message.append(printLine(ssb, "CCNum: ", "****" + payment.getCardInformation().getPanLast4()));
-                    }
-                    String label;
-                    label = "Amount:";
-                    if (transaction.getStatus() == TransactionStatus.voided) {
-                        label = "Voided amount:";
-                    } else {
-                        if (transaction.getStatus() == TransactionStatus.refunded) {
-                            label = "Refund amount:";
-                            sign = "-";
-                        } else {
-                            label = "Amount:";
-                        }
-                    }
-
-                    message.append(printLine(ssb, label, sign + formatter.getCurrencyFormat().format(payment.getPaymentAmount().doubleValue())));
-
-                } else {
-                    String label;
-                    String sign = " ";
-                    if (transaction.getStatus() == TransactionStatus.refunded) {
-                        label = "Refund amount:";
-                        sign = "-";
-                    } else {
-                        label = "Sale (Cash):";
-                    }
-
-                    message.append(printLine(ssb, label, sign + formatter.getCurrencyFormat().format(payment.getPaymentAmount().doubleValue())));
-                }
-                message.append(printEmptyLine(ssb));
-
-            }
-        }
-        MposLogger.getInstance().debug(TAG, "Formatted receipt:\n" + ssb.toString());
-
-        message.append(printEmptyLine(ssb));
-        message.append("We thank you for your business!!! \n");
-        message.append(printEmptyLine(ssb));
-        message.append("Powered by Carbon \n");
-        message.append("http://www.verifone.com");
-
-        // Start creating a bitmap from the text.
-        final TextPaint textPaint = new TextPaint();
-        textPaint.setTextSize(24);
-        textPaint.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.BOLD));
-        final StaticLayout staticLayout = new StaticLayout(message,
-                textPaint, 576,
-                Layout.Alignment.ALIGN_CENTER,
-                1, 0, false);
-        final Bitmap bitmap = Bitmap.createBitmap(staticLayout.getWidth(),
-                staticLayout.getHeight(),
-                Bitmap.Config.RGB_565);
-        final Canvas canvas = new Canvas(bitmap);
-        canvas.drawColor(Color.WHITE);
-        staticLayout.draw(canvas);
-        mPrintStartTime = System.currentTimeMillis();
+        String printerId;
+        Printer defaultPrinter = null;
         try {
-
-            mPrintService.printBitmap(mPrintListener, bitmap);
+            defaultPrinter = mPrintService.getDefaultPrinter();
         } catch (RemoteException e) {
             e.printStackTrace();
-            displayMessage("Failed to print.");
+        }
+        if (defaultPrinter != null) {
+            printerId = defaultPrinter.getLocalId();
+        } else {
+            displayMessage("Printer not found");
+            return;
+        }
+
+        try {
+            mPrintService.printString(listener, receipt.getAsHtml(), printerId, Printer.PRINTER_FULL_CUT);
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
     }
 
-    public void printImage(Bitmap bitmap) {
-        final TextPaint textPaint = new TextPaint();
-        textPaint.setTextSize(24);
-        textPaint.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.BOLD));
-        final StaticLayout staticLayout = new StaticLayout(message,
-                textPaint, 576,
-                Layout.Alignment.ALIGN_CENTER,
-                1, 0, false);
-        final Canvas canvas = new Canvas(bitmap);
-        canvas.drawColor(Color.WHITE);
-        staticLayout.draw(canvas);
-        mPrintStartTime = System.currentTimeMillis();
-        try {
+    private void initLineLength(int paperWidth) {
+        mLineLength = (int) Math.round(paperWidth / LINE_LENGTH_MULTIPLIER);
+    }
 
-            mPrintService.printBitmap(mPrintListener, bitmap);
+    public void printImage(Bitmap bitmap) {
+        try {
+            int paperWidth;
+            String printerId;
+            Printer defaultPrinter = mPrintService.getDefaultPrinter();
+            if (defaultPrinter != null) {
+                paperWidth = defaultPrinter.getPaperWidth();
+                printerId = defaultPrinter.getLocalId();
+            } else {
+                displayMessage("Printer not found");
+                return;
+            }
+
+            final TextPaint textPaint = new TextPaint();
+            textPaint.setTextSize(TEXT_SIZE);
+            textPaint.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.BOLD));
+            final StaticLayout staticLayout = new StaticLayout(message,
+                    textPaint, paperWidth,
+                    Layout.Alignment.ALIGN_CENTER,
+                    1, 0, false);
+            final Canvas canvas = new Canvas(bitmap);
+            canvas.drawColor(Color.WHITE);
+            staticLayout.draw(canvas);
+            mPrintStartTime = System.currentTimeMillis();
+
+            mPrintService.printBitmap(mPrintListener, bitmap, printerId, Printer.PRINTER_FULL_CUT);
         } catch (RemoteException e) {
             e.printStackTrace();
             displayMessage("Failed to print.");
@@ -377,10 +346,10 @@ public class PrinterUtility {
     }
 
     private String printEmptyLine(SpannableStringBuilder ssb) {
-        return printLine(ssb, "", "");
+        return printLine("", "");
     }
 
-    private String printLine(SpannableStringBuilder ssb, String left, String right) {
+    private String printLine(String left, String right) {
         int space = mLineLength - left.length() - right.length();
         if (!TextUtils.isEmpty(right) && space < 1) {
             space = 1;
@@ -421,4 +390,9 @@ public class PrinterUtility {
     }
 
 
+    public void printTransaction(Context context, Receipt receipt) {
+        /// String asHtml = receipt.getAsHtml();
+        receipt.print(context);
+
+    }
 }

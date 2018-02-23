@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_view_height"
+    android:layout_alignParentBottom="true"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/bottom_buttons_holder"
+        android:background="@color/cool_grey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_left"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="37sp"
+            android:background="@android:color/transparent"
+            android:fontFamily="Roboto-Regular"
+            android:foregroundGravity="center_vertical"
+            android:text="@string/cancel_transaction_btn"
+            android:textColor="@color/azure"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btn_middle"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="18.5sp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:fontFamily="Roboto-Bold"
+            android:foregroundGravity="center_vertical"
+            android:text="@string/blank_button"
+            android:textColor="@color/azure"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btn_right"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="0sp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:fontFamily="Roboto-Regular"
+            android:text="@string/str_pay"
+            android:textColor="@color/azure"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+</LinearLayout>
