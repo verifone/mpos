@@ -5,14 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,14 +22,12 @@ import com.verifone.commerce.entities.Merchandise;
 import com.verifone.swordfish.manualtransaction.ManualTransactionApplication;
 import com.verifone.swordfish.manualtransaction.R;
 import com.verifone.swordfish.manualtransaction.tools.LocalizeCurrencyFormatter;
-import com.verifone.swordfish.manualtransaction.tools.MposLogger;
 import com.verifone.swordfish.manualtransaction.tools.Utils;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 
 /**
  * Copyright (C) 2016,2017,2018 Verifone, Inc.
@@ -59,10 +59,11 @@ import java.util.Objects;
 
 public class OrderListFragment extends Fragment {
 
+    private static final String TAG = OrderListFragment.class.getSimpleName();
+
     private static final String EDITABLE_KEY = "editable";
 
-    private EditText mCurrentValueET;
-    private TextView mCurrentValueSymbolTV;
+    private NumericEditText mCurrentValueET;
     private TextView mTaxValueTV;
     private TextView mTotalValueTV;
 
@@ -70,11 +71,11 @@ public class OrderListFragment extends Fragment {
 
     private IOrderListFragmentListener mListener;
 
-    private boolean bEditable;
+    private boolean mIsFragmentEditable;
 
     public static OrderListFragment getInstance(boolean isEditable) {
         OrderListFragment fragment = new OrderListFragment();
-        Bundle args = new Bundle();
+        Bundle args = new Bundle(1);
         args.putBoolean(EDITABLE_KEY, isEditable);
         fragment.setArguments(args);
         return fragment;
@@ -90,8 +91,8 @@ public class OrderListFragment extends Fragment {
 
     @Override
     public void onDetach() {
-        super.onDetach();
         mListener = null;
+        super.onDetach();
     }
 
     @Nullable
@@ -99,18 +100,18 @@ public class OrderListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_transaction_list, container, false);
 
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
         if (getArguments() != null) {
-            bEditable = getArguments().getBoolean(EDITABLE_KEY, false);
+            mIsFragmentEditable = getArguments().getBoolean(EDITABLE_KEY, false);
         }
 
         mCurrentValueET = view.findViewById(R.id.addItem);
-        mCurrentValueSymbolTV = view.findViewById(R.id.currencySymbol);
         mTaxValueTV = view.findViewById(R.id.taxTotalTextView);
         mTotalValueTV = view.findViewById(R.id.granTotalTextView);
-
         mItemsList = view.findViewById(R.id.listViewItems);
 
-        setDisplayText(null);
+        mCurrentValueET.setRepresentationType(NumericEditText.RepresentationType.CURRENCY);
 
         return view;
     }
@@ -119,60 +120,68 @@ public class OrderListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateBasket();
-    }
-
-    public void setDisplayText(String amount) {
-        if (amount != null && amount.length() > 0) {
-            if (mCurrentValueSymbolTV.getVisibility() == View.INVISIBLE) {
-                mCurrentValueSymbolTV.setVisibility(View.VISIBLE);
-            }
-            mCurrentValueET.setText(amount);
+        if (!mIsFragmentEditable) {
+            mCurrentValueET.setVisibility(View.GONE);
         } else {
-            mCurrentValueET.setText(getContext().getString(R.string.str_new_item));
-            mCurrentValueSymbolTV.setVisibility(View.INVISIBLE);
+            mCurrentValueET.setVisibility(View.VISIBLE);
+            mCurrentValueET.requestFocus();
         }
     }
 
     public void updateBasket() {
-        List<Merchandise> list = ManualTransactionApplication.getCarbonBridge().getMerchandises();
-        if (list != null) {
-            ArrayAdapter arrayAdapter = null;
-            if (bEditable) {
-                arrayAdapter = new TransactionDetailArrayAdapter
-                        (getActivity(), new ArrayList<>(list));
-            } else {
-                arrayAdapter = new TransactionDetailArrayAdapterSimple
-                        (getActivity(), new ArrayList<>(list));
-            }
-            mItemsList.setAdapter(arrayAdapter);
+        FragmentActivity activity = getActivity();
+        if (activity == null) {
+            Log.w(TAG, "updateBasket: fragment isn't attached, context is null!");
+            return;
+        }
 
-            BigDecimal tax = new BigDecimal("0");
-            BigDecimal itemsSubtotal = new BigDecimal("0");
-            BigDecimal itemsDiscount = new BigDecimal("0");
+        List<Merchandise> list = ManualTransactionApplication.getCarbonBridge().getMerchandises();
+
+        BigDecimal tax = BigDecimal.ZERO;
+        BigDecimal itemsSubtotal = BigDecimal.ZERO;
+        BigDecimal itemsDiscount = BigDecimal.ZERO;
+        BigDecimal totalAmount = BigDecimal.ZERO;
+
+        if (list != null && !list.isEmpty()) {
+            ListAdapter arrayAdapter = new TransactionDetailArrayAdapter(activity, new ArrayList<>(list), mIsFragmentEditable);
+            mItemsList.setAdapter(arrayAdapter);
 
             for (Merchandise merchandise : list) {
                 tax = tax.add(merchandise.getTax());
-                itemsSubtotal = itemsSubtotal.add(merchandise.getQuantity().multiply(merchandise
-                        .getUnitPrice()));
+                itemsSubtotal = itemsSubtotal.add(merchandise.getExtendedPrice());
                 itemsDiscount = itemsDiscount.add(merchandise.getDiscount());
+                totalAmount = totalAmount.add(merchandise.getAmount());
             }
-            BigDecimal total = itemsSubtotal.add(tax).subtract(itemsDiscount);
-
-            mTotalValueTV.setText(Utils.getLocalizedAmount(total));
-            mTaxValueTV.setText(Utils.getLocalizedAmount(tax));
         } else {
             mItemsList.setAdapter(null);
         }
 
+        mTotalValueTV.setText(Utils.getLocalizedAmount(totalAmount));
+        mTaxValueTV.setText(Utils.getLocalizedAmount(tax));
     }
 
+    public int getBasketSize() {
+        return mItemsList.getCount();
+    }
+
+    public String getCurrentPrice() {
+        return mCurrentValueET.getValue();
+    }
+
+    public void clearCurrentPriceValue() {
+        mCurrentValueET.clearValue();
+        mCurrentValueET.requestFocus();
+    }
 
     private class TransactionDetailArrayAdapter extends ArrayAdapter<Merchandise> {
         private final ArrayList<Merchandise> itemsArray;
 
-        TransactionDetailArrayAdapter(Context context, ArrayList<Merchandise> items) {
+        private final boolean mIsEditable;
+
+        TransactionDetailArrayAdapter(Context context, ArrayList<Merchandise> items, boolean isEditable) {
             super(context, -1, items);
             this.itemsArray = items;
+            mIsEditable = isEditable;
         }
 
         //TODO: need to use viewholders, or change listview to recycler view.
@@ -182,169 +191,84 @@ public class OrderListFragment extends Fragment {
             final Merchandise currentItem = this.itemsArray.get(position);
             LayoutInflater inflater = getActivity().getLayoutInflater();
             LinearLayout row = (LinearLayout) inflater.inflate(R.layout.transaction_detail_cell, parent, false);
-            Button addButton = row.findViewById(R.id.buttonDetailAddNote);
-            LinearLayout linearLayout = row.findViewById(R.id.linearLayoutDetailNotes);
-            if ((currentItem.getDescription().equals(" ") || currentItem.getDescription().equals(""))
-                    && (Objects.equals(currentItem.getDiscount(), BigDecimal.ZERO) && currentItem.getDiscount().toString().equals("0"))
-                    && (Objects.equals(currentItem.getTax(), BigDecimal.ZERO) || currentItem.getTax().toString().equals("0"))) {
 
+            View editNoteButton = row.findViewById(R.id.imageButtonEditNote);
+            View addNoteButton = row.findViewById(R.id.buttonDetailAddNote);
+
+            LinearLayout linearLayout = row.findViewById(R.id.linearLayoutDetailNotes);
+            TextView descriptionTextView = row.findViewById(R.id.textViewDetailNote);
+            String description = currentItem.getDescription();
+            if (TextUtils.isEmpty(description.trim())) {
                 linearLayout.setVisibility(View.INVISIBLE);
-                addButton.setVisibility(View.VISIBLE);
-                addButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        mListener.onItemClicked(currentItem);
-                    }
-                });
+
+                if (mIsEditable) {
+                    addNoteButton.setVisibility(View.VISIBLE);
+                    addNoteButton.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            mListener.onItemClicked(currentItem);
+                        }
+                    });
+                } else {
+                    addNoteButton.setVisibility(View.GONE);
+                    linearLayout.setVisibility(View.VISIBLE);
+                    editNoteButton.setVisibility(View.GONE);
+                    descriptionTextView.setText(currentItem.getDisplayLine());
+                }
+
+                editNoteButton.setVisibility(View.GONE);
             } else {
-                addButton.setVisibility(View.INVISIBLE);
                 linearLayout.setVisibility(View.VISIBLE);
-                TextView description = row.findViewById(R.id.textViewDetailNote);
-                ImageButton edit = row.findViewById(R.id.imageButtonEditNote);
-                description.setText(currentItem.getDescription());
-                edit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mListener.onItemClicked(currentItem);
-                    }
-                });
+
+                addNoteButton.setVisibility(View.GONE);
+
+                if (mIsEditable) {
+                    editNoteButton.setVisibility(View.VISIBLE);
+                    editNoteButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mListener.onItemClicked(currentItem);
+                        }
+                    });
+                } else {
+                    editNoteButton.setVisibility(View.GONE);
+                }
+
+                descriptionTextView.setText(description);
             }
-            LocalizeCurrencyFormatter formatter = LocalizeCurrencyFormatter.getInstance();
+
+            NumberFormat formatter = LocalizeCurrencyFormatter.getInstance().getCurrencyFormat();
+
+            BigDecimal discount = currentItem.getDiscount();
+            TextView textViewDiscount = row.findViewById(R.id.textViewDetailDiscount);
+            if (discount != null && discount.floatValue() > 0) {
+                textViewDiscount.setVisibility(View.VISIBLE);
+                String discountValue = formatter.format(discount.doubleValue());
+                textViewDiscount.setText(getContext().getString(R.string.str_discount_value, discountValue));
+            } else {
+                textViewDiscount.setVisibility(View.GONE);
+            }
+
+            BigDecimal tax = currentItem.getTax();
+            TextView textViewTax = row.findViewById(R.id.textViewDetailTax);
+            if (tax != null && tax.floatValue() > 0) {
+                textViewTax.setVisibility(View.VISIBLE);
+                textViewTax.setText(getContext().getString(R.string.str_tax_value, formatter.format(tax.doubleValue())));
+            } else {
+                textViewTax.setVisibility(View.GONE);
+            }
+
+            BigDecimal quantity = currentItem.getQuantity();
+            TextView textViewQuantity = row.findViewById(R.id.textViewDetailQuantity);
+            if (quantity.floatValue() > 1) {
+                textViewQuantity.setVisibility(View.VISIBLE);
+                textViewQuantity.setText(getContext().getString(R.string.str_quantity_value, String.valueOf(quantity.intValue())));
+            } else {
+                textViewQuantity.setVisibility(View.GONE);
+            }
 
             TextView totalItem = row.findViewById(R.id.textViewDetailTotal);
-            MposLogger.getInstance().debug("item: ", String.format(Locale.US,
-                    "Unit Price: %.2f, Price: %.2f, tax: %.2f, discount: %.2f, qth: %.2f",
-                    currentItem.getUnitPrice().floatValue(),
-                    currentItem.getAmount().floatValue(),
-                    currentItem.getTax().floatValue(),
-                    currentItem.getDiscount().floatValue(),
-                    currentItem.getQuantity().floatValue()));
-//            Log.i(TAG, "Unit Price : " + currentItem.getUnitPrice().floatValue() +
-//                    " Price : " + currentItem.getAmount().floatValue() +
-//                    " Tax : " + currentItem.getTax().floatValue() +
-//                    " Discount : " + currentItem.getDiscount().floatValue() +
-//                    " Quantity : " + currentItem.getQuantity().floatValue());
-            if (currentItem.getDiscount() != null
-                    && !Objects.equals(currentItem.getDiscount(), BigDecimal.ZERO)
-                    && currentItem.getDiscount().doubleValue() > 0.0) {
-                TextView textViewDiscount = row.findViewById(R.id.textViewDetailDiscount);
-                ViewGroup.LayoutParams params = textViewDiscount.getLayoutParams();
-                params.height = 24;
-                textViewDiscount.setLayoutParams(params);
-                String discountValue = formatter.getCurrencyFormat().format(currentItem.getDiscount().doubleValue());
-                //String formattedString = getContext().getString(R.string.str_discount_value, discountValue);
-                textViewDiscount.setText(getContext().getString(R.string.str_discount_value, discountValue));
-            }
+            totalItem.setText(formatter.format(currentItem.getAmount().doubleValue()));
 
-            if (currentItem.getTax() != null
-                    && !Objects.equals(currentItem.getTax(), BigDecimal.ZERO)
-                    && currentItem.getTax().doubleValue() > 0.0) {
-                TextView textViewTax = row.findViewById(R.id.textViewDetailTax);
-                ViewGroup.LayoutParams params = textViewTax.getLayoutParams();
-                params.height = 24;
-                String taxValue = formatter.getCurrencyFormat().format(currentItem.getTax().doubleValue());
-                textViewTax.setText(getContext().getString(R.string.str_tax_value, taxValue));
-            }
-
-            if (currentItem.getQuantity().doubleValue() > 1d) {
-                TextView textViewQuantity = row.findViewById(R.id.textViewDetailQuantity);
-                ViewGroup.LayoutParams params = textViewQuantity.getLayoutParams();
-                params.height = 24;
-                textViewQuantity.setText(getContext().getString(R.string.str_quantity_value,
-                        currentItem.getQuantity().toString()));
-            }
-            formatter.getCurrencyFormat().format(currentItem.getAmount().doubleValue());
-            totalItem.setText(Utils.getLocalizedAmount(currentItem.getUnitPrice().multiply(currentItem.getQuantity())));
-            return row;
-        }
-    }
-
-    private class TransactionDetailArrayAdapterSimple extends ArrayAdapter<Merchandise> {
-        private final ArrayList<Merchandise> itemsArray;
-
-        TransactionDetailArrayAdapterSimple(Context context, ArrayList<Merchandise> items) {
-            super(context, -1, items);
-            this.itemsArray = items;
-        }
-
-        //TODO: need to use viewholders, or change listview to recycler view.
-        @NonNull
-        @Override
-        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-            final Merchandise currentItem = this.itemsArray.get(position);
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            LinearLayout row = (LinearLayout) inflater.inflate(R.layout.transaction_detail_cell, parent, false);
-            LinearLayout linearLayout = row.findViewById(R.id.linearLayoutDetailNotes);
-            linearLayout.setVisibility(View.INVISIBLE);
-//            if ((currentItem.getDescription().equals(" ") || currentItem.getDescription().equals(""))
-//                    && (Objects.equals(currentItem.getDiscount(), BigDecimal.ZERO) && currentItem.getDiscount().toString().equals("0"))
-//                    && (Objects.equals(currentItem.getTax(), BigDecimal.ZERO) || currentItem.getTax().toString().equals("0"))) {
-//
-//                linearLayout.setVisibility(View.INVISIBLE);
-//                addButton.setVisibility(View.VISIBLE);
-//                addButton.setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        mListener.onItemClicked(currentItem);
-//                    }
-//                });
-//            } else {
-//                addButton.setVisibility(View.INVISIBLE);
-//                linearLayout.setVisibility(View.VISIBLE);
-//                TextView description = (TextView) row.findViewById(R.id.textViewDetailNote);
-//                ImageButton edit = (ImageButton) row.findViewById(R.id.imageButtonEditNote);
-//                description.setText(currentItem.getDescription());
-//                edit.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        mListener.onItemClicked(currentItem);
-//                    }
-//                });
-//            }
-            LocalizeCurrencyFormatter formatter = LocalizeCurrencyFormatter.getInstance();
-
-            TextView totalItem = row.findViewById(R.id.textViewDetailTotal);
-            MposLogger.getInstance().debug("item: ", String.format(Locale.US,
-                    "Unit Price: %.2f, Price: %.2f, tax: %.2f, discount: %.2f, qth: %.2f",
-                    currentItem.getUnitPrice().floatValue(),
-                    currentItem.getAmount().floatValue(),
-                    currentItem.getTax().floatValue(),
-                    currentItem.getDiscount().floatValue(),
-                    currentItem.getQuantity().floatValue()));
-//            Log.i(TAG, "Unit Price : " + currentItem.getUnitPrice().floatValue() +
-//                    " Price : " + currentItem.getAmount().floatValue() +
-//                    " Tax : " + currentItem.getTax().floatValue() +
-//                    " Discount : " + currentItem.getDiscount().floatValue() +
-//                    " Quantity : " + currentItem.getQuantity().floatValue());
-            if (currentItem.getDiscount() != null
-                    && !Objects.equals(currentItem.getDiscount(), BigDecimal.ZERO)
-                    && currentItem.getDiscount().doubleValue() > 0.0) {
-                TextView textViewDiscount = row.findViewById(R.id.textViewDetailDiscount);
-                ViewGroup.LayoutParams params = textViewDiscount.getLayoutParams();
-                params.height = 24;
-                textViewDiscount.setLayoutParams(params);
-                String discountValue = formatter.getCurrencyFormat().format(currentItem.getDiscount().doubleValue());
-                //String formattedString = getContext().getString(R.string.str_discount_value, discountValue);
-                textViewDiscount.setText(getContext().getString(R.string.str_discount_value, discountValue));
-            }
-
-            if (currentItem.getTax() != null
-                    && !Objects.equals(currentItem.getTax(), BigDecimal.ZERO)
-                    && currentItem.getTax().doubleValue() > 0.0) {
-                TextView textViewTax = row.findViewById(R.id.textViewDetailTax);
-                ViewGroup.LayoutParams params = textViewTax.getLayoutParams();
-                params.height = 24;
-                String taxValue = formatter.getCurrencyFormat().format(currentItem.getTax().doubleValue());
-                textViewTax.setText(getContext().getString(R.string.str_tax_value, taxValue));
-            }
-
-            if (currentItem.getQuantity().doubleValue() > 1d) {
-                TextView textViewQuantity = row.findViewById(R.id.textViewDetailQuantity);
-                ViewGroup.LayoutParams params = textViewQuantity.getLayoutParams();
-                params.height = 24;
-                textViewQuantity.setText(getContext().getString(R.string.str_quantity_value,
-                        currentItem.getQuantity().toString()));
-            }
-            formatter.getCurrencyFormat().format(currentItem.getAmount().doubleValue());
-            totalItem.setText(Utils.getLocalizedAmount(currentItem.getUnitPrice().multiply(currentItem.getQuantity())));
             return row;
         }
     }

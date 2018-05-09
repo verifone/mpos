@@ -1,20 +1,14 @@
 package com.verifone.swordfish.manualtransaction.gui;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
-import com.verifone.commerce.entities.Payment;
-import com.verifone.swordfish.manualtransaction.IBridgeListener;
-import com.verifone.swordfish.manualtransaction.ManualTransactionApplication;
+import com.verifone.swordfish.manualtransaction.BuildConfig;
 import com.verifone.swordfish.manualtransaction.R;
-import com.verifone.utilities.Log;
-
-import java.math.BigDecimal;
 
 /**
  * Copyright (C) 2016,2017,2018 Verifone, Inc.
@@ -44,17 +38,22 @@ import java.math.BigDecimal;
  * Created by romans1 on 01/25/2018.
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements IBridgeListener {
+public abstract class BaseActivity extends AppCompatActivity {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
 
     private ProgressDialog mProgressDialog;
-    private AlertDialog mSessionErrorDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mProgressDialog = new ProgressDialog(this);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setSubtitle(getApplicationName());
+        }
     }
 
     @Override
@@ -62,10 +61,11 @@ public abstract class BaseActivity extends AppCompatActivity implements IBridgeL
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
-        if (mSessionErrorDialog != null && mSessionErrorDialog.isShowing()) {
-            mSessionErrorDialog.dismiss();
-        }
         super.onDestroy();
+    }
+
+    private String getApplicationName() {
+        return getString(R.string.app_name_extended) + " - " + BuildConfig.VERSION_NAME;
     }
 
     /**
@@ -110,112 +110,4 @@ public abstract class BaseActivity extends AppCompatActivity implements IBridgeL
         return (FinishFragment) getSupportFragmentManager().findFragmentById(R.id.finish_fragment);
     }
 
-
-    /**
-     * Carbon bridge listener. Override necessary callbacks in child classes.
-     */
-
-    @Override
-    public void sessionStarted() {
-
-    }
-
-    @Override
-    public void sessionStopped() {
-
-    }
-
-    @Override
-    public void merchandiseAdded() {
-
-    }
-
-    @Override
-    public void merchandiseUpdated() {
-
-    }
-
-    @Override
-    public void merchandiseDeleted() {
-
-    }
-
-    @Override
-    public void basketFinalized() {
-
-    }
-
-    @Override
-    public void onPaymentSuccess(Payment payment) {
-
-    }
-
-    @Override
-    public void onPaymentDecline() {
-
-    }
-
-    @Override
-    public void onPaymentFailure() {
-
-    }
-
-    @Override
-    public void onPaymentCanceled() {
-
-    }
-
-    @Override
-    public void onReceiptMethodSelected(int methodId, String recipient) {
-
-    }
-
-    @Override
-    public void onTransactionCanceled() {
-
-    }
-
-    @Override
-    public void onAmountAdded(@NonNull BigDecimal addedAmount) {
-
-    }
-
-    @Override
-    public void onTransactionEnded(boolean isSuccessful) {
-
-    }
-
-    @Override
-    public void sessionStartFailed() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mSessionErrorDialog = new AlertDialog.Builder(BaseActivity.this)
-                        .setTitle(R.string.title_payment_seesion_error)
-                        .setMessage(R.string.message_payment_session_failed)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                sessionStopped();
-                                ManualTransactionApplication.getCarbonBridge().stopSession();
-                            }
-                        }).create();
-                hideDialog();
-                mSessionErrorDialog.show();
-            }
-        });
-
-    }
-
-    @Override
-    public void reconcileSuccess() {
-
-    }
-
-    @Override
-    public void reconcileFailed(String message) {
-
-    }
 }

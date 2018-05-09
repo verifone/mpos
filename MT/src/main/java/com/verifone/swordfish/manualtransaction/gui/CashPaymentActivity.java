@@ -5,8 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -15,7 +18,6 @@ import com.verifone.commerce.entities.Transaction;
 import com.verifone.swordfish.manualtransaction.IBridgeListener;
 import com.verifone.swordfish.manualtransaction.ManualTransactionApplication;
 import com.verifone.swordfish.manualtransaction.R;
-import com.verifone.swordfish.manualtransaction.tools.DisplayStringRepresentation;
 import com.verifone.swordfish.manualtransaction.tools.PrinterUtility;
 import com.verifone.swordfish.manualtransaction.tools.Utils;
 
@@ -54,13 +56,14 @@ import static com.verifone.commerce.entities.Receipt.DELIVERY_METHOD_SMS;
  * Created by abey on 1/5/2018.
  */
 
-public class CashPaymentActivity extends BaseActivity
+public class CashPaymentActivity extends BaseListenerActivity
         implements IBridgeListener, View.OnClickListener, FinishFragment.IFinishFragmentListener {
 
     private View mMainRightView;
     private View mFinishRightView;
+
     private TextView mTotalAmountValue;
-    private TextView mCashReceivedValue;
+    private NumericEditText mCashReceivedValue;
     private TextView mBalanceTitle;
     private TextView mBalanceValue;
 
@@ -68,17 +71,19 @@ public class CashPaymentActivity extends BaseActivity
     private Button mCancelTransactionBtn;
     private Button mTenderBtn;
 
-    private DisplayStringRepresentation mDisplayStringRepresentation;
-
     private BigDecimal mAmount = BigDecimal.ZERO;
     private BigDecimal mCashReceiveAmount = BigDecimal.ZERO;
     private BigDecimal mChangeDueAmount = BigDecimal.ZERO;
     private BigDecimal mBalanceAmount = BigDecimal.ZERO;
 
+    private TextWatcher textWatcher = getTextWatcher();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cash_payment);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         if (getIntent().getExtras() != null) {
             mAmount = (BigDecimal) getIntent().getExtras().getSerializable(PaymentActivity.AMOUNT_KEY);
@@ -98,22 +103,18 @@ public class CashPaymentActivity extends BaseActivity
         mBackBtn = findViewById(R.id.btn_middle);
         mCancelTransactionBtn = findViewById(R.id.btn_left);
 
-        mTenderBtn.setText(R.string.tender_button_label);
-        mBackBtn.setText(R.string.back_button_label);
-        mCancelTransactionBtn.setText(R.string.buttonCancelTx);
+        mCashReceivedValue.setRepresentationType(NumericEditText.RepresentationType.CURRENCY);
+
+        mTenderBtn.setText(R.string.tender_label);
+        mTenderBtn.setAllCaps(true);
+        mBackBtn.setText(R.string.back_label);
+        mBackBtn.setAllCaps(true);
+        mCancelTransactionBtn.setText(R.string.cancel_transaction_btn);
+        mCancelTransactionBtn.setAllCaps(true);
 
         mTenderBtn.setOnClickListener(this);
         mBackBtn.setOnClickListener(this);
         mCancelTransactionBtn.setOnClickListener(this);
-
-        mDisplayStringRepresentation = new DisplayStringRepresentation();
-
-        configureTextView((TextView) findViewById(R.id.textView3), 3f);
-        configureTextView((TextView) findViewById(R.id.textView5), 5f);
-        configureTextView((TextView) findViewById(R.id.textView10), 10f);
-        configureTextView((TextView) findViewById(R.id.textView20), 20f);
-        configureTextView((TextView) findViewById(R.id.textView50), 50f);
-        configureTextView((TextView) findViewById(R.id.textView100), 100f);
 
         mBalanceAmount = new BigDecimal(mAmount.toString());
 
@@ -127,11 +128,19 @@ public class CashPaymentActivity extends BaseActivity
     protected void onStart() {
         super.onStart();
         PrinterUtility.getInstance().bindPrintService(getApplicationContext());
+        mCashReceivedValue.addTextChangedListener(textWatcher);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mCashReceivedValue.requestFocus();
     }
 
     @Override
     protected void onStop() {
         PrinterUtility.getInstance().unbindPrintService(getApplicationContext());
+        mCashReceivedValue.removeTextChangedListener(textWatcher);
         super.onStop();
     }
 
@@ -161,10 +170,6 @@ public class CashPaymentActivity extends BaseActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    private void configureTextView(TextView textView, float amount) {
-        textView.setText(mDisplayStringRepresentation.formatLocalCurrencyAmount(amount));
     }
 
     private void goBack() {
@@ -197,8 +202,6 @@ public class CashPaymentActivity extends BaseActivity
 
     private void calcAmounts(String sumStr) {
         if (!TextUtils.isEmpty(sumStr)) {
-            mCashReceivedValue.setText(sumStr);
-
             mCashReceiveAmount = new BigDecimal(sumStr);
             mBalanceAmount = mAmount.subtract(mCashReceiveAmount);
             if (mBalanceAmount.floatValue() < 0) {
@@ -208,7 +211,6 @@ public class CashPaymentActivity extends BaseActivity
         } else {
             mBalanceAmount = new BigDecimal(mAmount.toString());
             mCashReceiveAmount = BigDecimal.ZERO;
-            mCashReceivedValue.setText(Utils.getLocalizedAmount(mCashReceiveAmount));
             mBalanceValue.setText(Utils.getLocalizedAmount(mAmount));
         }
         mChangeDueAmount = mAmount.subtract(mCashReceiveAmount);
@@ -218,31 +220,29 @@ public class CashPaymentActivity extends BaseActivity
             mBalanceValue.setText(Utils.getLocalizedAmount(mChangeDueAmount));
         } else {
             mTenderBtn.setVisibility(View.INVISIBLE);
-            mBalanceTitle.setText(R.string.balance_text_label);
+            mBalanceTitle.setText(R.string.balance_label);
+            mBalanceTitle.setAllCaps(true);
             mBalanceValue.setText(Utils.getLocalizedAmount(mBalanceAmount));
         }
     }
 
-    /**
-     * Method which handle numeric keyboard clicks
-     */
-    public void onCashAmountClick(View view) {
-        String viewTagStr = view.getTag().toString();
-        mDisplayStringRepresentation = new DisplayStringRepresentation();
-        mDisplayStringRepresentation.attachValue(viewTagStr, null);
-        mDisplayStringRepresentation.attachValue("0", null);
-        mDisplayStringRepresentation.attachValue("0", null);
-        calcAmounts(mDisplayStringRepresentation.currentString());
-    }
+    private TextWatcher getTextWatcher() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    /**
-     * Method which handle numeric keyboard clicks
-     */
-    public void onNumberClick(View view) {
-        mDisplayStringRepresentation.attachValue((String) view.getTag(), null);
-        String sumStr = mDisplayStringRepresentation.currentString();
+            }
 
-        calcAmounts(sumStr);
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                calcAmounts(mCashReceivedValue.getValue());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
     }
 
     @Override

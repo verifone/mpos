@@ -106,15 +106,18 @@ public class FinishFragment extends Fragment implements View.OnClickListener {
         if (mPayment != null) {
             Receipt receipt = mPayment.getReceipt();
 
-            if (receipt == null && getActivity() != null) {
-                Toast.makeText(getActivity(), "Receipt unavailable, can not print!", Toast.LENGTH_LONG).show();
-                return;
-            }
-
             if (mPrintListener == null) {
                 mPrintListener = createPrintListener();
             }
-            PrinterUtility.getInstance().printReceipt(receipt, mPrintListener);
+
+            FragmentActivity activity = getActivity();
+            if (receipt == null && activity != null) {
+                PrinterUtility.getInstance().printUnknownReceipt(activity, mPayment, mPrintListener);
+
+                Toast.makeText(activity, R.string.receipt_unavailable_message, Toast.LENGTH_LONG).show();
+            } else {
+                PrinterUtility.getInstance().printReceipt(receipt, mPrintListener);
+            }
         }
     }
 
@@ -140,7 +143,7 @@ public class FinishFragment extends Fragment implements View.OnClickListener {
             public void failed(String printId, String errorMessage) throws RemoteException {
                 final FragmentActivity activity = getActivity();
                 if (activity != null) {
-                    final String message = errorMessage == null ? "Print failed" : errorMessage;
+                    final String message = errorMessage == null ? getString(R.string.print_failed_message) : errorMessage;
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -157,7 +160,7 @@ public class FinishFragment extends Fragment implements View.OnClickListener {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getActivity(), "Print completed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), R.string.print_completed_message, Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

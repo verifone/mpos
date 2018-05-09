@@ -85,6 +85,9 @@ public class BasketUtils {
                 iterator.remove();
                 continue;
             }
+
+            offer.setAmount(amountToAdjustTotal);
+
             // use the amountToAdjustTotal to update the displayed amount.
             currentSubtotal = currentSubtotal.add(amountToAdjustTotal);
         }

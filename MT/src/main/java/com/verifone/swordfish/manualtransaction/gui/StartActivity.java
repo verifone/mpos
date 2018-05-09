@@ -47,7 +47,7 @@ import com.verifone.swordfish.manualtransaction.tools.Utils;
  * Created by abey on 1/4/2018.
  */
 
-public class StartActivity extends AppCompatActivity implements View.OnClickListener {
+public class StartActivity extends BaseActivity implements View.OnClickListener {
 
     public static final int GENERAL_REQUEST_CODE = 10000;
 
@@ -118,7 +118,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     public void onClick(DialogInterface dialog, int which) {
                         Context context = changeIpButton.getContext();
 
-                        Toast.makeText(context, "Changed!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, R.string.changed_message, Toast.LENGTH_SHORT).show();
 
                         mTerminalIP = editTextIP.getText().toString();
                         mTerminalPort = editTextPort.getText().toString();

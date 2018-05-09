@@ -3,9 +3,10 @@ package com.verifone.swordfish.manualtransaction.gui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.verifone.commerce.entities.Merchandise;
@@ -13,11 +14,10 @@ import com.verifone.swordfish.manualtransaction.CarbonBridge;
 import com.verifone.swordfish.manualtransaction.IBridgeListener;
 import com.verifone.swordfish.manualtransaction.ManualTransactionApplication;
 import com.verifone.swordfish.manualtransaction.R;
-import com.verifone.swordfish.manualtransaction.tools.DisplayStringRepresentation;
-import com.verifone.utilities.Log;
 
 import java.math.BigDecimal;
-import java.util.List;
+
+import static com.verifone.swordfish.manualtransaction.gui.NumericEditText.*;
 
 /**
  * Copyright (C) 2016,2017,2018 Verifone, Inc.
@@ -47,25 +47,23 @@ import java.util.List;
  * Created by abey on 1/4/2018.
  */
 
-public class OrderCreateActivity extends BaseActivity implements View.OnClickListener,
+public class OrderCreateActivity extends BaseListenerActivity implements View.OnClickListener,
         IBridgeListener, OrderListFragment.IOrderListFragmentListener, ItemDetailsFragment.IDetailsFragmentListener {
 
     private static final String TAG = OrderCreateActivity.class.getSimpleName();
 
     private Button mPayBtn;
     private Button mCancelTransactionBtn;
-    private ImageButton mAddBtn;
+    private Button mAddBtn;
     private ImageButton mIncrementBtn;
     private ImageButton mDecrementBtn;
-    private EditText mQuantityTextView;
-
-    private OrderListFragment mOrderListFragment;
-    private DisplayStringRepresentation mDisplayStringRepresentation;
-
-    private static int itemID = 0;
-    private int quantity = 1;
+    private NumericEditText mQuantityEditText;
 
     private ItemDetailsFragment mItemDetailsFragment;
+    private OrderListFragment mOrderListFragment;
+
+    private ViewGroup mQuantityLayout;
+    private static int itemID = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,12 +75,14 @@ public class OrderCreateActivity extends BaseActivity implements View.OnClickLis
         mPayBtn = findViewById(R.id.btn_right);
         mCancelTransactionBtn = findViewById(R.id.btn_left);
         mAddBtn = findViewById(R.id.btn_add);
+        mQuantityEditText = findViewById(R.id.quantityField);
         mIncrementBtn = findViewById(R.id.btn_increment);
         mDecrementBtn = findViewById(R.id.btn_decrement);
-        mQuantityTextView = findViewById(R.id.quantityField);
-
-        mPayBtn.setText(R.string.str_pay);
+        mQuantityLayout = findViewById(R.id.quantityLayout);
+        mQuantityEditText.setRepresentationType(RepresentationType.QUANTITY);
+        mPayBtn.setText(R.string.pay_label);
         mCancelTransactionBtn.setText(R.string.cancel_transaction_btn);
+        mCancelTransactionBtn.setAllCaps(true);
 
         mPayBtn.setOnClickListener(this);
         mPayBtn.setEnabled(false);
@@ -90,8 +90,6 @@ public class OrderCreateActivity extends BaseActivity implements View.OnClickLis
         mAddBtn.setOnClickListener(this);
         mIncrementBtn.setOnClickListener(this);
         mDecrementBtn.setOnClickListener(this);
-
-        mDisplayStringRepresentation = new DisplayStringRepresentation();
 
         mOrderListFragment = OrderListFragment.getInstance(true);
         getSupportFragmentManager().beginTransaction().add(R.id.container, mOrderListFragment).commit();
@@ -133,40 +131,38 @@ public class OrderCreateActivity extends BaseActivity implements View.OnClickLis
         ManualTransactionApplication.getCarbonBridge().startPaymentSession();
     }
 
-    /**
-     * Method which handle numeric keyboard clicks
-     */
-    public void onNumberClick(View view) {
-        //If item details fragment is open - send keyboard actions there
-        if (mItemDetailsFragment != null) {
-            mItemDetailsFragment.onNumberClick(view);
-        } else {
-            mDisplayStringRepresentation.attachValue((String) view.getTag(), null);
-            mOrderListFragment.setDisplayText(mDisplayStringRepresentation.currentString());
-        }
-    }
-
     private void increment() {
-        quantity++;
-        mQuantityTextView.setText(String.valueOf(quantity));
+        int quantity = Integer.parseInt(mQuantityEditText.getValue());
+        String incrementedQuantity = String.valueOf(++quantity);
+        mQuantityEditText.setText(incrementedQuantity);
     }
 
     private void decrement() {
-        if (quantity > 1) quantity--;
-        mQuantityTextView.setText(String.valueOf(quantity));
+        int quantity = Integer.parseInt(mQuantityEditText.getValue());
+        if (quantity > 1) {
+            String decrementedQuantity = String.valueOf(--quantity);
+            mQuantityEditText.setText(decrementedQuantity);
+        }
     }
 
     private void addItem() {
-        BigDecimal itemPrice = null;
-        String priceStr = mDisplayStringRepresentation.currentString();//priceBuilder.toString();
-        if (priceStr == null) return;
+        BigDecimal itemPrice;
+        String priceStr = mOrderListFragment.getCurrentPrice();
+        int quantity = Integer.parseInt(mQuantityEditText.getValue());
+
+        if (priceStr == null) {
+            return;
+        }
+
         try {
             itemPrice = new BigDecimal(priceStr);
         } catch (NumberFormatException e) {
             return;
         }
-//        BigDecimal price = mOrderListFragment.getPrice();
-        if (itemPrice.floatValue() == 0) return;
+
+        if (itemPrice.floatValue() == 0) {
+            return;
+        }
         //TODO add to basket
 
         BigDecimal extendedPrice = itemPrice.multiply(new BigDecimal(quantity));
@@ -176,7 +172,7 @@ public class OrderCreateActivity extends BaseActivity implements View.OnClickLis
         merchandise.setName(String.valueOf(itemID));
         // This should be different from the name.
         merchandise.setDescription(" ");
-        merchandise.setDisplayLine("Display name " + itemID);
+        merchandise.setDisplayLine(getString(R.string.display_name, itemID));
         if (quantity != 0)
             merchandise.setQuantity(quantity);
         merchandise.setAmount(itemPrice.multiply(new BigDecimal(quantity)));
@@ -187,20 +183,13 @@ public class OrderCreateActivity extends BaseActivity implements View.OnClickLis
 
         ManualTransactionApplication.getCarbonBridge().addMerchandise(merchandise);
 
-        quantity = 1;
-        mQuantityTextView.setText(String.valueOf(quantity));
-        mDisplayStringRepresentation = new DisplayStringRepresentation();
-        mOrderListFragment.setDisplayText(null);
-
+        mQuantityEditText.clearValue();
+        mOrderListFragment.clearCurrentPriceValue();
     }
 
     private void updateBasket() {
         mOrderListFragment.updateBasket();
-
-        List<Merchandise> merchandises = ManualTransactionApplication.getCarbonBridge().getMerchandises();
-        if (merchandises != null && !merchandises.isEmpty()) {
-            mPayBtn.setEnabled(true);
-        }
+        mPayBtn.setEnabled(mOrderListFragment.getBasketSize() > 0);
     }
 
     private void cancelTransaction() {
@@ -212,6 +201,11 @@ public class OrderCreateActivity extends BaseActivity implements View.OnClickLis
     private void pay() {
         showDialogWithMessage(getString(R.string.basket_adjustment), true);
         ManualTransactionApplication.getCarbonBridge().finalizeBasket();
+    }
+
+    private void updateUI(boolean onEditMode) {
+        mPayBtn.setEnabled(!onEditMode);
+        mQuantityLayout.setVisibility(!onEditMode ? VISIBLE : GONE);
     }
 
     @Override
@@ -241,10 +235,8 @@ public class OrderCreateActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onItemClicked(Merchandise merchandise) {
         mItemDetailsFragment = ItemDetailsFragment.getInstance(merchandise);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, mItemDetailsFragment)
-                .commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mItemDetailsFragment).commit();
+        updateUI(true);
     }
 
     /**
@@ -252,22 +244,21 @@ public class OrderCreateActivity extends BaseActivity implements View.OnClickLis
      */
     @Override
     public void onDelete(Merchandise merchandise) {
-        mItemDetailsFragment = null;
+        onCancel();
+        ManualTransactionApplication.getCarbonBridge().deleteMerchandise(merchandise);
     }
 
     @Override
-    public void onSave(Merchandise originalMerchandise, Merchandise newMerchandise) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,
-                mOrderListFragment).commit();
-        mItemDetailsFragment = null;
+    public void onSave(Merchandise newMerchandise) {
+        onCancel();
         ManualTransactionApplication.getCarbonBridge().updateMerchandise(newMerchandise);
     }
 
     @Override
     public void onCancel() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,
-                mOrderListFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mOrderListFragment).commit();
         mItemDetailsFragment = null;
+        updateUI(false);
     }
 
     /**

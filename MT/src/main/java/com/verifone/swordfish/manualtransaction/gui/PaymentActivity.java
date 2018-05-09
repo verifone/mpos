@@ -40,7 +40,7 @@ import com.verifone.swordfish.manualtransaction.tools.BasketUtils;
  * Created by abey on 1/5/2018.
  */
 
-public class PaymentActivity extends BaseActivity
+public class PaymentActivity extends BaseListenerActivity
         implements IBridgeListener, View.OnClickListener {
 
     public static final String AMOUNT_KEY = "amount";
@@ -48,9 +48,9 @@ public class PaymentActivity extends BaseActivity
     private Button mBackBtn;
     private Button mCancelTransactionBtn;
     private Button mSplitBtn;
-    private ImageButton mCashBtn;
-    private ImageButton mChargeBtn;
-    private ImageButton mPhoneBtn;
+    private Button mCashBtn;
+    private Button mChargeBtn;
+    private Button mPhoneBtn;
 
     private OrderListFragment mOrderListFragment;
 
@@ -68,9 +68,12 @@ public class PaymentActivity extends BaseActivity
         mChargeBtn = findViewById(R.id.chargeCreditButton);
         mPhoneBtn = findViewById(R.id.phoneOrderButton);
 
-        mBackBtn.setText(R.string.back_button_label);
-        mSplitBtn.setText(R.string.split_button_label);
-        mCancelTransactionBtn.setText(R.string.buttonCancelTx);
+        mBackBtn.setText(R.string.back_label);
+        mBackBtn.setAllCaps(true);
+        mSplitBtn.setText(R.string.split_label);
+        mSplitBtn.setAllCaps(true);
+        mCancelTransactionBtn.setText(R.string.cancel_transaction_btn);
+        mCancelTransactionBtn.setAllCaps(true);
 
         mBackBtn.setOnClickListener(this);
         mSplitBtn.setOnClickListener(this);

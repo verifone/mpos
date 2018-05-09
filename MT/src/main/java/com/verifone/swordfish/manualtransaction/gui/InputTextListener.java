@@ -1,7 +1,5 @@
-package com.verifone.swordfish.manualtransaction.tools;
+package com.verifone.swordfish.manualtransaction.gui;
 
-
-import io.fabric.sdk.android.Fabric;
 
 /**
  * Copyright (C) 2016,2017,2018 Verifone, Inc.
@@ -26,25 +24,13 @@ import io.fabric.sdk.android.Fabric;
  * Except as contained in this notice, the name of Verifone, Inc. shall not be
  * used in advertising or otherwise to promote the sale, use or other dealings
  * in this Software without prior written authorization from Verifone, Inc.
+ * <p>
+ * <p>
+ * Created by evgeniag1 on 03/21/2018.
  */
 
+public interface InputTextListener {
 
-public class MposLogger {
-    private static final MposLogger ourInstance = new MposLogger();
+    void onValueInputted(String value);
 
-
-    public static MposLogger getInstance() {
-        return ourInstance;
-    }
-
-    private MposLogger() {
-    }
-
-    public void debug(String category, String action) {
-        Fabric.getLogger().d(category, action);
-    }
-
-    public void error(String category, String action) {
-        Fabric.getLogger().e(category, action);
-    }
 }

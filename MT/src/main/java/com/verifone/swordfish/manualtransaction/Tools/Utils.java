@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.Locale;
 
 /**
  * Copyright (C) 2016,2017 Verifone, Inc.
@@ -35,9 +37,6 @@ public class Utils {
 
     private static final String TAG = Utils.class.getSimpleName();
 
-    public static final String STR_DOLLAR = "$";
-    public static final String STR_PERCENT = "%";
-
     public static final String PREFS_NAME = "configs";
     public static final String PREFS_KEY_IP = "configs_ip";
     public static final String PREFS_KEY_PORT = "configs_port";
@@ -65,5 +64,9 @@ public class Utils {
     public static void saveTerminalPort(Context context, String terminalPort) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, 0);
         sharedPreferences.edit().putString(PREFS_KEY_PORT, terminalPort).apply();
+    }
+
+    public static CharSequence getCurrencySymbol() {
+        return Currency.getInstance(Locale.getDefault()).getSymbol();
     }
 }

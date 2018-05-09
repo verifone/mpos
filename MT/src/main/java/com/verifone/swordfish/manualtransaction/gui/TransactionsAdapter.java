@@ -73,20 +73,16 @@ class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.ViewH
         String mVoidDeclined;
         String mRefundDeclined;
         String mNotAvailable;
-        String mRefund;
-        String mVoid;
 
         SharedPreferences mStatusInfoPrefs;
 
         public ResourcesHolder(Resources resources, SharedPreferences statusInfoPrefs) {
             mVoidCaption = resources.getString(R.string.void_label);
-            mRefundCaption = resources.getString(R.string.refund_title_textView);
+            mRefundCaption = resources.getString(R.string.refund_label);
             mRejectedCaption = resources.getString(R.string.rejected_label);
             mVoidDeclined = resources.getString(R.string.void_declined_label);
             mRefundDeclined = resources.getString(R.string.refund_declined_label);
             mNotAvailable = resources.getString(R.string.not_available);
-            mRefund = resources.getString(R.string.str_refund);
-            mVoid = resources.getString(R.string.void_label);
 
             mStatusInfoPrefs = statusInfoPrefs;
         }
@@ -172,7 +168,8 @@ class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.ViewH
             String descriptionText = transaction.getInvoiceId();
             String authResult = null;
 
-            String refundCaption = mResourcesHolder.mRefund;
+            TransactionHistoryActivity.TransactionState refundButtonState = TransactionHistoryActivity.TransactionState.NONE;
+            String refundCaption = mResourcesHolder.mRefundCaption;
 
             switch (payment.getAuthResult()) {
                 case AUTHORIZED_ONLINE:
@@ -183,7 +180,8 @@ class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.ViewH
 
                     switch (paymentType) {
                         case CASH:
-                            refundCaption = mResourcesHolder.mRefund;
+                            refundCaption = mResourcesHolder.mRefundCaption;
+                            refundButtonState = TransactionHistoryActivity.TransactionState.REFUND;
                             break;
                         case CREDIT:
                         case DEBIT:
@@ -191,9 +189,11 @@ class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.ViewH
                         case EBT:
                             long lastReconcileDate = TransactionStorage.getLastReconcileDate(mResourcesHolder.mStatusInfoPrefs);
                             if (parsedDate == null || parsedDate.getTime() <= lastReconcileDate) {
-                                refundCaption = mResourcesHolder.mRefund;
+                                refundCaption = mResourcesHolder.mRefundCaption;
+                                refundButtonState = TransactionHistoryActivity.TransactionState.REFUND;
                             } else {
-                                refundCaption = mResourcesHolder.mVoid;
+                                refundCaption = mResourcesHolder.mVoidCaption;
+                                refundButtonState = TransactionHistoryActivity.TransactionState.VOID;
                             }
                             break;
                         case ALTERNATE:
@@ -245,7 +245,8 @@ class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.ViewH
             holder.mButtonPrintReceipt.setTag(position);
             holder.mButtonPrintReceipt.setOnClickListener(getOnPrintButtonClickListener());
 
-            holder.mButtonRefund.setTag(position);
+            holder.mButtonRefund.setTag(R.id.KEY_POSITION, position);
+            holder.mButtonRefund.setTag(R.id.KEY_BUTTON_STATE, refundButtonState);
             holder.mButtonRefund.setOnClickListener(getOnRefundClickListener());
             holder.mButtonRefund.setText(refundCaption);
         }
@@ -255,7 +256,7 @@ class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.ViewH
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Object tag = view.getTag();
+                Object tag = view.getTag(R.id.KEY_POSITION);
                 if (tag == null) {
                     return;
                 }
@@ -264,7 +265,10 @@ class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.ViewH
 
                 if (mTransactions != null && position < mTransactions.size() && mTransactionHistoryListener != null) {
                     Transaction transaction = mTransactions.get(position);
-                    mTransactionHistoryListener.onRefund(transaction);
+
+                    Object tagButtonState = view.getTag(R.id.KEY_BUTTON_STATE);
+                    mTransactionHistoryListener.onRefund(transaction,
+                            tagButtonState == null ? TransactionHistoryActivity.TransactionState.NONE : (TransactionHistoryActivity.TransactionState) tagButtonState);
                 }
 
             }

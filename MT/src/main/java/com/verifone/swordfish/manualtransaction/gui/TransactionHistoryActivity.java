@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.RemoteException;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -25,7 +24,6 @@ import com.verifone.swordfish.manualtransaction.R;
 import com.verifone.swordfish.manualtransaction.TransactionStorage;
 import com.verifone.swordfish.manualtransaction.tools.PrinterUtility;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -61,7 +59,7 @@ import java.util.Locale;
  */
 
 
-public class TransactionHistoryActivity extends BaseActivity implements IBridgeListener, ITransactionHistoryListener {
+public class TransactionHistoryActivity extends BaseListenerActivity implements IBridgeListener, ITransactionHistoryListener {
 
     private Thread mLoadingTransactionsThread;
     private AlertDialog mAlertDialogRefundRequest;
@@ -69,7 +67,7 @@ public class TransactionHistoryActivity extends BaseActivity implements IBridgeL
     private SimpleDateFormat mSimpleDateFormatFrom;
     private SimpleDateFormat mSyncDateSimpleDateFormat;
 
-    private enum TransactionState {NONE, REFUND, VOID}
+    public enum TransactionState {NONE, REFUND, VOID}
 
     private TransactionState mTransactionState = TransactionState.NONE;
 
@@ -88,7 +86,7 @@ public class TransactionHistoryActivity extends BaseActivity implements IBridgeL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_history_controller);
 
-        setTitle(R.string.tab_two);
+        setTitle(R.string.transaction_history);
 
         mSimpleDateFormatFrom = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault());
         mSyncDateSimpleDateFormat = new SimpleDateFormat("MM/dd hh:mm", Locale.getDefault());
@@ -226,57 +224,23 @@ public class TransactionHistoryActivity extends BaseActivity implements IBridgeL
     }
 
     @Override
-    public void onRefund(final Transaction transaction) {
+    public void onRefund(final Transaction transaction, final TransactionState buttonState) {
         DialogInterface.OnClickListener onOkClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                ArrayList<Payment> payments = transaction.getPayments();
-                if (payments != null && payments.size() > 0) {
-                    for (Payment payment : payments) {
-                        Payment.AuthorizationResult authResult = payment.getAuthResult();
-                        switch (authResult) {
-                            case AUTHORIZED_ONLINE:
-                            case AUTHORIZED_OFFLINE:
-                            case AUTHORIZED_EXTERNALLY:
-                            case CASH_VERIFIED:
-                                mTransactionForRefund = transaction;
-                                mPaymentForRefund = payment;
-                                Payment.PaymentType paymentType = payment.getPaymentType();
-                                switch (paymentType) {
-                                    case CASH:
-                                        mTransactionState = TransactionState.REFUND;
-                                        startTerminalSession();
-                                        break;
-                                    case CREDIT:
-                                    case DEBIT:
-                                    case STORED_VALUE:
-                                    case EBT:
-                                        Date parsedDate = null;
-                                        try {
-                                            String timestamp = payment.getTimestamp();
-                                            if (!TextUtils.isEmpty(timestamp)) {
-                                                parsedDate = mSimpleDateFormatFrom.parse(timestamp);
-                                            }
-                                        } catch (ParseException ignored) {
-                                        }
-                                        long lastReconcileDate = TransactionStorage.getLastReconcileDate(getApplicationContext());
-                                        if (parsedDate == null || parsedDate.getTime() <= lastReconcileDate) {
-                                            mTransactionState = TransactionState.REFUND;
-                                        } else {
-                                            mTransactionState = TransactionState.VOID;
-                                        }
-                                        startTerminalSession();
-                                        break;
-                                    case ALTERNATE:
-                                    case CHECK:
-                                        break;
-                                }
-                                break;
-                            default:
-                                break;
-                        }
-
-                    }
+                mTransactionState = buttonState;
+                switch (buttonState) {
+                    case REFUND:
+                    case VOID:
+                        mTransactionForRefund = transaction;
+                        ArrayList<Payment> payments = transaction.getPayments();
+                        mPaymentForRefund = payments != null && payments.size() > 0 ? payments.get(payments.size() - 1) : null;
+                        startTerminalSession();
+                        break;
+                    case NONE:
+                    default:
+                        mTransactionState = TransactionState.NONE;
+                        break;
                 }
             }
         };
@@ -284,17 +248,31 @@ public class TransactionHistoryActivity extends BaseActivity implements IBridgeL
         if (mAlertDialogRefundRequest != null) {
             mAlertDialogRefundRequest.dismiss();
         }
-        mAlertDialogRefundRequest = new AlertDialog.Builder(this)
-                .setMessage(R.string.void_transaction_label)
-                .setPositiveButton(R.string.str_yes, onOkClickListener)
-                .setNegativeButton(R.string.str_no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                }).create();
+        String stateCaption = null;
+        switch (buttonState) {
+            case REFUND:
+                stateCaption = getString(R.string.refund_label);
+                break;
+            case VOID:
+                stateCaption = getString(R.string.void_label);
+                break;
+            case NONE:
+            default:
+                break;
+        }
+        if (stateCaption != null) {
+            mAlertDialogRefundRequest = new AlertDialog.Builder(this)
+                    .setMessage(getString(R.string.are_you_sure_you_want_to, stateCaption))
+                    .setPositiveButton(R.string.str_yes, onOkClickListener)
+                    .setNegativeButton(R.string.str_no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    }).create();
 
-        mAlertDialogRefundRequest.show();
+            mAlertDialogRefundRequest.show();
+        }
     }
 
     @Override
@@ -305,6 +283,8 @@ public class TransactionHistoryActivity extends BaseActivity implements IBridgeL
                 Receipt receipt = payment.getReceipt();
                 if (receipt != null) {
                     PrinterUtility.getInstance().printReceipt(receipt, mPrintListener);
+                } else {
+                    PrinterUtility.getInstance().printUnknownReceipt(this, payment, mPrintListener);
                 }
             }
         }
@@ -378,6 +358,8 @@ public class TransactionHistoryActivity extends BaseActivity implements IBridgeL
                 Receipt receipt = paymentRefunded.getReceipt();
                 if (receipt != null) {
                     PrinterUtility.getInstance().printReceipt(receipt, mPrintListener);
+                } else {
+                    PrinterUtility.getInstance().printUnknownReceipt(this, paymentRefunded, mPrintListener);
                 }
                 mTransactionForRefund.getPayments().add(paymentRefunded);
                 ManualTransactionApplication.getTransactionStorage()
@@ -392,7 +374,9 @@ public class TransactionHistoryActivity extends BaseActivity implements IBridgeL
             public void run() {
                 hideDialog();
                 Toast.makeText(TransactionHistoryActivity.this,
-                        mTransactionState.name() + " is: " + (isSuccessful ? "SUCCESS" : "FAILED"), Toast.LENGTH_LONG).show();
+                        getString(R.string.item_is_status_pattern, mTransactionState.name(),
+                                getString(isSuccessful ? R.string.success_label : R.string.failed_label).toUpperCase()),
+                        Toast.LENGTH_LONG).show();
                 mTransactionState = TransactionState.NONE;
                 refreshTransactionList();
             }
@@ -441,7 +425,7 @@ public class TransactionHistoryActivity extends BaseActivity implements IBridgeL
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String message = errorMessage == null ? "Print failed" : errorMessage;
+                        String message = errorMessage == null ? getString(R.string.print_failed_message) : errorMessage;
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -453,7 +437,7 @@ public class TransactionHistoryActivity extends BaseActivity implements IBridgeL
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(context, "Print completed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, R.string.print_completed_message, Toast.LENGTH_SHORT).show();
                     }
                 });
             }

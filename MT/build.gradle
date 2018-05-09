@@ -1,7 +1,11 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 def appVersionName = "3.0."
 def appVersionCode = System.getenv("BUILD_NUMBER") as Integer ?: 0
+
+def props = new Properties()
+file("release.properties").withInputStream { props.load(it) }
 
 android {
     compileSdkVersion 26
@@ -20,7 +24,10 @@ android {
         versionName appVersionName + appVersionCode
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        project.ext.set("archivesBaseName", "MT-" + versionName + "-" + versionCode);
+        project.ext.set("archivesBaseName", "MT-" + versionName + "-" + versionCode)
+
+        //inject api key from props file to manifest
+        manifestPlaceholders = [fabric_api_key: props.FABRIC_API_KEY]
     }
     buildTypes {
         release {
@@ -55,12 +62,9 @@ dependencies {
     compile 'pl.mg6.hrisey:hrisey:0.3.1'
     compile 'com.google.code.gson:gson:2.8.2'
 
-    compile "android.arch.lifecycle:runtime:1.0.3"
-    compile "android.arch.lifecycle:extensions:1.0.0"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
-
-    compile "android.arch.persistence.room:runtime:1.0.0"
-    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+    compile('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
+        transitive = true
+    }
 }
 
 /**

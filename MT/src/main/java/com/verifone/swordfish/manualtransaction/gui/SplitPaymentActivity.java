@@ -3,9 +3,11 @@ package com.verifone.swordfish.manualtransaction.gui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,7 +15,6 @@ import android.widget.TextView;
 import com.verifone.swordfish.manualtransaction.IBridgeListener;
 import com.verifone.swordfish.manualtransaction.ManualTransactionApplication;
 import com.verifone.swordfish.manualtransaction.R;
-import com.verifone.swordfish.manualtransaction.tools.DisplayStringRepresentation;
 import com.verifone.swordfish.manualtransaction.tools.Utils;
 import com.verifone.utilities.ConversionUtility;
 
@@ -47,7 +48,7 @@ import java.math.BigDecimal;
  * Created by abey on 1/12/2018.
  */
 
-public class SplitPaymentActivity extends BaseActivity implements View.OnClickListener, IBridgeListener {
+public class SplitPaymentActivity extends BaseListenerActivity implements View.OnClickListener, IBridgeListener {
 
     private static final int REQUEST_CODE_CASH = 12101;
     private static final int REQUEST_CODE_CHARGE = 12102;
@@ -57,13 +58,11 @@ public class SplitPaymentActivity extends BaseActivity implements View.OnClickLi
     private TextView mCreditChargedValue;
     private TextView mBalanceTitle;
     private TextView mBalanceValue;
-    private TextView mEnteredValue;
+    private NumericEditText mEnteredValue;
 
     private Button mChargeBtn;
     private Button mBackBtn;
     private Button mCashBtn;
-
-    private DisplayStringRepresentation mDisplayStringRepresentation;
 
     private BigDecimal mInitialAmount = BigDecimal.ZERO;
     private BigDecimal mCashReceivedAmount = BigDecimal.ZERO;
@@ -73,8 +72,9 @@ public class SplitPaymentActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_split_payment);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         if (savedInstanceState != null) {
             mInitialAmount = (BigDecimal) savedInstanceState.getSerializable(PaymentActivity.AMOUNT_KEY);
@@ -101,24 +101,30 @@ public class SplitPaymentActivity extends BaseActivity implements View.OnClickLi
         mChargeBtn.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL | Gravity.END);
         mChargeBtn.setLayoutParams(layoutParams);
 
-        mBackBtn.setText(R.string.back_button_label);
-        mCashBtn.setText(R.string.cash_button_label);
-        mChargeBtn.setText(R.string.buttonCharge);
+        mBackBtn.setText(R.string.back_label);
+        mBackBtn.setAllCaps(true);
+        mCashBtn.setText(R.string.cash_label);
+        mCashBtn.setAllCaps(true);
+        mChargeBtn.setText(R.string.charge_label);
+        mChargeBtn.setAllCaps(true);
 
 
         mBackBtn.setOnClickListener(this);
         mCashBtn.setOnClickListener(this);
         mChargeBtn.setOnClickListener(this);
 
-        initDisplayNumberButtons();
+        mEnteredValue.addTextChangedListener(getTextWatcher());
+        mEnteredValue.setRepresentationType(NumericEditText.RepresentationType.CURRENCY);
 
         ManualTransactionApplication.getCarbonBridge().setListener(this);
 
         refreshUI();
     }
 
-    private void initDisplayNumberButtons() {
-        mDisplayStringRepresentation = new DisplayStringRepresentation();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mEnteredValue.requestFocus();
     }
 
     @Override
@@ -127,20 +133,28 @@ public class SplitPaymentActivity extends BaseActivity implements View.OnClickLi
         super.onSaveInstanceState(outState);
     }
 
-    /**
-     * Method which handle numeric keyboard clicks
-     */
-    public void onNumberClick(View view) {
-        mDisplayStringRepresentation.attachValue((String) view.getTag(), null);
-        String sumStr = mDisplayStringRepresentation.currentString();
+    public TextWatcher getTextWatcher() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        try {
-            mEnteredAmount = ConversionUtility.parseAmount(sumStr);
-        } catch (NumberFormatException e) {
-            mEnteredAmount = BigDecimal.ZERO;
-        }
+            }
 
-        refreshUI();
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                try {
+                    mEnteredAmount = ConversionUtility.parseAmount(mEnteredValue.getValue());
+                } catch (NumberFormatException e) {
+                    mEnteredAmount = BigDecimal.ZERO;
+                }
+                refreshUI();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
     }
 
     @Override
@@ -189,7 +203,6 @@ public class SplitPaymentActivity extends BaseActivity implements View.OnClickLi
             switch (resultCode) {
                 case RESULT_OK:
                     mEnteredAmount = BigDecimal.ZERO;
-                    initDisplayNumberButtons();
 
                     BigDecimal receivedAmount = (BigDecimal) data.getSerializableExtra(PaymentActivity.AMOUNT_KEY);
 
@@ -224,12 +237,12 @@ public class SplitPaymentActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void refreshUI() {
-        mEnteredValue.setText(Utils.getLocalizedAmount(mEnteredAmount));
         mTotalAmountValue.setText(Utils.getLocalizedAmount(mInitialAmount));
 
         BigDecimal currentBalance = getBalanceAmount().subtract(mEnteredAmount);
 
-        mBalanceTitle.setText(R.string.balance_text_label);
+        mBalanceTitle.setText(R.string.balance_label);
+        mBalanceTitle.setAllCaps(true);
         mBalanceValue.setText(Utils.getLocalizedAmount(currentBalance));
 
         mCashReceivedValue.setText(Utils.getLocalizedAmount(mCashReceivedAmount));

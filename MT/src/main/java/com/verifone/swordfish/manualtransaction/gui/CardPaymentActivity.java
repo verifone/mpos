@@ -52,7 +52,7 @@ import static com.verifone.commerce.entities.Receipt.DELIVERY_METHOD_SMS;
  * Created by abey on 1/11/2018.
  */
 
-public class CardPaymentActivity extends BaseActivity
+public class CardPaymentActivity extends BaseListenerActivity
         implements FinishFragment.IFinishFragmentListener, IBridgeListener {
 
     public static final String MANUAL_PAYMENT_KEY = "MANUAL_PAYMENT_KEY";
