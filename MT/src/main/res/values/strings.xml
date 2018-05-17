@@ -1,47 +1,55 @@
 <resources>
     <string name="app_name">mPOS</string>
-    <string name="tabOneTitle">Transaction</string>
-    <string name="tabTwoTitle">History</string>
-    <string name="discountLabel">Enter discount</string>
-    <string name="priceLabel">Enter price</string>
-    <string name="noteLabel">Add Note</string>
-    <string name="creditCardLabel">Credit Card</string>
-    <string name="addItem">New Item</string>
-    <string name="tab_one">Manual Transaction</string>
-    <string name="tab_two">Transaction History</string>
+    <string name="app_name_extended">Manual Transaction</string>
+
+    <string name="percentage_symbol" translatable="false">&#37;</string>
+
+    <string name="enter_discount_label">Enter discount</string>
+    <string name="enter_price_label">Enter price</string>
+    <string name="add_note_label">Add Note</string>
+    <string name="credit_card_label">Credit Card</string>
+    <string name="new_item">New Item</string>
+    <string name="new_order">New Order</string>
+    <string name="transaction_history">Transaction History</string>
     <string name="new_cart">Start new cart</string>
-    <string name="quantityLabel">Quantity</string>
-    <string name="quantity_allcaps_label">QUANTITY</string>
-    <string name="addButtonLabel">Add</string>
-    <string name="cancelTransactionLabel">Are you sure you want \n to CANCEL this transaction?</string>
-    <string name="noCancelButtonLabel">No, Go Back</string>
-    <string name="yesCancelButtonLabel">Yes, Cancel</string>
-    <string name="percentageButton">%</string>
-    <string name="cancelTransactionMessage">Are you sure you want to\nCANCEL this transaction?</string>
-    <string name="cancelTransactionNO">NO</string>
-    <string name="cancelTransactionYES">YES</string>
-    <string name="phone_order_button_label">PHONE ORDER</string>
-    <string name="cash_button_label">CASH</string>
-    <string name="charge_button_label">PAY</string>
-    <string name="charge_alt_button_label">BACK</string>
-    <string name="split_button_label">SPLIT</string>
-    <string name="tender_button_label">TENDER</string>
-    <string name="back_button_label">BACK</string>
-    <string name="button_five_amount">$5</string>
-    <string name="button_ten_amount">$10</string>
-    <string name="button_twenty">$20</string>
-    <string name="button_fifty">$50</string>
-    <string name="button_one_hunderd">$100</string>
-    <string name="total_text_label">Total:</string>
-    <string name="balance_text_label">BALANCE:</string>
+    <string name="quantity_label">Quantity</string>
+    <string name="add_label">Add</string>
+    <string name="no_go_back_button_label">No, Go Back</string>
+    <string name="yes_cancel_button_label">Yes, Cancel</string>
+
+    <string name="are_you_sure_you_want_to">Are you sure you want to %1$s this transaction?</string>
+
+    <string name="phone_order_button_label">Phone order</string>
+
+    <string name="split_label">Split</string>
+    <string name="tender_label">Tender</string>
+    <string name="back_label">Back</string>
+    <string name="total_label">Total:</string>
+    <string name="discount_label">Discount</string>
+    <string name="including_tax_label">Including tax:</string>
+    <string name="balance_label">Balance:</string>
+    <string name="delete_label">Delete</string>
+    <string name="note_label">Note</string>
+    <string name="next_label">Next</string>
+    <string name="cash_label">Cash</string>
+    <string name="card_label">Card</string>
+    <string name="pay_label">PAY</string>
+    <string name="charge_label">Charge</string>
+    <string name="success_label">Success</string>
+    <string name="failed_label">Failed</string>
+
     <string name="transaction_complete_label">Transaction Complete</string>
-    <string name="select_receipt_option_label">Waiting for customer to select receipt option</string>
-    <string name="print_receipt_button">Print Receipt</string>
-    <string name="no_receipt_button">No Receipt</string>
-    <string name="money_symbol">$</string>
-    <string name="percentage_symbol">&#37;</string>
-    <string name="delete_button_label">DELETE</string>
+
+    <string name="select_receipt_option_message">Waiting for customer to select receipt option</string>
+    <string name="select_receipt_option_label">Select receipt option</string>
+    <string name="print_receipt_label">Print Receipt</string>
+    <string name="send_receipt_label">Send Receipt</string>
+    <string name="no_receipt_label">No Receipt</string>
+    <string name="print_failed_message">Print failed</string>
+    <string name="print_completed_message">Print completed</string>
+
     <string name="security_code_label">Security Code</string>
+
     <string name="swipe_tap_or_insert_card">Swipe, Tap or Insert Card</string>
     <string name="waiting_for_customer_card">Waiting for Customer to swipe, tap or insert credit card</string>
     <string name="error_reading_card">Error Reading Card</string>
@@ -50,83 +58,52 @@
     <string name="waiting_for_customer_signature">Waiting for customer signature.</string>
     <string name="yy_label">YY</string>
     <string name="mm_label">MM</string>
-    <string name="waiting_for_customer_to_select_receipt_option">Waiting for customer to select receipt option</string>
-    <string name="select_receipt_option">Select receipt option</string>
     <string name="card_declined">Card Declined</string>
     <string name="transaction_cancelled">Transaction Cancelled</string>
     <string name="choose_another_card">Choose An Option for Payment</string>
-    <string name="country_currency">$ </string>
-    <string name="viewing_textview_label">Viewing</string>
     <string name="add_note_discount_and_taxes">Add Note, Discount and Taxes</string>
-    <string name="total_textview_label">TOTAL:</string>
-    <string name="including_tax_label">INCLUDING TAX:</string>
-    <string name="viewing_text_label">Viewing</string>
+
     <string name="enter_amount_received">Enter Amount Received</string>
     <string name="cash_received_label">Cash Received</string>
+    <string name="card_received_label">Credit Charged</string>
     <string name="cash_pending_label">Pending Amount</string>
-    <string name="cash_to_pay_label">Cash To Pay</string>
-    <string name="button_note_label">Note</string>
-    <string name="button_send_receipt">SEND RECEIPT</string>
-    <string name="button_print_receipt">PRINT RECEIPT</string>
-    <string name="button_next">NEXT</string>
-    <string name="discount_label">Discount</string>
-    <string name="discount_allcaps_label">DISCOUNT</string>
-    <string name="tax_label">Tax</string>
-    <string name="tax_allcaps_label">TAX</string>
-    <string name="cash_label">Cash</string>
-    <string name="card_label">Card</string>
     <string name="cash_tendered">Tendered</string>
-    <string name="including_tax">Including Tax: </string>
+
     <string name="enter_note_for_transaction_label">Enter your note for this transaction</string>
-    <string name="save_note">SAVE NOTE</string>
+    <string name="save_note">Save note</string>
     <string name="send_a_receipt">Send a Receipt</string>
     <string name="delivery_method_label">Select Delivery Method</string>
     <string name="sms_receipt_title">SMS Receipt</string>
     <string name="sms_receipt_subtitle">Customer Phone Number</string>
     <string name="email_receipt_title">Email Receipt</string>
     <string name="email_receipt_subtitle">Customer Email Address</string>
-    <string name="add_note_discount_button">Add Note, Discount and Taxes</string>
-    <string name="cancel_refund_button">CANCEL REFUND</string>
-    <string name="issue_refund_button">ISSUE REFUND</string>
-    <string name="refund_title_textView">REFUND</string>
-    <string name="this_items_will_be_refunded_textView">These Items will be refunded</string>
-    <string name="refund_amount_issued">The refund amount will be issued as:</string>
+    <string name="cancel_refund_button">Cancel refund</string>
+    <string name="issue_refund_button">Issue refund</string>
+    <string name="refund_label">Refund</string>
+    <string name="void_label">Void</string>
     <string name="split_payment_label">Split Payment</string>
     <string name="select_payment_type">Select Payment Type</string>
-    <string name="partial_refund_label">PARTIAL</string>
-    <string name="void_label">VOID</string>
+    <string name="partial_refund_label">Partial</string>
     <string name="processing_card_label">Processing Card</string>
-    <string name="are_you_sure_you_want_to">Are you sure you want to</string>
-    <string name="void_transaction_label">Are you sure you want to REFUND/VOID this transaction?</string>
+
     <string name="reconcile_confirm_label">Do you want to run reconcile batch process?</string>
-    <string name="refund_split_transaction_label">REFUND this transaction?</string>
-    <string name="cash_received_split_label">Cash Received</string>
     <string name="same_as_received">Same as Received</string>
     <string name="amount_to_pay">Amount to Pay</string>
     <string name="change_due">Change Due:</string>
-    <string name="split_cash_received_label">Cash Received</string>
-    <string name="split_card_received_label">Credit Charged</string>
+
     <string name="charge_amount">Charge amount</string>
-    <string name="split_transaction_complete_label">Transaction Complete</string>
-    <string name="split_receipt_option_label">Select Receipt Option</string>
-    <string name="splie_email_butoon">EMAIL</string>
-    <string name="spli_no_receipt">NO RECEIPT</string>
-    <string name="cash_received">Cash Received</string>
     <string name="split_error_amount">Amount to pay can not exceed remaining balance</string>
     <string name="split_error_cash">Amount to pay can not exceed cash received</string>
     <string name="not_tax_label">NO TAX</string>
     <string name="cash_drawer_status_message">Cash drawer open or disconnected &#8230;</string>
     <string name="quantity_error_label">Quantity need to be greater than zero</string>
-    <string name="gratuty_amount_label">Select gratuity amount</string>
+    <string name="gratuity_amount_label">Select gratuity amount</string>
     <string name="gratuity_wait_message">Waiting for customer to select gratuity amount</string>
     <string name="button_no_tip_label">No gratuity</string>
     <string name="wait_for_pt">Waiting for payment terminal</string>
-    <string name="voided_history_label">Voided</string>
-    <string name="refund_history_label">Refund</string>
     <string name="partial_refund_history_label">Partial Refund</string>
     <string name="upper_history_tx_label">Original Transaction #: </string>
     <string name="lower_history_tx_label">Transaction #  %1$s</string>
-    <string name="history_detail_tx_total_label">Total:</string>
     <string name="history_detail_tx_total_tax_label">Including Tax: %1$s</string>
     <string name="history_str_on_date">on %1$s</string>
     <string name="history_card_type_credit">CREDIT</string>
@@ -139,200 +116,46 @@
     <string name="history_void_process_label">Processing void, please wait</string>
     <string name="history_refund_type_label">Refund Type</string>
     <string name="history_select_refund_type_label">Select Refund Type</string>
-    <string-array name="months_array">
-        <item>01</item>
-        <item>02</item>
-        <item>03</item>
-        <item>04</item>
-        <item>05</item>
-        <item>06</item>
-        <item>07</item>
-        <item>08</item>
-        <item>09</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-    </string-array>
-    <string-array name="transaction_history_options">
-        <item>All Transactions</item>
-        <item>Completed Transactions</item>
-        <item>Cash Transactions</item>
-        <item>Credit Transactions</item>
-        <item>Debit Transactions</item>
-        <item>Voided Transactions</item>
-        <item>Refunded Transactions</item>
-        <item>Partial Refund Transactions</item>
-        <item>Transactions With Notes</item>
-    </string-array>
-    <string name="title_activity_settings">Settings</string>
 
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
-    <string name="pref_header_general">Payment Terminal</string>
-
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
-
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
-
-    <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>5 minutes</item>
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>5</item>
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-    <string-array name="pref_protocol_titles">
-        <item>SCI</item>
-        <item>EPAS</item>
-    </string-array>
-    <string-array name="pref_protocol__values">
-        <item>SCI</item>
-        <item>EPAS</item>
-    </string-array>
-
-    <string name="pref_title_protocol_selection">Payment protocol setting</string>
-
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Tax Options</string>
-
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
-    <string name="signature_request">I agree to pay the amount in full</string>
-    <string name="receipt_question">Select receipt method</string>
-    <string name="button1">No receipt</string>
-    <string name="button2">email</string>
-    <string name="button3">sms</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string name="buttonCancelTx">CANCEL TRANSACTION</string>
-    <string name="buttonBack">BACK</string>
-    <string name="buttonTender">TENDER</string>
-    <string name="buttonPay">PAY</string>
-    <string name="buttonCharge">CHARGE</string>
-    <string name="buttonVoid">VOID</string>
-    <string name="buttonCancelRefund">CANCEL REFUND</string>
-    <string name="buttonIssueRefund">ISSUE REFUND</string>
-    <string name="buttonRefund">REFUND</string>
 
     <!--PaymentByCard string values -->
-    <string name="creditCardNumber">Credit Card Number</string>
-    <string name="creditExpirationLabel">Expiration</string>
-    <string name="creditCardHolder">Card Holder</string>
-    <string name="creditAuthCode">Auth Code</string>
+    <string name="credit_card_number">Credit Card Number</string>
+    <string name="credit_expiration_label">Expiration</string>
+    <string name="credit_card_holder">Card Holder</string>
+    <string name="credit_auth_code">Auth Code</string>
 
-    <string name="voiceAuthorization">Please call 1&#8211;800&#8211;XXX&#8211;XXXX for voice authorization, press OK when ready</string>
-
-    <!--Accessiblity text to speach messages-->
-     <string name="accessibility_label">Enable audio</string> 
-    <string name="welcome_txt">Welcome to mPOS, powered by Carbon</string>
      <string name="starting_transaction">New transaction</string> 
-    <string name="cancel_transaction">Do you want to cancel your transaction?</string> 
-    <string name="cancel_confirmed">Your transaction has been cancel</string> 
-    <string name="total_amount">Your total amount is: </string> 
-    <string name="select_payment_method">How do you want to pay, cash or card?</string> 
-    <string name="pay_by_cash_selected">You have selected cash payment</string> 
-    <string name="pay_by_card_selected">You have selected card payment</string> 
-    <string name="pay_by_split_selected">You have selected split payment</string>
-     <string name="payment_accepted">Your payment has been accepted</string> 
-    <string name="payment_declined">We are sorry, your payment has been declined</string>
-     
-    <string name="type_of_card_selection">Please select debit or credit.</string>
-     
-    <string name="authorization_process">Please wait while we request authorization</string>
-     <string name="receipt_selection">How do you want your receipt, print, sms, email or you do not want receipt?</string> 
+    <string name="cancel_transaction_btn">Cancel Transaction</string>
 
-    <string name="numeric_3">3</string>
-    <string name="numeric_5">5</string>
-    <string name="numeric_10">10</string>
-    <string name="numeric_20">20</string>
-    <string name="numeric_50">50</string>
-    <string name="numeric_100">100</string>
-
-    <string name="cancel_transaction_btn">CANCEL TRANSACTION</string>
-    <string name="blank_button">BUTTON</string>
-    <string name="str_pay">PAY</string>
     <string name="str_no">NO</string>
     <string name="str_yes">YES</string>
     <string name="str_change_payment_type">CHANGE PAYMENT TYPE</string>
-    <string name="str_dollar_zero">$0.00</string>
-    <string name="str_dollar_zero_with_space">$ 0.00</string>
-    <string name="str_zero_value">0.00</string>
-    <string name="str_dollar_sign">$</string>
-    <string name="str_dollar_value_with_sign">$0</string>
     <string name="str_ten_percent">10 %</string>
     <string name="str_eighteen_percent">18 %</string>
-    <string name="str_twentyfive_percent">25 %</string>
+    <string name="str_twenty_five_percent">25 %</string>
     <string name="str_number_one">1</string>
     <string name="str_card_encrypted_value">**** **** ****</string>
     <string name="str_card_expiration_date">XX/XX</string>
-    <string name="str_card_holder">John Doe</string>
     <string name="str_card_auth_code">XXXXXX</string>
 
     <string name="str_select_payment_method">Select Payment Method</string>
-    <string name="str_note">Note</string>
+
     <string name="str_save">SAVE</string>
-    <string name="str_sales_tax_75_percent">Sales Tax 7.5%</string>
+    <string name="str_sales_tax_percent">Sales Tax %1$s</string>
     <string name="str_taxes">Taxes</string>
     <string name="str_print">PRINT</string>
-    <string name="str_amount_to_pay">Amount to Pay</string>
     <string name="str_restaurant">Restaurant?</string>
     <string name="str_is_restaurant">Is restaurant?</string>
 
     <string name="str_reconcile">reconcile</string>
-    <string name="str_print_receipt">PRINT RECEIPT</string>
-    <string name="str_send_receipt">SEND RECEIPT</string>
-    <string name="str_history_note">NOTE</string>
-    <string name="str_refund">REFUND</string>
-    <string name="str_label_textview">TextView</string>
 
     <string name="str_label_email">EMAIL</string>
     <string name="str_label_sms">SMS</string>
-    <string name="str_label_mpos">mPOS V 2.</string>
     <string name="str_enter_amount_to_charge">Enter amount to Charge</string>
     <string name="str_label_remove">Remove</string>
     <string name="str_description">Description</string>
     <string name="str_modifier">modifier</string>
-    <string name="str_change_dollar_amount">Change: $0.00</string>
     <string name="str_cardholder">CardHolder</string>
-    <string name="new_text">New Text</string>
     <string name="str_new_item">New Item</string>
 
     <string name="str_discount_value">Discount: -%1$s</string>
@@ -340,11 +163,9 @@
     <string name="str_quantity_value">QUANTITY:  %1$s</string>
     <string name="str_sales_tax">Sales Tax  %1$s</string>
     <string name="adjusting_basket">Adjusting basket…</string>
-    <string name="ignore">Ignore and continue</string>
 
     <string name="end_order">End Order</string>
     <string name="basket_adjustment">Basket adjustment</string>
-    <string name="dollar">$</string>
     <string name="rejected_label">REJECTED</string>
     <string name="void_declined_label">Void Declined</string>
     <string name="refund_declined_label">Refund Declined</string>
@@ -373,5 +194,36 @@
     <string name="title_reconcile_successful">Reconcile batch process success!</string>
     <string name="title_reconcile_failed">Reconcile batch process failed! %1$s</string>
     <string name="never">never</string>
+    <string name="receipt_unavailable_message">Original receipt unavailable</string>
+    <string name="discount_grater_amount_message">Discount can\'t be greater than amount for item</string>
+    <string name="display_name">Display name %1$d</string>
+    <string name="changed_message">Changed!</string>
+    <string name="item_is_status_pattern">%1$s is: %2$s</string>
+
+
+    <string name="skuHint">Enter SKU</string>
+    <string name="upcHint">Enter UPC</string>
+    <string name="upcLabel">UPC</string>
+    <string name="skuLabel">SKU</string>
+
+    <!--Keyboard values-->
+    <string name="keyboard_btn_1" translatable="false">1</string>
+    <string name="keyboard_btn_2" translatable="false">2</string>
+    <string name="keyboard_btn_3" translatable="false">3</string>
+    <string name="keyboard_btn_4" translatable="false">4</string>
+    <string name="keyboard_btn_5" translatable="false">5</string>
+    <string name="keyboard_btn_6" translatable="false">6</string>
+    <string name="keyboard_btn_7" translatable="false">7</string>
+    <string name="keyboard_btn_8" translatable="false">8</string>
+    <string name="keyboard_btn_9" translatable="false">9</string>
+    <string name="keyboard_btn_0" translatable="false">0</string>
+    <string name="keyboard_btn_00" translatable="false">00</string>
+
+    <string name="keyboard_btn_10" translatable="false">10</string>
+    <string name="keyboard_btn_20" translatable="false">20</string>
+    <string name="keyboard_btn_50" translatable="false">50</string>
+    <string name="keyboard_btn_100" translatable="false">100</string>
+
+    <string name="keyboard_btn_del">Del</string>
 
 </resources>

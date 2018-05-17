@@ -3,6 +3,7 @@ package com.verifone.swordfish.manualtransaction.tools;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.verifone.commerce.entities.Donation;
 import com.verifone.commerce.entities.Merchandise;
 import com.verifone.commerce.entities.Offer;
 import com.verifone.swordfish.manualtransaction.ManualTransactionApplication;
@@ -47,13 +48,46 @@ public class BasketUtils {
      *
      * @return non-null total amount. BigDecimal.ZERO if 0.00 or can not be calculated.
      */
+
     @NonNull
-    public static BigDecimal calculateTotalAmount() {
+    public static BigDecimal calculateMerchandisesTotalAmount() {
         BigDecimal total = BigDecimal.ZERO;
         List<Merchandise> merchandises = ManualTransactionApplication.getCarbonBridge().getMerchandises();
         if (merchandises != null) {
             for (Merchandise merchandise : merchandises) {
                 total = total.add(merchandise.getAmount());
+            }
+        }
+        return total;
+    }
+
+    /**
+     * Calculates basket total amount based on merchandises and applied BasketAdjustment offers and donations
+     *
+     * @return non-null total amount. BigDecimal.ZERO if 0.00 or can not be calculated.
+     */
+
+    @NonNull
+    public static BigDecimal calculateBasketTotalAmount() {
+        BigDecimal total = BigDecimal.ZERO;
+        List<Merchandise> merchandises = ManualTransactionApplication.getCarbonBridge().getMerchandises();
+        if (merchandises != null && !merchandises.isEmpty()) {
+            for (Merchandise merchandise : merchandises) {
+                total = total.add(merchandise.getAmount());
+            }
+        }
+
+        List<Offer> offers = ManualTransactionApplication.getCarbonBridge().getAdjustedOffers();
+        if (offers != null && !offers.isEmpty()) {
+            for (Offer offer : offers) {
+                total = total.add(offer.getAmount());
+            }
+        }
+
+        List<Donation> donations = ManualTransactionApplication.getCarbonBridge().getAdjustedDonations();
+        if (donations != null && !donations.isEmpty()) {
+            for (Donation donation : donations) {
+                total = total.add(donation.getAmount());
             }
         }
         return total;

@@ -1,61 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/total_holder"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/total_holder"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/white_two"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="30dp"
+            android:layout_height="20dp"/>
+
+        <TextView
+            android:id="@+id/textViewTotalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|start"
             android:background="@color/white_two"
-            android:layout_height="75dp">
+            android:fontFamily="Roboto-Medium"
+            android:text="@string/total_label"
+            android:textColor="@color/greyish_brown"
+            android:textSize="18sp"/>
 
-            <Space
-                android:layout_width="30dp"
-                android:layout_height="20dp" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:background="@color/keyboardNumFont"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/total_text_label"
-                android:background="@color/white_two"
-                android:fontFamily="Roboto-Medium"
-                android:textSize="18sp"
-                android:textColor="@color/greyish_brown"
-                android:id="@+id/textViewTotalLabel"
-                android:layout_gravity="center_vertical|start" />
+        <TextView
+            android:id="@+id/textViewAmountToPayLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:background="@color/white_two"
+            android:fontFamily="Roboto-Regular"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            tools:text="0,00 $"/>
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:background="@color/keyboardNumFont"
-                android:layout_weight="1" />
+        <Space
+            android:layout_width="31dp"
+            android:layout_height="20dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/white_two"
-                android:fontFamily="Roboto-Regular"
-                android:textSize="30sp"
-                android:textColor="@color/black"
-                android:id="@+id/textViewAmountToPayLabel"
-                android:text="@string/str_zero_value"
-                android:textAlignment="center"
-                android:layout_gravity="center_vertical|end" />
+    </LinearLayout>
 
-            <Space
-                android:layout_width="31dp"
-                android:layout_height="20dp" />
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/line1"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/warm_grey"
-            android:layout_below="@+id/total_holder"/>
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/total_holder"
+        android:background="@color/warm_grey"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,6 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:focusableInTouchMode="true"
             android:orientation="horizontal">
 
             <Space
@@ -82,13 +85,14 @@
                 android:text="@string/dollar"
                 android:textAppearance="@style/fontForTextViewTransactionHistorySubDetailTotal"/>-->
 
-            <TextView
+            <com.verifone.swordfish.manualtransaction.gui.NumericEditText
                 android:id="@+id/textViewEnteredAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="31dp"
                 android:layout_marginEnd="31dp"
+                android:layout_marginRight="31dp"
+                android:background="@android:color/transparent"
                 android:text="0.00"
                 android:textAppearance="@style/fontForTextViewTransactionHistorySubDetailTotal"/>
 
@@ -106,7 +110,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="29sp"
                 android:layout_marginStart="29sp"
-                android:text="@string/split_cash_received_label"
+                android:text="@string/cash_received_label"
                 android:textAppearance="@style/fontForTextViewItemBasket"/>
 
             <Space
@@ -146,7 +150,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="29sp"
                 android:layout_marginStart="29sp"
-                android:text="@string/split_card_received_label"
+                android:text="@string/card_received_label"
                 android:textAppearance="@style/fontForTextViewItemBasket"/>
 
             <Space
@@ -167,8 +171,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="31sp"
                 android:layout_marginEnd="31sp"
+                android:layout_marginRight="31sp"
                 android:text="0.00"
                 android:textAppearance="@style/fontForTextViewTransactionHistorySubDetailTotal"/>
 
@@ -176,57 +180,58 @@
 
     </LinearLayout>
 
-        <View
-            android:id="@+id/divider3"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/white_three"
-            android:layout_above="@+id/balance_holder"/>
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_above="@+id/balance_holder"
+        android:background="@color/white_three"/>
 
-        <LinearLayout
-            android:id="@+id/balance_holder"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="95dp"
-            android:gravity="fill_vertical"
-            android:background="@color/white_two"
-            android:layout_gravity="bottom"
-            android:layout_alignParentBottom="true">
+    <LinearLayout
+        android:id="@+id/balance_holder"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/white_two"
+        android:gravity="fill_vertical"
+        android:orientation="horizontal">
 
-            <Space
-                android:layout_width="30dp"
-                android:layout_height="20dp" />
+        <Space
+            android:layout_width="30dp"
+            android:layout_height="20dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="Roboto-Medium"
-                android:textSize="24sp"
-                android:textColor="@color/greyish_brown"
-                android:text="@string/balance_text_label"
-                android:id="@+id/textBalanceView"
-                android:layout_gravity="center_vertical" />
+        <TextView
+            android:id="@+id/textBalanceView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="Roboto-Medium"
+            android:text="@string/balance_label"
+            android:textAllCaps="true"
+            android:textColor="@color/greyish_brown"
+            android:textSize="24sp"/>
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_weight="1" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="Roboto-Medium"
-                android:textSize="40sp"
-                android:textColor="@color/deep_lilac"
-                android:textAlignment="textEnd"
-                android:text="@string/str_dollar_zero"
-                android:id="@+id/textRemainBalanceView"
-                android:layout_gravity="center_vertical" />
+        <TextView
+            android:id="@+id/textRemainBalanceView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="Roboto-Medium"
+            android:textAlignment="textEnd"
+            android:textColor="@color/deep_lilac"
+            android:textSize="40sp"
+            tools:text="0,00 $"/>
 
-            <Space
-                android:layout_width="31dp"
-                android:layout_height="20dp" />
-        </LinearLayout>
+        <Space
+            android:layout_width="31dp"
+            android:layout_height="20dp"/>
+    </LinearLayout>
 
 
 </RelativeLayout>

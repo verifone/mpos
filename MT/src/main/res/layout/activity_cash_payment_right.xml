@@ -1,231 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <include
-        android:id="@+id/numeric_keyboard_holder"
-        layout="@layout/layout_keyboard"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/numeric_keyboard_holder"
-        android:layout_toEndOf="@+id/numeric_keyboard_holder"
-        android:orientation="vertical"
-        android:padding="20dp">
+        <com.verifone.swordfish.manualtransaction.gui.NumericKeyboard
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.verifone.swordfish.manualtransaction.gui.MoneyAmountKeyboard
+            android:id="@+id/money_amount_keyboard"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <FrameLayout
-                android:layout_width="122dp"
-                android:layout_height="90dp">
-
-                <ImageButton
-                    android:id="@+id/buttonThree"
-                    android:layout_width="122dp"
-                    android:layout_height="90dp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@null"
-                    android:onClick="onCashAmountClick"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/button_blue_122_x_89"
-                    android:tag="3"/>
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30dp"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="Roboto-Medium"
-                    android:text="@string/numeric_3"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"/>
-            </FrameLayout>
-
-
-            <FrameLayout
-                android:layout_width="122dp"
-                android:layout_height="90dp"
-                android:layout_marginStart="20dp">
-
-                <ImageButton
-                    android:id="@+id/buttonFive"
-                    android:layout_width="122dp"
-                    android:layout_height="90dp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@null"
-                    android:onClick="onCashAmountClick"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/button_blue_122_x_89"
-                    android:tag="5"/>
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30dp"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="Roboto-Medium"
-                    android:text="@string/numeric_5"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"/>
-            </FrameLayout>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal">
-
-            <FrameLayout
-                android:layout_width="122dp"
-                android:layout_height="90dp">
-
-                <ImageButton
-                    android:id="@+id/buttonTen"
-                    android:layout_width="122dp"
-                    android:layout_height="90dp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@null"
-                    android:onClick="onCashAmountClick"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/button_blue_122_x_89"
-                    android:tag="10"/>
-
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30sp"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="Roboto-Medium"
-                    android:text="@string/numeric_10"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"/>
-            </FrameLayout>
-
-
-            <FrameLayout
-                android:layout_width="122dp"
-                android:layout_height="90dp"
-                android:layout_marginStart="20dp">
-
-                <ImageButton
-                    android:id="@+id/buttonTwenty"
-                    android:layout_width="122dp"
-                    android:layout_height="90dp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@null"
-                    android:onClick="onCashAmountClick"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/button_blue_122_x_89"
-                    android:tag="20"/>
-
-                <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30sp"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="Roboto-Medium"
-                    android:text="@string/numeric_20"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"/>
-            </FrameLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal">
-
-            <FrameLayout
-                android:layout_width="122dp"
-                android:layout_height="90dp">
-
-                <ImageButton
-                    android:id="@+id/buttonFifty"
-                    android:layout_width="122dp"
-                    android:layout_height="90dp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@null"
-                    android:onClick="onCashAmountClick"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/button_blue_122_x_89"
-                    android:tag="50"
-                    android:text="@string/numeric_50"
-                    android:textColor="@color/white"/>
-
-                <TextView
-                    android:id="@+id/textView50"
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30dp"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="Roboto-Medium"
-                    android:text="@string/numeric_50"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"/>
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="122dp"
-                android:layout_height="90dp"
-                android:layout_marginStart="20dp">
-
-                <ImageButton
-                    android:id="@+id/buttonOneHundred"
-                    android:layout_width="122dp"
-                    android:layout_height="90dp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@null"
-                    android:onClick="onCashAmountClick"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/button_blue_122_x_89"
-                    android:tag="100"
-                    android:text="@string/numeric_100"/>
-
-                <TextView
-                    android:id="@+id/textView100"
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30sp"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="Roboto-Medium"
-                    android:text="@string/numeric_100"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"/>
-            </FrameLayout>
-        </LinearLayout>
-
-    </LinearLayout>
+            android:layout_alignBottom="@id/numeric_keyboard"
+            android:layout_toEndOf="@id/numeric_keyboard" />
+    </RelativeLayout>
 
     <include
         android:id="@+id/bottom_buttons_holder"
-        layout="@layout/layout_buttons"/>
+        layout="@layout/layout_buttons" />
 
-</RelativeLayout>
+</LinearLayout>

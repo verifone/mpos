@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/keyboard_layout_padding">
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/buttonThree"
+            style="@style/MoneyAmountKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:tag="@string/keyboard_btn_3"
+            android:text="@string/keyboard_btn_3" />
+
+        <Button
+            android:id="@+id/buttonFive"
+            style="@style/MoneyAmountKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:tag="@string/keyboard_btn_5"
+            android:text="@string/keyboard_btn_5" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/buttonTen"
+            style="@style/MoneyAmountKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:tag="@string/keyboard_btn_10"
+            android:text="@string/keyboard_btn_10" />
+
+        <Button
+            android:id="@+id/buttonTwenty"
+            style="@style/MoneyAmountKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:tag="@string/keyboard_btn_20"
+            android:text="@string/keyboard_btn_20" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/buttonFifty"
+            style="@style/MoneyAmountKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:tag="@string/keyboard_btn_50"
+            android:text="@string/keyboard_btn_50" />
+
+        <Button
+            android:id="@+id/buttonOneHundred"
+            style="@style/MoneyAmountKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:tag="@string/keyboard_btn_100"
+            android:text="@string/keyboard_btn_100" />
+    </TableRow>
+
+</TableLayout>
+

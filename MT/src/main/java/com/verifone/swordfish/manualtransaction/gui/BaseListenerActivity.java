@@ -81,6 +81,11 @@ public abstract class BaseListenerActivity extends BaseActivity implements IBrid
     }
 
     @Override
+    public void basketAdjusted() {
+
+    }
+
+    @Override
     public void basketFinalized() {
 
     }

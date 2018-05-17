@@ -1,6 +1,7 @@
 package com.verifone.swordfish.manualtransaction;
 
 import com.verifone.commerce.entities.Transaction;
+import com.verifone.swordfish.manualtransaction.gui.TransactionHistoryActivity;
 
 /**
  * Copyright (C) 2016,2017,2018 Verifone, Inc.
@@ -32,7 +33,7 @@ import com.verifone.commerce.entities.Transaction;
 
 public interface ITransactionHistoryListener {
 
-    void onRefund(Transaction transaction);
+    void onRefund(Transaction transaction, TransactionHistoryActivity.TransactionState buttonState);
 
     void onPrint(Transaction transaction);
 }

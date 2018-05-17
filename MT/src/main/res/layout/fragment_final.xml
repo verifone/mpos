@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:fontFamily="Roboto-Regular"
-        android:text="@string/print_receipt_button"
+        android:text="@string/print_receipt_label"
         android:textColor="@color/azure"
         android:textSize="24sp"
         android:padding="15dp"

@@ -3,7 +3,9 @@ package com.verifone.swordfish.manualtransaction;
 
 import android.app.Application;
 
-import com.verifone.utilities.Log;
+import com.crashlytics.android.Crashlytics;
+
+import io.fabric.sdk.android.Fabric;
 
 
 /**
@@ -43,10 +45,16 @@ public class ManualTransactionApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Log.initialize(this);
+        Fabric.with(this, new Crashlytics());
 
         sCarbonBridge = new CarbonBridge(this);
         sTransactionStorage = new TransactionStorage(this);
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        sCarbonBridge.tearDown();
     }
 
     public static CarbonBridge getCarbonBridge() {

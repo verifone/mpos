@@ -1,14 +1,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:windowSoftInputMode="stateAlwaysHidden"
-    tools:context="com.verifone.swordfish.manualtransaction.gui.OrderListFragment">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:windowSoftInputMode="stateAlwaysHidden"
+             tools:context="com.verifone.swordfish.manualtransaction.gui.OrderListFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:weightSum="1"
         tools:ignore="UselessParent">
@@ -27,38 +28,26 @@
                 android:background="@color/white"
                 android:text="@string/add_note_discount_and_taxes"
                 android:textColor="@color/azure"
-                android:visibility="invisible" />
+                android:visibility="invisible"/>
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="20dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"/>
 
-            <TextView
-                android:id="@+id/currencySymbol"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/keyboardNumFont"
-                android:fontFamily="Roboto-Regular"
-                android:text="@string/country_currency"
-                android:textColor="@color/faded_grey"
-                android:textSize="30sp"
-                android:visibility="invisible" />
-
-            <EditText
+            <com.verifone.swordfish.manualtransaction.gui.NumericEditText
                 android:id="@+id/addItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
                 android:background="@color/keyboardNumFont"
-                android:editable="false"
                 android:focusable="true"
                 android:fontFamily="Roboto-Regular"
-                android:text="@string/addItem"
+                android:gravity="end"
+                android:hint="@string/new_item"
+                android:inputType="none"
                 android:textAlignment="center"
                 android:textColor="@color/faded_grey"
-                android:textSize="30sp"
-                android:inputType="none" />
+                android:textSize="30sp"/>
 
         </LinearLayout>
 
@@ -69,14 +58,13 @@
             android:layout_weight="1"
             android:background="@color/keyboardNumFont"
             android:divider="@color/warm_grey"
-            android:dividerHeight="2dp"
-            android:foreground="@color/white" />
+            android:dividerHeight="2dp"/>
 
         <View
             android:id="@+id/divider3"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/white_three" />
+            android:background="@color/white_three"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,7 +75,7 @@
 
             <Space
                 android:layout_width="31dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -95,23 +83,14 @@
                 android:layout_gravity="center_vertical"
                 android:fontFamily="Roboto-Medium"
                 android:text="@string/including_tax_label"
+                android:textAllCaps="true"
                 android:textColor="@color/greyish_brown"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="37dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="Roboto-Regular"
-                android:text="@string/country_currency"
-                android:textColor="@color/deep_lilac"
-                android:textSize="20sp"
-                android:visibility="invisible" />
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/taxTotalTextView"
@@ -119,14 +98,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="Roboto-Medium"
-                android:text="@string/str_zero_value"
                 android:textAlignment="gravity"
                 android:textColor="@color/deep_lilac"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:text="0,00 $"/>
 
             <Space
                 android:layout_width="31dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <LinearLayout
@@ -138,7 +117,7 @@
 
             <Space
                 android:layout_width="30dp"
-                android:layout_height="20dp" />
+                android:layout_height="20dp"/>
 
             <TextView
                 android:id="@+id/textView"
@@ -146,24 +125,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="Roboto-Medium"
-                android:text="@string/total_textview_label"
+                android:text="@string/total_label"
+                android:textAllCaps="true"
                 android:textColor="@color/greyish_brown"
-                android:textSize="24sp" />
+                android:textSize="24sp"/>
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="20dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="Roboto-Regular"
-                android:text="@string/country_currency"
-                android:textColor="@color/deep_lilac"
-                android:textSize="40sp"
-                android:visibility="invisible" />
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/granTotalTextView"
@@ -171,14 +141,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="Roboto-Medium"
-                android:text="@string/str_zero_value"
                 android:textAlignment="gravity"
                 android:textColor="@color/deep_lilac"
-                android:textSize="40sp" />
+                android:textSize="40sp"
+                tools:text="0,00 $"/>
 
             <Space
                 android:layout_width="31dp"
-                android:layout_height="20dp" />
+                android:layout_height="20dp"/>
         </LinearLayout>
     </LinearLayout>
 

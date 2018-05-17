@@ -1,6 +1,7 @@
 package com.verifone.swordfish.manualtransaction.gui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,7 +19,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.verifone.commerce.entities.BasketItem;
+import com.verifone.commerce.entities.Donation;
 import com.verifone.commerce.entities.Merchandise;
+import com.verifone.commerce.entities.Offer;
 import com.verifone.swordfish.manualtransaction.ManualTransactionApplication;
 import com.verifone.swordfish.manualtransaction.R;
 import com.verifone.swordfish.manualtransaction.tools.LocalizeCurrencyFormatter;
@@ -135,23 +139,43 @@ public class OrderListFragment extends Fragment {
             return;
         }
 
-        List<Merchandise> list = ManualTransactionApplication.getCarbonBridge().getMerchandises();
+        List<BasketItem> basketItems = new ArrayList<>();
 
         BigDecimal tax = BigDecimal.ZERO;
         BigDecimal itemsSubtotal = BigDecimal.ZERO;
         BigDecimal itemsDiscount = BigDecimal.ZERO;
         BigDecimal totalAmount = BigDecimal.ZERO;
 
-        if (list != null && !list.isEmpty()) {
-            ListAdapter arrayAdapter = new TransactionDetailArrayAdapter(activity, new ArrayList<>(list), mIsFragmentEditable);
-            mItemsList.setAdapter(arrayAdapter);
-
-            for (Merchandise merchandise : list) {
+        List<Merchandise> merchandiseList = ManualTransactionApplication.getCarbonBridge().getMerchandises();
+        if (merchandiseList != null && !merchandiseList.isEmpty()) {
+            for (Merchandise merchandise : merchandiseList) {
                 tax = tax.add(merchandise.getTax());
                 itemsSubtotal = itemsSubtotal.add(merchandise.getExtendedPrice());
                 itemsDiscount = itemsDiscount.add(merchandise.getDiscount());
                 totalAmount = totalAmount.add(merchandise.getAmount());
             }
+            basketItems.addAll(merchandiseList);
+        }
+
+        List<Offer> offerList = ManualTransactionApplication.getCarbonBridge().getAdjustedOffers();
+        if (offerList != null && !offerList.isEmpty()) {
+            for (Offer offer : offerList) {
+                totalAmount = totalAmount.add(offer.getAmount());
+            }
+            basketItems.addAll(offerList);
+        }
+
+        List<Donation> donationList = ManualTransactionApplication.getCarbonBridge().getAdjustedDonations();
+        if (donationList != null && !donationList.isEmpty()) {
+            for (Donation donation : donationList) {
+                totalAmount = totalAmount.add(donation.getAmount());
+            }
+            basketItems.addAll(donationList);
+        }
+
+        if (!basketItems.isEmpty()) {
+            ListAdapter arrayAdapter = new TransactionDetailArrayAdapter(activity, new ArrayList<>(basketItems), mIsFragmentEditable);
+            mItemsList.setAdapter(arrayAdapter);
         } else {
             mItemsList.setAdapter(null);
         }
@@ -173,102 +197,152 @@ public class OrderListFragment extends Fragment {
         mCurrentValueET.requestFocus();
     }
 
-    private class TransactionDetailArrayAdapter extends ArrayAdapter<Merchandise> {
-        private final ArrayList<Merchandise> itemsArray;
+    private enum BasketItemType {
+        MERCHANDISE(1),
+        OFFER(2),
+        DONATION(3),
+        DEFAULT(4);
 
+        int value;
+
+        BasketItemType(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public static BasketItemType getBasketItemType(int value) {
+            for (BasketItemType type : BasketItemType.values()) {
+                if (type.getValue() == value)
+                    return type;
+            }
+            return DEFAULT;
+        }
+    }
+
+    // TODO: complex adapter rework required for better managing of multiply items
+    private class TransactionDetailArrayAdapter extends ArrayAdapter<BasketItem> {
+
+        private final ArrayList<BasketItem> itemsArray;
         private final boolean mIsEditable;
 
-        TransactionDetailArrayAdapter(Context context, ArrayList<Merchandise> items, boolean isEditable) {
+        TransactionDetailArrayAdapter(Context context, ArrayList<BasketItem> items, boolean isEditable) {
             super(context, -1, items);
             this.itemsArray = items;
             mIsEditable = isEditable;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return BasketItemType.values().length;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            BasketItem basketItem = getItem(position);
+            BasketItemType basketItemType = BasketItemType.DEFAULT;
+            if (basketItem instanceof Merchandise) {
+                basketItemType = BasketItemType.MERCHANDISE;
+            } else if (basketItem instanceof Offer) {
+                basketItemType = BasketItemType.OFFER;
+            } else if (basketItem instanceof Donation) {
+                basketItemType = BasketItemType.DONATION;
+            }
+            return basketItemType.getValue();
         }
 
         //TODO: need to use viewholders, or change listview to recycler view.
         @NonNull
         @Override
         public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-            final Merchandise currentItem = this.itemsArray.get(position);
+            final BasketItem currentItem = this.itemsArray.get(position);
+            int basketItemType = getItemViewType(position);
+
             LayoutInflater inflater = getActivity().getLayoutInflater();
             LinearLayout row = (LinearLayout) inflater.inflate(R.layout.transaction_detail_cell, parent, false);
 
             View editNoteButton = row.findViewById(R.id.imageButtonEditNote);
             View addNoteButton = row.findViewById(R.id.buttonDetailAddNote);
 
-            LinearLayout linearLayout = row.findViewById(R.id.linearLayoutDetailNotes);
+            LinearLayout detailNoteLayout = row.findViewById(R.id.linearLayoutDetailNotes);
             TextView descriptionTextView = row.findViewById(R.id.textViewDetailNote);
             String description = currentItem.getDescription();
-            if (TextUtils.isEmpty(description.trim())) {
-                linearLayout.setVisibility(View.INVISIBLE);
-
-                if (mIsEditable) {
+            if (description != null) {
+                description = description.trim();
+            }
+            if (TextUtils.isEmpty(description)) {
+                detailNoteLayout.setVisibility(View.INVISIBLE);
+                if (mIsEditable && basketItemType == BasketItemType.MERCHANDISE.getValue()) {
                     addNoteButton.setVisibility(View.VISIBLE);
                     addNoteButton.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            mListener.onItemClicked(currentItem);
+                            mListener.onItemClicked((Merchandise) currentItem);
                         }
                     });
                 } else {
                     addNoteButton.setVisibility(View.GONE);
-                    linearLayout.setVisibility(View.VISIBLE);
+                    detailNoteLayout.setVisibility(View.VISIBLE);
                     editNoteButton.setVisibility(View.GONE);
-                    descriptionTextView.setText(currentItem.getDisplayLine());
                 }
-
                 editNoteButton.setVisibility(View.GONE);
             } else {
-                linearLayout.setVisibility(View.VISIBLE);
-
+                detailNoteLayout.setVisibility(View.VISIBLE);
                 addNoteButton.setVisibility(View.GONE);
 
-                if (mIsEditable) {
+                if (mIsEditable && basketItemType == BasketItemType.MERCHANDISE.getValue()) {
                     editNoteButton.setVisibility(View.VISIBLE);
                     editNoteButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mListener.onItemClicked(currentItem);
+                            mListener.onItemClicked((Merchandise) currentItem);
                         }
                     });
                 } else {
                     editNoteButton.setVisibility(View.GONE);
                 }
-
-                descriptionTextView.setText(description);
             }
 
             NumberFormat formatter = LocalizeCurrencyFormatter.getInstance().getCurrencyFormat();
 
-            BigDecimal discount = currentItem.getDiscount();
-            TextView textViewDiscount = row.findViewById(R.id.textViewDetailDiscount);
-            if (discount != null && discount.floatValue() > 0) {
-                textViewDiscount.setVisibility(View.VISIBLE);
-                String discountValue = formatter.format(discount.doubleValue());
-                textViewDiscount.setText(getContext().getString(R.string.str_discount_value, discountValue));
-            } else {
-                textViewDiscount.setVisibility(View.GONE);
+            if (basketItemType == BasketItemType.MERCHANDISE.getValue()) {
+                BigDecimal discount = ((Merchandise) currentItem).getDiscount();
+                TextView textViewDiscount = row.findViewById(R.id.textViewDetailDiscount);
+                if (discount != null && discount.floatValue() > 0) {
+                    textViewDiscount.setVisibility(View.VISIBLE);
+                    String discountValue = formatter.format(discount.doubleValue());
+                    textViewDiscount.setText(getContext().getString(R.string.str_discount_value, discountValue));
+                } else {
+                    textViewDiscount.setVisibility(View.GONE);
+                }
+
+                BigDecimal tax = currentItem.getTax();
+                TextView textViewTax = row.findViewById(R.id.textViewDetailTax);
+                if (tax != null && tax.floatValue() > 0) {
+                    textViewTax.setVisibility(View.VISIBLE);
+                    textViewTax.setText(getContext().getString(R.string.str_tax_value, formatter.format(tax.doubleValue())));
+                } else {
+                    textViewTax.setVisibility(View.GONE);
+                }
+
+                BigDecimal quantity = ((Merchandise) currentItem).getQuantity();
+                TextView textViewQuantity = row.findViewById(R.id.textViewDetailQuantity);
+                if (quantity.floatValue() > 1) {
+                    textViewQuantity.setVisibility(View.VISIBLE);
+                    textViewQuantity.setText(getContext().getString(R.string.str_quantity_value, String.valueOf(quantity.intValue())));
+                } else {
+                    textViewQuantity.setVisibility(View.GONE);
+                }
             }
 
-            BigDecimal tax = currentItem.getTax();
-            TextView textViewTax = row.findViewById(R.id.textViewDetailTax);
-            if (tax != null && tax.floatValue() > 0) {
-                textViewTax.setVisibility(View.VISIBLE);
-                textViewTax.setText(getContext().getString(R.string.str_tax_value, formatter.format(tax.doubleValue())));
-            } else {
-                textViewTax.setVisibility(View.GONE);
-            }
-
-            BigDecimal quantity = currentItem.getQuantity();
-            TextView textViewQuantity = row.findViewById(R.id.textViewDetailQuantity);
-            if (quantity.floatValue() > 1) {
-                textViewQuantity.setVisibility(View.VISIBLE);
-                textViewQuantity.setText(getContext().getString(R.string.str_quantity_value, String.valueOf(quantity.intValue())));
-            } else {
-                textViewQuantity.setVisibility(View.GONE);
+            if (basketItemType == BasketItemType.DONATION.getValue()) {
+                descriptionTextView.setTextColor(Color.GREEN);
             }
 
             TextView totalItem = row.findViewById(R.id.textViewDetailTotal);
             totalItem.setText(formatter.format(currentItem.getAmount().doubleValue()));
-
+            descriptionTextView.setText(!TextUtils.isEmpty(description) ? description : currentItem.getDisplayLine());
             return row;
         }
     }

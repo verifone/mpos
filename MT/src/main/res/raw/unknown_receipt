@@ -1,0 +1,40 @@
+<html>
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 0px solid #dddddd;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+  <div><center>Verifone</center></div>
+  <br />
+  <hr style="width:94%">
+  <hr style="width:94%">
+  <table style="width:99%">
+      <tr>
+          <td style="width:10%">***</td>
+          <td align="center">TRANSACTION RECEIPT</td>
+          <td align="right" style="width:10%">***</td>
+      </tr>
+  </table>
+
+  <div style="padding-left:8px">Original receipt not available</div>
+  <div style="padding-left:8px">Payment Application should provide it, it can be unimplemented.</div>
+  <br /><br />
+  <hr style="width:94%">
+  <div style="padding-left:8px">TOTAL: </div>
+  <table style="width:99%">
+      <tr>
+          <td align="right">AMOUNT_PLACEHOLDER</td>
+      </tr>
+  </table>
+  <br />
+</body>
+</html>

@@ -45,6 +45,8 @@ public interface IBridgeListener {
 
     void merchandiseDeleted();
 
+    void basketAdjusted();
+
     void basketFinalized();
 
     void onPaymentSuccess(Payment payment);

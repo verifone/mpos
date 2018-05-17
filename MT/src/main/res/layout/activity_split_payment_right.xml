@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/layout_keyboard"
-        android:id="@+id/numeric_keyboard_holder"/>
+    <com.verifone.swordfish.manualtransaction.gui.NumericKeyboard
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    <include layout="@layout/layout_buttons"
-             android:id="@+id/bottom_buttons_holder" />
+    <include
+        android:id="@+id/bottom_buttons_holder"
+        layout="@layout/layout_buttons" />
 
 </RelativeLayout>

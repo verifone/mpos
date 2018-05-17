@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8'?><resources>
+    <string name="app_name">mPOS</string>
+    <string name="app_name_extended">Manuelle Transaktion</string>
+
+    <string name="enter_discount_label">Rabatt eingeben</string>
+    <string name="enter_price_label">Preis eingeben</string>
+    <string name="add_note_label">Hinweis hinzufügen</string>
+    <string name="credit_card_label">Kreditkarte</string>
+    <string name="new_item">Neuer Artikel</string>
+    <string name="new_order">Neue Bestellung</string>
+    <string name="transaction_history">Transaktionsverlauf</string>
+    <string name="new_cart">Neuen Einkaufswagen beginnen</string>
+    <string name="quantity_label">Menge</string>
+    <string name="add_label">Hinzufügen</string>
+    <string name="no_go_back_button_label">Nein, zurück</string>
+    <string name="yes_cancel_button_label">Ja, abbrechen</string>
+
+    <string name="are_you_sure_you_want_to">Möchten Sie diese Transaktion wirklich %1$s?</string>
+
+    <string name="phone_order_button_label">Telefonbestellung</string>
+
+    <string name="split_label">Aufteilen</string>
+    <string name="tender_label">Angebot unterbreiten</string>
+    <string name="back_label">Zurück</string>
+    <string name="total_label">Gesamt:</string>
+    <string name="discount_label">Rabatt</string>
+    <string name="including_tax_label">Einschließlich Steuern:</string>
+    <string name="balance_label">Betrag:</string>
+    <string name="delete_label">Löschen</string>
+    <string name="note_label">Hinweis</string>
+    <string name="next_label">Weiter</string>
+    <string name="cash_label">Bar</string>
+    <string name="card_label">Karte</string>
+    <string name="pay_label">BEZAHLEN</string>
+    <string name="charge_label">Abbuchen</string>
+    <string name="success_label">Erfolgt</string>
+    <string name="failed_label">Fehlgeschlagen</string>
+
+    <string name="transaction_complete_label">Transaktion abgeschlossen</string>
+
+    <string name="select_receipt_option_message">Warten Sie, bis der Kunde die gewünschte Belegoption ausgewählt hat.</string>
+    <string name="select_receipt_option_label">Belegoption auswählen</string>
+    <string name="print_receipt_label">Beleg drucken</string>
+    <string name="send_receipt_label">Beleg senden</string>
+    <string name="no_receipt_label">Kein Beleg</string>
+    <string name="print_failed_message">Drucken fehlgeschlagen</string>
+    <string name="print_completed_message">Drucken abgeschlossen</string>
+
+    <string name="security_code_label">Sicherheitscode</string>
+
+    <string name="swipe_tap_or_insert_card">Ziehen Sie die Karte durch, legen Sie sie auf oder stecken Sie sie ein.</string>
+    <string name="waiting_for_customer_card">Warten Sie, bis der Kunde die Karte durchgezogen, aufgelegt oder eingesteckt hat.</string>
+    <string name="error_reading_card">Kartenlesefehler</string>
+    <string name="please_swipe_again">Ziehen Sie die Karte erneut durch oder geben Sie die Karte manuell ein.</string>
+    <string name="ready_for_signature_label">Bereit zum Unterschreiben</string>
+    <string name="waiting_for_customer_signature">Warten Sie, bis der Kunde unterschrieben hat.</string>
+    <string name="yy_label">JJ</string>
+    <string name="mm_label">MM</string>
+    <string name="card_declined">Karte abgelehnt</string>
+    <string name="transaction_cancelled">Transaktion abgebrochen</string>
+    <string name="choose_another_card">Zahlungsoption auswählen</string>
+    <string name="add_note_discount_and_taxes">Hinweis, Rabatt und Steuern hinzufügen</string>
+
+    <string name="enter_amount_received">Erhaltenen Betrag eingeben</string>
+    <string name="cash_received_label">Erhaltenes Bargeld</string>
+    <string name="card_received_label">Abgebuchter Betrag</string>
+    <string name="cash_pending_label">Ausstehender Betrag</string>
+    <string name="cash_tendered">Angebot unterbreitet</string>
+
+    <string name="enter_note_for_transaction_label">Hinweis zu dieser Transaktion eingeben</string>
+    <string name="save_note">Hinweis speichern</string>
+    <string name="send_a_receipt">Beleg senden</string>
+    <string name="delivery_method_label">Versandmethode auswählen</string>
+    <string name="sms_receipt_title">Beleg per SMS</string>
+    <string name="sms_receipt_subtitle">Telefonnummer des Kunden</string>
+    <string name="email_receipt_title">Beleg per E-Mail</string>
+    <string name="email_receipt_subtitle">E-Mail-Adresse des Kunden</string>
+    <string name="cancel_refund_button">Rückerstattung stornieren</string>
+    <string name="issue_refund_button">Rückerstattung erteilen</string>
+    <string name="refund_label">Rückerstattung</string>
+    <string name="void_label">Annullieren</string>
+    <string name="split_payment_label">Zahlung aufteilen</string>
+    <string name="select_payment_type">Zahlungstyp auswählen</string>
+    <string name="partial_refund_label">Anteil</string>
+    <string name="processing_card_label">Karte wird verarbeitet ...</string>
+
+    <string name="reconcile_confirm_label">Möchten Sie eine Mehrfachabstimmung durchführen?</string>
+    <string name="same_as_received">Identisch mit empfangen</string>
+    <string name="amount_to_pay">Zu bezahlender Betrag</string>
+    <string name="change_due">Rückgeld:</string>
+
+    <string name="charge_amount">Betrag abbuchen</string>
+    <string name="split_error_amount">Der zu bezahlende Betrag darf nicht höher als der verbleibende Betrag sein.</string>
+    <string name="split_error_cash">Der zu bezahlende Betrag darf nicht höher als der Betrag des erhaltenen Bargelds sein.</string>
+    <string name="not_tax_label">KEINE STEUERN</string>
+    <string name="cash_drawer_status_message">Kassenschublade offen oder Verbindung getrennt ...</string>
+    <string name="quantity_error_label">Die Menge muss größer als 0 sein.</string>
+    <string name="gratuity_amount_label">Trinkgeldbetrag auswählen</string>
+    <string name="gratuity_wait_message">Warten Sie, bis der Kunde den Trinkgeldbetrag ausgewählt hat.</string>
+    <string name="button_no_tip_label">Kein Trinkgeld</string>
+    <string name="wait_for_pt">Warten auf das Zahlungsterminal ...</string>
+    <string name="partial_refund_history_label">Teilrückerstattung</string>
+    <string name="upper_history_tx_label">Ursprüngliche Transaktionsnummer: </string>
+    <string name="lower_history_tx_label">Transaktionsnummer %1$s</string>
+    <string name="history_detail_tx_total_tax_label">Einschließlich Steuern: %1$s</string>
+    <string name="history_str_on_date">– %1$s</string>
+    <string name="history_card_type_credit">KREDITKARTE</string>
+    <string name="history_card_type_debit">DEBITKARTE</string>
+    <string name="history_car_exp_date">ABLAUFDATUM </string>
+    <string name="history_cash_refunded">RÜCKERSTATTET</string>
+    <string name="history_ready_to_void_label">Bereit, um Transaktion zu annullieren</string>
+    <string name="history_waiting_for_selection_label">Warten Sie auf die Auswahl.</string>
+    <string name="history_header_voided_label">Annulliert</string>
+    <string name="history_void_process_label">Annullierung wird verarbeitet. Bitte warten ...</string>
+    <string name="history_refund_type_label">Art der Rückerstattung</string>
+    <string name="history_select_refund_type_label">Art der Rückerstattung auswählen</string>
+
+
+    <!--PaymentByCard string values -->
+    <string name="credit_card_number">Kreditkartennummer</string>
+    <string name="credit_expiration_label">Ablaufdatum</string>
+    <string name="credit_card_holder">Karteninhaber</string>
+    <string name="credit_auth_code">Überprüfungscode</string>
+
+     <string name="starting_transaction">Neue Transaktion</string> 
+
+    <string name="cancel_transaction_btn">Transaktion abbrechen</string>
+
+    <string name="str_no">NEIN</string>
+    <string name="str_yes">JA</string>
+    <string name="str_change_payment_type">ZAHLUNGSTYP ÄNDERN</string>
+    <string name="str_ten_percent">10 %</string>
+    <string name="str_eighteen_percent">18 %</string>
+    <string name="str_twenty_five_percent">25 %</string>
+    <string name="str_number_one">1</string>
+    <string name="str_card_encrypted_value">**** **** ****</string>
+    <string name="str_card_expiration_date">XX/XX</string>
+    <string name="str_card_auth_code">XXXXXX</string>
+
+    <string name="str_select_payment_method">Zahlungsmethode auswählen</string>
+
+    <string name="str_save">SPEICHERN</string>
+    <string name="str_sales_tax_percent">Mehrwertsteuer %1$s</string>
+    <string name="str_taxes">Steuern</string>
+    <string name="str_print">DRUCKEN</string>
+    <string name="str_restaurant">Restaurant?</string>
+    <string name="str_is_restaurant">Handelt es sich um ein Restaurant?</string>
+
+    <string name="str_reconcile">Abstimmen</string>
+
+    <string name="str_label_email">E-MAIL</string>
+    <string name="str_label_sms">SMS</string>
+    <string name="str_enter_amount_to_charge">Abzubuchenden Betrag eingeben</string>
+    <string name="str_label_remove">Entfernen</string>
+    <string name="str_description">Beschreibung</string>
+    <string name="str_modifier">Faktor</string>
+    <string name="str_cardholder">CardHolder</string>
+    <string name="str_new_item">Neuer Artikel</string>
+
+    <string name="str_discount_value">Rabatt: -%1$s</string>
+    <string name="str_tax_value">Steuer: %1$s</string>
+    <string name="str_quantity_value">MENGE: %1$s</string>
+    <string name="str_sales_tax">Mehrwertsteuer %1$s</string>
+    <string name="adjusting_basket">Einkaufskorb wird angepasst ...</string>
+
+    <string name="end_order">Bestellung beenden</string>
+    <string name="basket_adjustment">Einkaufskorb anpassen</string>
+    <string name="rejected_label">ABGELEHNT</string>
+    <string name="void_declined_label">Annullierung abgelehnt</string>
+    <string name="refund_declined_label">Rückerstattung abgelehnt</string>
+    <string name="refund_performing">RÜCKERSTATTUNG wird ausgeführt ...</string>
+    <string name="void_performing">ANNULLIERUNG wird ausgeführt ...</string>
+
+    <string name="not_available">Keine Angabe</string>
+    <string name="loading_history">Verlauf wird geladen ...</string>
+    <string name="title_ending_session">Sitzung wird beendet ...</string>
+    <string name="title_making_payment">Zahlung erfolgt ...</string>
+    <string name="title_finishing_order">Bestellung wird abgeschlossen ...</string>
+    <string name="title_closing_session">Sitzung wird geschlossen ...</string>
+
+    <string name="change_ip">Terminal-IP ändern (%1$s)</string>
+    <string name="terminalIpTitle">Terminal-IP-Adresse</string>
+    <string name="title_payment_seesion_error">Fehler bei der Zahlungssitzung</string>
+    <string name="message_payment_session_failed">Eine neue Zahlungssitzung kann nicht gestartet werden. Überprüfen Sie die IP-Adresse oder beenden Sie den Zahlungsdienst und versuchen Sie es dann erneut.</string>
+    <string name="title_payment_cancelled">Zahlung abgebrochen</string>
+    <string name="message_payment_cancelled">Zahlung durch Benutzer abgebrochen Versuchen Sie es erneut, wählen Sie eine andere Zahlungsmethode aus oder brechen Sie die Transaktion ab.</string>
+    <string name="title_payment_failure">Zahlung fehlgeschlagen</string>
+    <string name="title_payment_declined">Zahlung abgelehnt</string>
+    <string name="message_payment_declined">Die Zahlung wurde abgelehnt. Versuchen Sie es erneut, überprüfen Sie die Karte, wählen Sie eine andere Zahlungsmethode aus oder brechen Sie die Transaktion ab.</string>
+    <string name="edit_port_hint">Port (optional)</string>
+    <string name="caption_menu_last_sync">Letzte Synchronisierung: %1$s</string>
+    <string name="title_reconcile_in_progress">Mehrfachabstimmung wird durchgeführt …</string>
+    <string name="title_reconcile_successful">Mehrfachabstimmung abgeschlossen!</string>
+    <string name="title_reconcile_failed">Mehrfachabstimmung fehlgeschlagen! %1$s</string>
+    <string name="never">Nie</string>
+    <string name="receipt_unavailable_message">Originalbeleg nicht verfügbar</string>
+    <string name="discount_grater_amount_message">Der Rabatt darf nicht höher als der Betrag des Artikels sein.</string>
+    <string name="display_name">Anzeigename %1$d</string>
+    <string name="changed_message">Geändert!</string>
+    <string name="item_is_status_pattern">%1$s ist: %2$s</string>
+
+</resources>

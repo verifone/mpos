@@ -17,7 +17,9 @@ import com.verifone.swordfish.manualtransaction.R;
 
 import java.math.BigDecimal;
 
-import static com.verifone.swordfish.manualtransaction.gui.NumericEditText.*;
+import static com.verifone.swordfish.manualtransaction.gui.NumericEditText.GONE;
+import static com.verifone.swordfish.manualtransaction.gui.NumericEditText.RepresentationType;
+import static com.verifone.swordfish.manualtransaction.gui.NumericEditText.VISIBLE;
 
 /**
  * Copyright (C) 2016,2017,2018 Verifone, Inc.
@@ -239,6 +241,7 @@ public class OrderCreateActivity extends BaseListenerActivity implements View.On
         updateUI(true);
     }
 
+
     /**
      * Item detail view fragment callbacks
      */
@@ -293,6 +296,13 @@ public class OrderCreateActivity extends BaseListenerActivity implements View.On
     @Override
     public void merchandiseDeleted() {
         updateBasket();
+    }
+
+    @Override
+    public void basketAdjusted() {
+        if (mOrderListFragment.isAdded()) {
+            updateBasket();
+        }
     }
 
     @Override

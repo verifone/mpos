@@ -25,7 +25,7 @@
             android:foregroundGravity="center_vertical"
             android:onClick="onClick"
             android:padding="15dp"
-            android:text="New Order"
+            android:text="@string/new_order"
             android:textColor="@color/azure"
             android:textSize="24sp"/>
 
@@ -40,7 +40,7 @@
             android:foregroundGravity="center_vertical"
             android:onClick="onClick"
             android:padding="15dp"
-            android:text="History"
+            android:text="@string/transaction_history"
             android:textColor="@color/azure"
             android:textSize="24sp"/>
     </LinearLayout>

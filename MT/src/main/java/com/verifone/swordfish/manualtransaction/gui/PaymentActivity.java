@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import com.verifone.swordfish.manualtransaction.IBridgeListener;
 import com.verifone.swordfish.manualtransaction.ManualTransactionApplication;
@@ -139,7 +138,7 @@ public class PaymentActivity extends BaseListenerActivity
 
     private void splitPayment() {
         Intent splitIntent = new Intent(this, SplitPaymentActivity.class);
-        splitIntent.putExtra(AMOUNT_KEY, BasketUtils.calculateTotalAmount());
+        splitIntent.putExtra(AMOUNT_KEY, BasketUtils.calculateBasketTotalAmount());
         startActivityForResult(splitIntent, StartActivity.GENERAL_REQUEST_CODE);
     }
 
@@ -151,19 +150,19 @@ public class PaymentActivity extends BaseListenerActivity
 
     private void cashPayment() {
         Intent cashIntent = new Intent(this, CashPaymentActivity.class);
-        cashIntent.putExtra(AMOUNT_KEY, BasketUtils.calculateTotalAmount());
+        cashIntent.putExtra(AMOUNT_KEY, BasketUtils.calculateBasketTotalAmount());
         startActivityForResult(cashIntent, StartActivity.GENERAL_REQUEST_CODE);
     }
 
     private void chargePayment() {
         Intent chargeIntent = new Intent(this, CardPaymentActivity.class);
-        chargeIntent.putExtra(AMOUNT_KEY, BasketUtils.calculateTotalAmount());
+        chargeIntent.putExtra(AMOUNT_KEY, BasketUtils.calculateBasketTotalAmount());
         startActivityForResult(chargeIntent, StartActivity.GENERAL_REQUEST_CODE);
     }
 
     private void phonePayment() {
         Intent chargeIntent = new Intent(this, CardPaymentActivity.class);
-        chargeIntent.putExtra(AMOUNT_KEY, BasketUtils.calculateTotalAmount());
+        chargeIntent.putExtra(AMOUNT_KEY, BasketUtils.calculateBasketTotalAmount());
         chargeIntent.putExtra(CardPaymentActivity.MANUAL_PAYMENT_KEY, true);
         startActivityForResult(chargeIntent, StartActivity.GENERAL_REQUEST_CODE);
     }
@@ -191,6 +190,11 @@ public class PaymentActivity extends BaseListenerActivity
 
     @Override
     public void merchandiseDeleted() {
+        mOrderListFragment.updateBasket();
+    }
+
+    @Override
+    public void basketAdjusted() {
         mOrderListFragment.updateBasket();
     }
 

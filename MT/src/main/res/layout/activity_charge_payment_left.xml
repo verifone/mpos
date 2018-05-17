@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
@@ -8,158 +10,88 @@
     android:paddingStart="30sp"
     android:weightSum="1">
 
-         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/currencySymbol"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/keyboardNumFont"
-                android:fontFamily="Roboto-Regular"
-                android:text="@string/country_currency"
-                android:textColor="@color/light_grey"
-                android:textSize="30sp"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/paymentHeadTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:background="@color/keyboardNumFont"
-                android:fontFamily="Roboto-Regular"
-                android:text="@string/str_dollar_zero_with_space"
-                android:textAlignment="center"
-                android:textColor="@color/light_grey"
-                android:textSize="30sp" />
-            <!--android:inputType="none|textAutoComplete|numberDecimal"-->
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/creditCardNumber"
-            android:textAppearance="@style/fontForTextViewCreditCardLabels" />
-
-        <TextView
-            android:id="@+id/textViewCardNumber"
-            android:layout_width="match_parent"
-            android:layout_height="57sp"
-            android:layout_gravity="center_vertical"
-            android:text="@string/str_card_encrypted_value"
-            android:textAppearance="@style/fontForTextViewCreditCardValues" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/creditExpirationLabel"
-            android:textAppearance="@style/fontForTextViewCreditCardLabels" />
-
-        <TextView
-            android:id="@+id/textViewCardExpiration"
-            android:layout_width="match_parent"
-            android:layout_height="57sp"
-            android:layout_gravity="center_vertical"
-            android:text="@string/str_card_expiration_date"
-            android:textAppearance="@style/fontForTextViewCreditCardValues" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/creditCardHolder"
-            android:textAppearance="@style/fontForTextViewCreditCardLabels" />
-
-        <TextView
-            android:id="@+id/textViewCardHolder"
-            android:layout_width="match_parent"
-            android:layout_height="57sp"
-            android:layout_gravity="center_vertical"
-            android:textAppearance="@style/fontForTextViewCreditCardValues" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/creditAuthCode"
-            android:textAppearance="@style/fontForTextViewCreditCardLabels" />
-
-        <TextView
-            android:id="@+id/textViewCardAuthCode"
-            android:layout_width="match_parent"
-            android:layout_height="57sp"
-            android:layout_gravity="center_vertical"
-            android:text="@string/str_card_auth_code"
-            android:textAppearance="@style/fontForTextViewCreditCardValues" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
 
         <Space
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent" />
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"/>
 
-        <View
-            android:id="@+id/divider3"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/white_three" />
+        <TextView
+            android:id="@+id/paymentHeadTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@color/keyboardNumFont"
+            android:fontFamily="Roboto-Regular"
+            android:textAlignment="center"
+            android:textColor="@color/light_grey"
+            android:textSize="30sp"
+            tools:text="0,00 $"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="95sp"
-            android:background="@color/white_two"
-            android:gravity="fill_vertical"
-            android:orientation="horizontal">
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="Roboto-Medium"
-                android:text="@string/total_textview_label"
-                android:textColor="@color/greyish_brown"
-                android:textSize="24sp" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/credit_card_number"
+        android:textAppearance="@style/fontForTextViewCreditCardLabels"/>
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_weight="1" />
+    <TextView
+        android:id="@+id/textViewCardNumber"
+        android:layout_width="match_parent"
+        android:layout_height="57sp"
+        android:layout_gravity="center_vertical"
+        android:text="@string/str_card_encrypted_value"
+        android:textAppearance="@style/fontForTextViewCreditCardValues"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="Roboto-Regular"
-                android:text="@string/country_currency"
-                android:textColor="@color/deep_lilac"
-                android:textSize="40sp"
-                android:visibility="invisible" />
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/credit_expiration_label"
+        android:textAppearance="@style/fontForTextViewCreditCardLabels"/>
 
-            <TextView
-                android:id="@+id/paymentFooterTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="Roboto-Medium"
-                android:text="@string/str_zero_value"
-                android:textAlignment="gravity"
-                android:textColor="@color/deep_lilac"
-                android:textSize="40sp" />
+    <TextView
+        android:id="@+id/textViewCardExpiration"
+        android:layout_width="match_parent"
+        android:layout_height="57sp"
+        android:layout_gravity="center_vertical"
+        android:text="@string/str_card_expiration_date"
+        android:textAppearance="@style/fontForTextViewCreditCardValues"/>
 
-            <Space
-                android:layout_width="31dp"
-                android:layout_height="20dp" />
-        </LinearLayout>
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/credit_card_holder"
+        android:textAppearance="@style/fontForTextViewCreditCardLabels"/>
+
+    <TextView
+        android:id="@+id/textViewCardHolder"
+        android:layout_width="match_parent"
+        android:layout_height="57sp"
+        android:layout_gravity="center_vertical"
+        android:textAppearance="@style/fontForTextViewCreditCardValues"/>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/credit_auth_code"
+        android:textAppearance="@style/fontForTextViewCreditCardLabels"/>
+
+    <TextView
+        android:id="@+id/textViewCardAuthCode"
+        android:layout_width="match_parent"
+        android:layout_height="57sp"
+        android:layout_gravity="center_vertical"
+        android:text="@string/str_card_auth_code"
+        android:textAppearance="@style/fontForTextViewCreditCardValues"/>
 
 </LinearLayout>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,10 +28,9 @@
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="2dp"
                     android:layout_marginEnd="10dp"
-                    android:text="@string/new_text"
-                    android:textAppearance="@style/fontForTextViewItemBasket" />
+                    android:layout_marginStart="2dp"
+                    android:textAppearance="@style/fontForTextViewItemBasket"/>
 
                 <ImageButton
                     android:id="@+id/imageButtonEditNote"
@@ -40,8 +39,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="2dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/icon_edit"
-                    android:contentDescription="@null" />
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_edit"/>
             </LinearLayout>
 
             <Button
@@ -50,15 +49,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@android:color/transparent"
-                android:text="@string/add_note_discount_button"
-                android:textAppearance="@style/fontForTextViewTransactionHistoryOptionButtons" />
+                android:text="@string/add_note_discount_and_taxes"
+                android:textAppearance="@style/fontForTextViewTransactionHistoryOptionButtons"/>
 
         </FrameLayout>
 
         <Space
             android:layout_width="0dp"
             android:layout_height="20dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/textViewDetailTotal"
@@ -67,31 +66,30 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="2dp"
             android:gravity="center_vertical"
-            android:text="@string/new_text"
-            android:textAppearance="@style/fontForTextViewTransactionHistoryDetailAmount" />
+            android:textAppearance="@style/fontForTextViewTransactionHistoryDetailAmount"/>
     </LinearLayout>
 
     <TextView
         android:id="@+id/textViewDetailDiscount"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|end"
-        android:text="@string/new_text"
-        android:textAppearance="@style/fontForTextViewTransactionHistoryDetailDate" />
+        android:textAppearance="@style/fontForTextViewTransactionHistoryDetailDate"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/textViewDetailTax"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|end"
-        android:text="@string/new_text"
-        android:textAppearance="@style/fontForTextViewTransactionHistoryDetailDate" />
+        android:textAppearance="@style/fontForTextViewTransactionHistoryDetailDate"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/textViewDetailQuantity"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|end"
-        android:text="@string/new_text"
-        android:textAppearance="@style/fontForTextViewTransactionHistoryDetailDate" />
+        android:textAppearance="@style/fontForTextViewTransactionHistoryDetailDate"
+        android:visibility="gone"/>
 </LinearLayout>

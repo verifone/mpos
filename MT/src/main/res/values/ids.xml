@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="numeric_keyboard" type="id" />
+    <item name="money_amount_keyboard" type="id" />
+</resources>

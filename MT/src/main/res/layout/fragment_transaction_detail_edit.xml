@@ -1,153 +1,89 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="498dp"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    tools:context="com.verifone.swordfish.manualtransaction.SupportFragments.TransactionDetailEdit">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="@dimen/transaction_detail_layout_margin"
+              android:layout_marginRight="@dimen/transaction_detail_layout_margin"
+              android:layout_marginTop="@dimen/transaction_detail_layout_margin"
+              android:background="@color/white"
+              android:orientation="vertical"
+              tools:context=".gui.OrderCreateActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/amountTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="Roboto-Regular"
-            android:text="@string/str_dollar_zero_with_space"
-            android:textColor="@color/black"
-            android:textSize="30sp" />
-
-        <Space
-            android:layout_width="41dp"
-            android:layout_height="20dp"
-            android:gravity="end" />
-    </LinearLayout>
-
-    <Space
-        android:layout_width="20dp"
-        android:layout_height="46sp" />
+    <TextView
+        android:id="@+id/amountTextView"
+        style="@style/AmountTextViewAppearance"
+        tools:text="0,00 $"/>
 
     <EditText
         android:id="@+id/newNotesTextField"
+        style="@style/PlainEditTextAppearance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="29dp"
-        android:ems="10"
-        android:enabled="true"
-        android:fontFamily="Roboto-Regular"
-        android:gravity="top"
-        android:hint="@string/str_note"
-        android:imeOptions="actionDone"
-        android:inputType="textCapSentences"
-        android:textColor="@color/greyish"
-        android:textSize="20sp" />
-
-    <Space
-        android:layout_width="20dp"
-        android:layout_height="17dp" />
+        android:hint="@string/note_label"/>
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:fontFamily="Roboto-Medium"
-        android:text="@string/quantityLabel"
-        android:textColor="@color/warm_grey"
-        android:textSize="14sp" />
+        android:id="@+id/quantityLabel"
+        style="@style/LabelAppearance"
+        android:labelFor="@+id/quantityTextField"
+        android:text="@string/quantity_label"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
         android:orientation="horizontal">
 
-        <TextView
+        <com.verifone.swordfish.manualtransaction.gui.NumericEditText
             android:id="@+id/quantityTextField"
+            style="@style/NumericEditTextAppearance"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
             android:layout_weight="1"
-            android:fontFamily="Roboto-Regular"
-            android:text="@string/str_number_one"
-            android:textColor="@color/greyish_brown"
-            android:textSize="20sp" />
+            android:text="@string/str_number_one"/>
 
         <ImageButton
             android:id="@+id/increaseButton"
-            android:layout_width="27dp"
-            android:layout_height="27dp"
-            android:background="@android:color/transparent"
+            style="@style/QuantityButtonAppearance"
             android:contentDescription="@null"
-            android:gravity="center_vertical"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_qty_up" />
+            android:src="@drawable/icon_qty_up"/>
 
         <Space
-            android:layout_width="30sp"
-            android:layout_height="20dp" />
+            android:layout_width="@dimen/transaction_detail_quantity_buttons_horizontal_space"
+            android:layout_height="0dp"/>
 
         <ImageButton
             android:id="@+id/decreaseButton"
-            android:layout_width="27sp"
-            android:layout_height="27sp"
-            android:background="@android:color/transparent"
+            style="@style/QuantityButtonAppearance"
             android:contentDescription="@null"
-            android:gravity="center_vertical"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_qty_down_off" />
+            android:src="@drawable/icon_qty_down_off"/>
 
-        <Space
-            android:layout_width="49sp"
-            android:layout_height="20dp"
-            android:gravity="end" />
     </LinearLayout>
 
-    <View
-        android:id="@+id/line2"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="29dp"
-        android:background="@color/warm_grey" />
+    <TextView
+        android:id="@+id/discountLabel"
+        style="@style/LabelAppearance"
+        android:labelFor="@+id/discountTextField"
+        android:text="@string/discount_label"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="17dp"
         android:orientation="horizontal">
 
-
-        <EditText
+        <com.verifone.swordfish.manualtransaction.gui.NumericEditText
             android:id="@+id/discountTextField"
+            style="@style/NumericEditTextAppearance"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:fontFamily="Roboto-Regular"
-            android:hint="@string/discountLabel"
-            android:inputType="none"
-            android:textColor="@color/greyish"
-            android:textSize="20sp" />
+            android:hint="@string/enter_discount_label"/>
 
         <RadioGroup
             android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="41dp"
-            android:orientation='horizontal'
-            android:checkedButton="@+id/radioButtonMoney">
+            android:layout_gravity="center_vertical"
+            android:checkedButton="@+id/radioButtonMoney"
+            android:orientation='horizontal'>
 
             <RadioButton
                 android:id="@+id/radioButtonMoney"
@@ -156,51 +92,59 @@
                 android:buttonTint="@color/azure"
                 android:checked="true"
                 android:enabled="true"
-                android:gravity="center_vertical"
-                android:text="@string/money_symbol" />
-            <!--android:layout_toStartOf="@+id/radioDiscountButtonAmount"-->
+                tools:text="$"/>
+
+            <Space
+                android:layout_width="@dimen/transaction_detail_elements_horizontal_space"
+                android:layout_height="0dp"/>
 
             <RadioButton
                 android:id="@+id/radioButtonPercentage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="1dp"
                 android:buttonTint="@color/azure"
                 android:enabled="true"
-                android:gravity="center_vertical"
-                android:text="@string/percentage_symbol" />
+                android:text="@string/percentage_symbol"/>
 
         </RadioGroup>
 
-
     </LinearLayout>
 
-    <View
-        android:id="@+id/line1"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="29dp"
-        android:background="@color/warm_grey" />
+    <TextView
+        android:id="@+id/upcLabel"
+        style="@style/LabelAppearance"
+        android:labelFor="@+id/upcTextField"
+        android:text="@string/upcLabel"/>
 
-    <Space
-        android:layout_width="20dp"
-        android:layout_height="17dp" />
+    <com.verifone.swordfish.manualtransaction.gui.NumericEditText
+        android:id="@+id/upcTextField"
+        style="@style/NumericEditTextAppearance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/upcHint"/>
+
+    <TextView
+        android:id="@+id/skuLabel"
+        style="@style/LabelAppearance"
+        android:labelFor="@+id/skuTextField"
+        android:text="@string/skuLabel"/>
+
+    <com.verifone.swordfish.manualtransaction.gui.NumericEditText
+        android:id="@+id/skuTextField"
+        style="@style/NumericEditTextAppearance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/skuHint"/>
 
     <TextView
         android:id="@+id/taxesTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:fontFamily="Roboto-Medium"
-        android:text="@string/str_taxes"
-        android:textColor="@color/warm_grey"
-        android:textSize="14sp" />
+        style="@style/LabelAppearance"
+        android:labelFor="@+id/detailSalesTax"
+        android:text="@string/str_taxes"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
         android:orientation="horizontal">
 
         <TextView
@@ -208,95 +152,68 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="Roboto-Regular"
-            android:text="@string/str_sales_tax_75_percent"
+            android:text="@string/str_sales_tax_percent"
             android:textColor="@color/greyish_brown"
-            android:textSize="20sp" />
-
+            android:textSize="@dimen/transaction_detail_text_size"/>
 
         <Space
             android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_weight="1" />
+            android:layout_height="@dimen/transaction_detail_elements_vertical_space"
+            android:layout_weight="1"/>
 
         <Switch
             android:id="@+id/includeTax"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="@dimen/transaction_detail_button_size"
+            android:layout_gravity="end"
             android:checked="false"
-            android:tint="@color/azure" />
-
-        <Space
-            android:layout_width="41dp"
-            android:layout_height="20dp"
-            android:gravity="end" />
+            android:gravity="end"
+            android:tint="@color/azure"/>
 
     </LinearLayout>
 
-    <View
-        android:id="@+id/line3"
+    <android.support.v4.widget.Space
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="29dp"
-        android:background="@color/warm_grey" />
-
-
-    <Space
-        android:layout_width="20dp"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="91dp"
-        android:background="@color/white_two"
+        android:layout_height="@dimen/transaction_detail_button_bar_height"
+        android:background="@android:color/transparent"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/deleteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|start"
-            android:layout_marginEnd="29dp"
-            android:background="@android:color/transparent"
-            android:fontFamily="Roboto-Bold"
-            android:text="@string/delete_button_label"
-            android:textColor="@color/vermillion"
-            android:textSize="24sp" />
+            style="@style/ActionButtonAppearance"
+            android:text="@string/delete_label"
+            android:textColor="@color/vermillion"/>
 
         <Space
             android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/cancelButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            android:background="@android:color/transparent"
-            android:fontFamily="Roboto-Bold"
+            style="@style/ActionButtonAppearance"
             android:text="@android:string/cancel"
-            android:textColor="@color/azure"
-            android:textSize="24sp"
-            tools:ignore="ButtonOrder" />
+            tools:ignore="ButtonOrder"/>
+
+        <Space
+            android:layout_width="@dimen/transaction_detail_elements_horizontal_space"
+            android:layout_height="match_parent"/>
 
         <Button
             android:id="@+id/saveButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:background="@android:color/transparent"
-            android:fontFamily="Roboto-Bold"
-            android:text="@string/str_save"
-            android:textColor="@color/azure"
-            android:textSize="24sp" />
+            style="@style/ActionButtonAppearance"
+            android:text="@string/str_save"/>
 
     </LinearLayout>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/warm_grey" />
+        android:background="@color/warm_grey"/>
 
 </LinearLayout>

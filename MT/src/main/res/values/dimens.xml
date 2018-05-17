@@ -49,5 +49,17 @@
     <dimen name="dp_20">20dp</dimen>
     <dimen name="min_width_for_port_view">200dp</dimen>
 
+    <!--fragment_transaction_detail_edit.xml-->
+    <dimen name="transaction_detail_layout_margin">30dp</dimen>
+    <dimen name="transaction_detail_text_size">20sp</dimen>
+    <dimen name="transaction_detail_separator_height">1dp</dimen>
+    <dimen name="transaction_detail_button_size">27dp</dimen>
+    <dimen name="transaction_detail_elements_vertical_space">17dp</dimen>
+    <dimen name="transaction_detail_elements_horizontal_space">20dp</dimen>
+    <dimen name="transaction_detail_button_bar_height">91dp</dimen>
+    <dimen name="transaction_detail_quantity_buttons_horizontal_space">45dp</dimen>
+
+    <!--keyboards layouts-->
+     <dimen name="keyboard_layout_padding">12dp</dimen>
 
 </resources>

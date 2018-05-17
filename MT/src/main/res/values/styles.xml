@@ -165,5 +165,97 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="NumericKeyboardButtonAppearance">
+        <item name="android:layout_width">117dp</item>
+        <item name="android:layout_height">90dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+
+    <style name="MoneyAmountKeyboardButtonAppearance">
+        <item name="android:layout_width">117dp</item>
+        <item name="android:layout_height">90dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:background">@drawable/button_blue_122_x_89</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
+    </style>
+
+    <style name="NumericEditTextAppearance">
+        <item name="android:layout_marginLeft">-4dp</item>
+        <item name="android:layout_marginRight">-4dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
+        <item name="android:inputType">number</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ems">10</item>
+        <item name="android:textColor">@color/greyish_brown</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="PlainEditTextAppearance">
+        <item name="android:layout_marginLeft">-4dp</item>
+        <item name="android:layout_marginRight">-4dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
+        <item name="android:inputType">textCapSentences</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ems">10</item>
+        <item name="android:textColor">@color/greyish</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="LabelAppearance">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
+        <item name="android:textColor">@color/warm_grey</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AmountTextViewAppearance">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:fontFamily">Roboto-Regular</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="AzureButtonAppearance">
+        <item name="android:fontFamily">Roboto-Regular</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@drawable/azure_button</item>
+    </style>
+
+    <style name="ActionButtonAppearance">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/azure</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="QuantityButtonAppearance">
+        <item name="android:layout_width">27dp</item>
+        <item name="android:layout_height">27dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 
 </resources>

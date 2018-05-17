@@ -1,0 +1,117 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/keyboard_layout_padding">
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/button1"
+            style="@style/NumericKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:src="@drawable/keypad_button_1"
+            android:tag="@string/keyboard_btn_1" />
+
+        <ImageButton
+            android:id="@+id/button2"
+            style="@style/NumericKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:src="@drawable/keypad_button_2"
+            android:tag="@string/keyboard_btn_2" />
+
+        <ImageButton
+            android:id="@+id/button3"
+            style="@style/NumericKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:src="@drawable/keypad_button_3"
+            android:tag="@string/keyboard_btn_3" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/button4"
+            style="@style/NumericKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:src="@drawable/keypad_button_4"
+            android:tag="@string/keyboard_btn_4" />
+
+        <ImageButton
+            android:id="@+id/button5"
+            style="@style/NumericKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:src="@drawable/keypad_button_5"
+            android:tag="@string/keyboard_btn_5" />
+
+        <ImageButton
+            android:id="@+id/button6"
+            style="@style/NumericKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:src="@drawable/keypad_button_6"
+            android:tag="@string/keyboard_btn_6" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/button7"
+            style="@style/NumericKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:src="@drawable/keypad_button_7"
+            android:tag="@string/keyboard_btn_7" />
+
+        <ImageButton
+            android:id="@+id/button8"
+            style="@style/NumericKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:src="@drawable/keypad_button_8"
+            android:tag="@string/keyboard_btn_8" />
+
+        <ImageButton
+            android:id="@+id/button9"
+            style="@style/NumericKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:src="@drawable/keypad_button_9"
+            android:tag="@string/keyboard_btn_9" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/button00"
+            style="@style/NumericKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:src="@drawable/keypad_button_00"
+            android:tag="@string/keyboard_btn_00" />
+
+        <ImageButton
+            android:id="@+id/button0"
+            style="@style/NumericKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:src="@drawable/keypad_button_0"
+            android:tag="@string/keyboard_btn_0" />
+
+
+        <ImageButton
+            android:id="@+id/buttonDelete"
+            style="@style/NumericKeyboardButtonAppearance"
+            android:contentDescription="@null"
+            android:src="@drawable/keypad_button_backspace"
+            android:tag="@string/keyboard_btn_del" />
+
+    </TableRow>
+
+</TableLayout>
+
+

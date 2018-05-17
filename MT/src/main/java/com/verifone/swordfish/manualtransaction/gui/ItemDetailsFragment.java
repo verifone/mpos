@@ -298,8 +298,9 @@ public class ItemDetailsFragment extends Fragment implements View.OnClickListene
             return;
         }
 
-        mWorkingItem.setDescription(mNoteEdit.getText().toString());
-        mWorkingItem.setDisplayLine(mWorkingItem.getDescription());
+        String itemDescription = mNoteEdit.getText().toString();
+        mWorkingItem.setDescription(itemDescription);
+        mWorkingItem.setDisplayLine(!TextUtils.isEmpty(itemDescription) ? itemDescription : mWorkingItem.getDisplayLine() );
 
         if (mListener != null) {
             mListener.onSave(mWorkingItem);

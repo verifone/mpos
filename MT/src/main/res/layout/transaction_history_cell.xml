@@ -55,9 +55,9 @@
             android:id="@+id/textViewPaymentType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="20dp"
             android:text="@string/not_available"
-            android:layout_gravity="center_vertical"
             android:textAppearance="@style/fontForTextViewTransactionHistory"/>
 
         <Space
@@ -84,7 +84,8 @@
         android:layout_marginStart="10dp"
         android:layout_weight="1"
         android:background="@drawable/white_background"
-        android:text="@string/str_print_receipt"
+        android:text="@string/print_receipt_label"
+        android:textAllCaps="true"
         android:textColor="@color/azure"
         android:textSize="18sp"/>
 
@@ -94,7 +95,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@drawable/azure_background"
-        android:text="@string/str_refund"
+        android:text="@string/refund_label"
+        android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"/>
