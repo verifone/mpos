@@ -1,7 +1,7 @@
 Dependencies
 ============
 
-The Verifone mPOS uses Crashlytics from fabric.io crash reporting.
+The Verifone mPOS uses Crashlytics from fabric.io for crash reporting.
 
 To compile mPOS you need to obtain your own free fabric API key by signing up for a free 
 fabric account at https://fabric.io/sign_up
