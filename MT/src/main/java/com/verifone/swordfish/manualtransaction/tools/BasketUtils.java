@@ -84,12 +84,12 @@ public class BasketUtils {
             }
         }
 
-        List<Donation> donations = ManualTransactionApplication.getCarbonBridge().getAdjustedDonations();
-        if (donations != null && !donations.isEmpty()) {
-            for (Donation donation : donations) {
-                total = total.add(donation.getAmount());
-            }
-        }
+//        List<Donation> donations = ManualTransactionApplication.getCarbonBridge().getAdjustedDonations();
+//        if (donations != null && !donations.isEmpty()) {
+//            for (Donation donation : donations) {
+//                total = total.add(donation.getAmount());
+//            }
+//        }
         return total;
     }
 

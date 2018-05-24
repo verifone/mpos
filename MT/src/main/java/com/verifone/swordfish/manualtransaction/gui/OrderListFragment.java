@@ -165,13 +165,13 @@ public class OrderListFragment extends Fragment {
             basketItems.addAll(offerList);
         }
 
-        List<Donation> donationList = ManualTransactionApplication.getCarbonBridge().getAdjustedDonations();
-        if (donationList != null && !donationList.isEmpty()) {
-            for (Donation donation : donationList) {
-                totalAmount = totalAmount.add(donation.getAmount());
-            }
-            basketItems.addAll(donationList);
-        }
+//        List<Donation> donationList = ManualTransactionApplication.getCarbonBridge().getAdjustedDonations();
+//        if (donationList != null && !donationList.isEmpty()) {
+//            for (Donation donation : donationList) {
+//                totalAmount = totalAmount.add(donation.getAmount());
+//            }
+//            basketItems.addAll(donationList);
+//        }
 
         if (!basketItems.isEmpty()) {
             ListAdapter arrayAdapter = new TransactionDetailArrayAdapter(activity, new ArrayList<>(basketItems), mIsFragmentEditable);
@@ -247,9 +247,9 @@ public class OrderListFragment extends Fragment {
                 basketItemType = BasketItemType.MERCHANDISE;
             } else if (basketItem instanceof Offer) {
                 basketItemType = BasketItemType.OFFER;
-            } else if (basketItem instanceof Donation) {
+            } /*else if (basketItem instanceof Donation) {
                 basketItemType = BasketItemType.DONATION;
-            }
+            }*/
             return basketItemType.getValue();
         }
 

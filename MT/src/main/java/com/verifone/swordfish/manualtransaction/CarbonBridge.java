@@ -376,13 +376,13 @@ public class CarbonBridge {
                                 }
                             }
 
-                            Donation[] basketAdjustmentDonations = basketAdjustment.getDonations();
-                            if (basketAdjustmentDonations != null) {
-                                for (Donation donation : basketAdjustmentDonations) {
-                                    adjustmentAmount = adjustmentAmount.add(donation.getAmount());
-                                }
-                                adjustmentToApply.addDonations(Arrays.asList(basketAdjustmentDonations));
-                            }
+//                            Donation[] basketAdjustmentDonations = basketAdjustment.getDonations();
+//                            if (basketAdjustmentDonations != null) {
+//                                for (Donation donation : basketAdjustmentDonations) {
+//                                    adjustmentAmount = adjustmentAmount.add(donation.getAmount());
+//                                }
+//                                adjustmentToApply.addDonations(Arrays.asList(basketAdjustmentDonations));
+//                            }
                         }
 
                         if ((adjustmentToApply.getOffers() != null && adjustmentToApply.getOffers().length > 0)
@@ -508,7 +508,10 @@ public class CarbonBridge {
             public void run() {
                 // get connection to terminal service
                 mTransactionManager = TransactionManager.getTransactionManager(mContext);
-                mTransactionManager.setDebugMode(CommerceConstants.MODE_DEVICE); //  MODE_DEVICE | MODE_STUBS_DEBUG
+                // Optional setting, use STUBS to force the payment service to return stubbed
+                // responses, which is good on the emulator, or device to force the payment service
+                // to connect to a physical terminal.
+                // mTransactionManager.setDebugMode(CommerceConstants.MODE_STUBS_DEBUG); //  MODE_DEVICE | MODE_STUBS_DEBUG
                 mTransactionManager.enableCpTriggerHandling();
                 initTerminalIP();
                 mHandlerThread.quitSafely();
